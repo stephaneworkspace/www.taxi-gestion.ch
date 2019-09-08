@@ -1534,7 +1534,7 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.9.2": {
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.9.5": {
         "type": "package",
         "build": {
           "build/_._": {}
@@ -3751,17 +3751,17 @@
           "AutoMapper": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "McMaster.AspNetCore.LetsEncrypt": "0.1.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.0.0-preview8.19405.4",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview8.19405.4",
-          "Microsoft.AspNetCore.SpaServices": "3.0.0-preview8.19405.4",
-          "Microsoft.AspNetCore.SpaServices.Extensions": "3.0.0-preview8.19405.4",
-          "Microsoft.EntityFrameworkCore": "3.0.0-preview8.19405.4",
-          "Microsoft.EntityFrameworkCore.Proxies": "3.0.0-preview8.19405.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview8.19405.4",
-          "Microsoft.EntityFrameworkCore.Sqlite": "3.0.0-preview8.19405.4",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "3.0.0-preview8.19405.7",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0-preview8.19405.7",
+          "Microsoft.AspNetCore.SpaServices": "3.0.0-preview8.19405.7",
+          "Microsoft.AspNetCore.SpaServices.Extensions": "3.0.0-preview8.19405.7",
+          "Microsoft.EntityFrameworkCore": "3.0.0-preview8.19405.11",
+          "Microsoft.EntityFrameworkCore.Proxies": "3.0.0-preview8.19405.11",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview8.19405.11",
+          "Microsoft.EntityFrameworkCore.Sqlite": "3.0.0-preview8.19405.11",
           "Microsoft.Extensions.Logging.Debug": "3.0.0-preview9.19423.4",
-          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.9.2",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview8.19405.4",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.9.5",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview8-19413-06",
           "NSwag.AspNetCore": "13.0.6",
           "Newtonsoft.Json": "12.0.3-beta1"
         },
@@ -5423,10 +5423,10 @@
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.9.2": {
-      "sha512": "56+zHMJYKv3pwjtJK3MEMQf0mIgv+BbfrT+ZbLBFQUKmhBG+vZqUva55P0iks9UkXu8NA8kazq6VCGwjs27SNA==",
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.9.5": {
+      "sha512": "rSZX0aAxacegOntSNMUO3rkM9ocp5jrnaM7xdzhBn3OB5XN1aFHDhoXhCswSlXwGnHmIAMxNSfLsCh9bWOnTzw==",
       "type": "package",
-      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.9.2",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.9.5",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -5438,7 +5438,7 @@
         "build/Microsoft.VisualStudio.Azure.Containers.Tools.Targets.targets",
         "build/ToolsTarget.props",
         "build/ToolsTarget.targets",
-        "microsoft.visualstudio.azure.containers.tools.targets.1.9.2.nupkg.sha512",
+        "microsoft.visualstudio.azure.containers.tools.targets.1.9.5.nupkg.sha512",
         "microsoft.visualstudio.azure.containers.tools.targets.nuspec",
         "tools/Microsoft.VisualStudio.Containers.Tools.Common.dll",
         "tools/Microsoft.VisualStudio.Containers.Tools.Shared.dll",
@@ -10855,8 +10855,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
-      "Microsoft.EntityFrameworkCore >= 3.0.0-preview8.19405.4",
-      "Microsoft.EntityFrameworkCore.InMemory >= 3.0.0-preview8.19405.4",
+      "Microsoft.EntityFrameworkCore >= 3.0.0-preview8.19405.11",
+      "Microsoft.EntityFrameworkCore.InMemory >= 3.0.0-preview8.19405.11",
       "Microsoft.NET.Test.Sdk >= 16.3.0-preview-20190828-03",
       "TaxiGestion >= 1.0.0",
       "coverlet.collector >= 1.0.1",
@@ -10872,11 +10872,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
+      "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
       "projectName": "TaxiGestionUnit",
-      "projectPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
+      "projectPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
       "packagesPath": "C:\\Users\\sbres\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\obj\\",
+      "outputPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -10897,8 +10897,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
-              "projectPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj"
+            "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
+              "projectPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj"
             }
           }
         }
@@ -10914,11 +10914,11 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[3.0.0-preview8.19405.4, )"
+            "version": "[3.0.0-preview8.19405.11, )"
           },
           "Microsoft.EntityFrameworkCore.InMemory": {
             "target": "Package",
-            "version": "[3.0.0-preview8.19405.4, )"
+            "version": "[3.0.0-preview8.19405.11, )"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -10960,107 +10960,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-preview9-014004\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.AspNetCore.Authentication.JwtBearer (>= 3.0.0-preview8.19405.4), mais Microsoft.AspNetCore.Authentication.JwtBearer 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.AspNetCore.Authentication.JwtBearer 3.0.0-preview8.19405.7 a été résolue.",
-      "libraryId": "Microsoft.AspNetCore.Authentication.JwtBearer",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.AspNetCore.Mvc.NewtonsoftJson (>= 3.0.0-preview8.19405.4), mais Microsoft.AspNetCore.Mvc.NewtonsoftJson 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.AspNetCore.Mvc.NewtonsoftJson 3.0.0-preview8.19405.7 a été résolue.",
-      "libraryId": "Microsoft.AspNetCore.Mvc.NewtonsoftJson",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.AspNetCore.SpaServices (>= 3.0.0-preview8.19405.4), mais Microsoft.AspNetCore.SpaServices 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.AspNetCore.SpaServices 3.0.0-preview8.19405.7 a été résolue.",
-      "libraryId": "Microsoft.AspNetCore.SpaServices",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.AspNetCore.SpaServices.Extensions (>= 3.0.0-preview8.19405.4), mais Microsoft.AspNetCore.SpaServices.Extensions 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.AspNetCore.SpaServices.Extensions 3.0.0-preview8.19405.7 a été résolue.",
-      "libraryId": "Microsoft.AspNetCore.SpaServices.Extensions",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestionUnit dépend de Microsoft.EntityFrameworkCore (>= 3.0.0-preview8.19405.4), mais Microsoft.EntityFrameworkCore 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.EntityFrameworkCore 3.0.0-preview8.19405.11 a été résolue.",
-      "libraryId": "Microsoft.EntityFrameworkCore",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestionUnit dépend de Microsoft.EntityFrameworkCore.InMemory (>= 3.0.0-preview8.19405.4), mais Microsoft.EntityFrameworkCore.InMemory 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.EntityFrameworkCore.InMemory 3.0.0-preview8.19405.11 a été résolue.",
-      "libraryId": "Microsoft.EntityFrameworkCore.InMemory",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.EntityFrameworkCore.Proxies (>= 3.0.0-preview8.19405.4), mais Microsoft.EntityFrameworkCore.Proxies 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.EntityFrameworkCore.Proxies 3.0.0-preview8.19405.11 a été résolue.",
-      "libraryId": "Microsoft.EntityFrameworkCore.Proxies",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.EntityFrameworkCore.Sqlite (>= 3.0.0-preview8.19405.4), mais Microsoft.EntityFrameworkCore.Sqlite 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.EntityFrameworkCore.Sqlite 3.0.0-preview8.19405.11 a été résolue.",
-      "libraryId": "Microsoft.EntityFrameworkCore.Sqlite",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.EntityFrameworkCore.SqlServer (>= 3.0.0-preview8.19405.4), mais Microsoft.EntityFrameworkCore.SqlServer 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.EntityFrameworkCore.SqlServer 3.0.0-preview8.19405.11 a été résolue.",
-      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    },
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "TaxiGestion dépend de Microsoft.VisualStudio.Web.CodeGeneration.Design (>= 3.0.0-preview8.19405.4), mais Microsoft.VisualStudio.Web.CodeGeneration.Design 3.0.0-preview8.19405.4 est introuvable. Une meilleure correspondance approximative de Microsoft.VisualStudio.Web.CodeGeneration.Design 3.0.0-preview8-19413-06 a été résolue.",
-      "libraryId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.0"
-      ]
-    }
-  ]
+  }
 }

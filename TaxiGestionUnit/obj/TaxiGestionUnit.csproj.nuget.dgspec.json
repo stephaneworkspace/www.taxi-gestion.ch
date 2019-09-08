@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj": {}
+    "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj": {
+    "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
+        "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
         "projectName": "TaxiGestionUnit",
-        "projectPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
+        "projectPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\TaxiGestionUnit.csproj",
         "packagesPath": "C:\\Users\\sbres\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestionUnit\\obj\\",
+        "outputPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestionUnit\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -32,8 +32,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
-                "projectPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj"
+              "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
+                "projectPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj"
               }
             }
           }
@@ -49,11 +49,11 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -96,14 +96,14 @@
         }
       }
     },
-    "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
+    "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj",
+        "projectUniqueName": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj",
         "projectName": "TaxiGestion",
-        "projectPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj",
+        "projectPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\TaxiGestion.csproj",
         "packagesPath": "C:\\Users\\sbres\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sbres\\source\\repos\\TaxiGestion\\TaxiGestion\\obj\\",
+        "outputPath": "C:\\Users\\sbres\\source\\repos\\OpenSource\\TaxiGestion\\TaxiGestion\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -149,47 +149,47 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.7, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.7, )"
             },
             "Microsoft.AspNetCore.SpaServices": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.7, )"
             },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.7, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8.19405.11, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
@@ -203,11 +203,11 @@
             },
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
-              "version": "[1.9.2, )"
+              "version": "[1.9.5, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.0.0-preview8.19405.4, )"
+              "version": "[3.0.0-preview8-19413-06, )"
             },
             "NSwag.AspNetCore": {
               "target": "Package",
