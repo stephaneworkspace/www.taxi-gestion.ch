@@ -1,0 +1,378 @@
+
+<div *ngIf="this.statusWindows == StatusWindows.Bilan" fxLayout="column">
+    <div class="flex-p">
+        <kendo-grid [data]="this.classesBilan">
+            <kendo-grid-column field="id" title="Classe" width="90">
+            </kendo-grid-column>
+            <kendo-grid-column field="texte" title="Description" width="310">
+                <ng-template kendoGridFooterTemplate let-column="column">Total bilan</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ this.totalBilan.debitString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.totalBilan.creditString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.totalBilan.soldeString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column title="Détail" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'zoom'" style="border-radius: 50%;" (click)="classeZoomInClick($event, dataItem)"></button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
+        <kendo-grid [data]="this.classesExploitation">
+            <kendo-grid-column field="id" title="Classe" width="90">
+            </kendo-grid-column>
+            <kendo-grid-column field="texte" title="Description" width="310">
+                <ng-template kendoGridFooterTemplate let-column="column">Total exploitation</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ this.totalExploitation.debitString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.totalExploitation.creditString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.totalExploitation.soldeString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column title="Détail" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'zoom'" style="border-radius: 50%;" (click)="classeZoomInClick($event, dataItem)"></button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le bilan vers excel</button>
+    </div>
+    <!-- trop gourmant en ressource 
+    <div class="flex-p" *ngFor="let classe of this.classes; let idx = index;">
+        <mat-card>   
+            <kendo-grid [data]="computeClasseArray(this.items, classe.id)">
+                <kendo-grid-column field="id" title="Classe" width="90">
+                </kendo-grid-column>
+                <kendo-grid-column field="texte" title="Description" width="310">
+                </kendo-grid-column>
+                <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                </kendo-grid-column>
+                <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}">  
+                </kendo-grid-column>
+                <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}">  
+                </kendo-grid-column>
+            </kendo-grid> 
+            <br />
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    Détail
+                </mat-expansion-panel-header>
+                <mat-expansion-panel *ngFor="let groupe of classe.groupes; let idxGroupe = index;">   
+                    <kendo-grid [data]="computeGroupeArray(this.items, classe.id, groupe.id)">
+                        <kendo-grid-column field="texte" title="Description" width="500">
+                        </kendo-grid-column>
+                        <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                        </kendo-grid-column>
+                        <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}">  
+                        </kendo-grid-column>
+                        <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}">  
+                        </kendo-grid-column>
+                    </kendo-grid> 
+                    <br />
+                    <mat-expansion-panel-header>
+                        {{ groupe.texte }}
+                    </mat-expansion-panel-header>
+                    <mat-expansion-panel *ngFor="let sousGroupe of groupe.sousGroupes; let idxSousGroupe = index;">
+                        <mat-expansion-panel-header>
+                            {{ sousGroupe.texte }}
+                        </mat-expansion-panel-header>    
+                        <kendo-grid [data]="sousGroupe.comptes">
+                            <kendo-grid-column field="id" title="Compte" width="100">
+                                <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="texte" title="Description" width="300">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ sousGroupe.debitString }}</div></ng-template>  
+                            </kendo-grid-column>
+                            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ sousGroupe.creditString }}</div></ng-template>  
+                            </kendo-grid-column>
+                            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ sousGroupe.soldeString }}</div></ng-template>  
+                            </kendo-grid-column>
+                        </kendo-grid>
+                        <mat-action-row>
+                            <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+                    <br />
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxFlex="40%" fxFlexAlign="left">
+                            Total - {{ groupe.texte }}
+                        </div>
+                        <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Débit : {{ groupe.debitString }}</div>
+                        <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Crédit :{{ groupe.creditString }}</div>
+                        <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Solde : {{ groupe.soldeString }}</div>
+                    </div>
+                    <mat-action-row>
+                        <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-expansion-panel>
+        </mat-card>
+        <!--
+        <mat-expansion-panel *ngFor="let classe of this.classes; let idx = index;">
+            <mat-expansion-panel-header>
+                    Classe {{ classe.id }} - {{ classe.texte }}
+            </mat-expansion-panel-header>
+            <mat-expansion-panel *ngFor="let groupe of classe.groupes; let idxGroupe = index;">
+                <mat-expansion-panel-header>
+                    {{ groupe.texte }}
+                </mat-expansion-panel-header>
+                <mat-expansion-panel *ngFor="let sousGroupe of groupe.sousGroupes; let idxSousGroupe = index;">
+                    <mat-expansion-panel-header>
+                        {{ sousGroupe.texte }}
+                    </mat-expansion-panel-header>
+                    <kendo-grid [data]="sousGroupe.comptes">
+                        <kendo-grid-column field="id" title="Compte" width="100">
+                            <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+                        </kendo-grid-column>
+                        <kendo-grid-column field="texte" title="Description" width="300">
+                        </kendo-grid-column>
+                        <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                            <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ sousGroupe.debitString }}</div></ng-template>  
+                        </kendo-grid-column>
+                        <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                            <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ sousGroupe.creditString }}</div></ng-template>  
+                        </kendo-grid-column>
+                        <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                            <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ sousGroupe.soldeString }}</div></ng-template>  
+                        </kendo-grid-column>
+                    </kendo-grid>
+                    <mat-action-row>
+                        <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+                <br />
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div fxFlex="40%" fxFlexAlign="left">
+                        Total - {{ groupe.texte }}
+                    </div>
+                    <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Débit : {{ groupe.debitString }}</div>
+                    <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Crédit :{{ groupe.creditString }}</div>
+                    <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Solde : {{ groupe.soldeString }}</div>
+                </div>
+                <mat-action-row>
+                        <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+                </mat-action-row>
+            </mat-expansion-panel>
+            <br />
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxFlex="40%" fxFlexAlign="left">
+                    Total classe {{ classe.id }} - {{ classe.texte }}
+                </div>
+                <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Débit : {{ classe.debitString }}</div>
+                <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Crédit : {{ classe.creditString }}</div>
+                <div fxFlex="20%" fxFlexAlign="right" style="text-align:right">Solde : {{ classe.soldeString }}</div>
+            </div>
+            <mat-action-row>
+                <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+        <mat-action-row>
+            <button kendoButton [icon]="'xls'" [primary]="true">Exporter vers excel</button>
+        </mat-action-row>
+        <kendo-grid
+            [data]="gridData"
+            [pageSize]="state.take"
+            [skip]="state.skip"
+            [sort]="state.sort"
+            [group]="state.group"
+            [sortable]="{ mode: 'multiple' }"
+            [height]="530"
+            [pageable]="true"
+            [groupable]="{ showFooter: false }"
+            (dataStateChange)="dataStateChange($event)"
+        >
+            <kendo-grid-column field="ProductID" title="Product ID" width="120">
+                <ng-template kendoGridGroupHeaderTemplatе>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="ProductName" title="Product Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="UnitPrice" title="Unit Price" width="230">
+                <ng-template
+                    kendoGridGroupFooterTemplate
+                        let-group="group"
+                        let-aggregates>Sum: {{aggregates["UnitPrice"].sum}}</ng-template>
+                <ng-template
+                    kendoGridFooterTemplate
+                        let-column="column">Total {{column.title}}: {{total["UnitPrice"].sum}}</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="Discontinued" width="120">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+        <!--
+        <mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8">       
+            <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+            </ng-container>         
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            </ng-container>     
+            <ng-container matColumnDef="weight">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Weight </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+            </ng-container>        
+            <ng-container matColumnDef="symbol">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+    <div class="flex-p">
+        <mat-action-row>
+            <button kendoButton [icon]="'xls'" [primary]="true">Exporter le bilan vers excel</button>
+        </mat-action-row>
+    </div>
+    -->
+</div>
+<div *ngIf="this.statusWindows == StatusWindows.Classe" fxLayout="column">
+    <div class="flex-p">
+        <mat-card >
+            <mat-card-header>
+                <div mat-card-avatar><button kendoButton [icon]="'zoom-out'" style="border-radius: 50%;" (click)="classeZoomOutClick()"></button></div>
+                <mat-card-title>Classe {{ classeSelect.id }}</mat-card-title>
+                <mat-card-subtitle>{{ classeSelect.texte }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        <br />
+        <kendo-grid
+            [data]="this.gridView"
+            [sortable]="{
+                allowUnsort: allowUnsort,
+                mode: 'single'
+            }"
+            [sort]="sort"
+            (sortChange)="sortGroupesChange($event)"
+        >
+            <kendo-grid-column field="texte" title="Groupe" width="400">
+                <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ this.classeSelect.debitString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.classeSelect.creditString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.classeSelect.soldeString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column title="Détail" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'zoom'" style="border-radius: 50%;" (click)="groupeZoomInClick($event, dataItem)"></button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter la classe vers excel</button>
+    </div>
+</div>
+<div *ngIf="this.statusWindows == StatusWindows.Groupe" fxLayout="column">
+    <div class="flex-p">
+        <mat-card >
+            <mat-card-header>
+                <div mat-card-avatar><button kendoButton [icon]="'zoom-out'" style="border-radius: 50%;" (click)="groupeZoomOutClick()"></button></div>
+                <mat-card-title>Groupe</mat-card-title>
+                <mat-card-subtitle>{{ groupeSelect.texte }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        <br />
+        <kendo-grid
+            [data]="this.gridView"
+            [sortable]="{
+                allowUnsort: allowUnsort,
+                mode: 'single'
+            }"
+            [sort]="sort"
+            (sortChange)="sortSousGroupesChange($event)"
+        >
+            <kendo-grid-column field="texte" title="Sous-groupe" width="400">
+                <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ this.groupeSelect.debitString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.groupeSelect.creditString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.groupeSelect.soldeString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column title="Détail" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'zoom'" style="border-radius: 50%;" (click)="sousGroupeZoomInClick($event, dataItem)"></button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le groupe vers excel</button>
+    </div>
+</div>
+
+<div *ngIf="this.statusWindows == StatusWindows.SousGroupe" fxLayout="column">
+    <div class="flex-p">
+        <mat-card >
+            <mat-card-header>
+                <div mat-card-avatar><button kendoButton [icon]="'zoom-out'" style="border-radius: 50%;" (click)="sousGroupeZoomOutClick()"></button></div>
+                <mat-card-title>Sous-groupe</mat-card-title>
+                <mat-card-subtitle>{{ sousGroupeSelect.texte }}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+        <br />
+        <kendo-grid
+            [data]="this.gridView"
+            [sortable]="{
+                allowUnsort: allowUnsort,
+                mode: 'single'
+            }"
+            [sort]="sort"
+            (sortChange)="sortComptesChange($event)"
+        >
+            <kendo-grid-column field="id" title="Compte" width="120">
+            </kendo-grid-column>
+            <kendo-grid-column field="texte" title="Description" width="380">
+                <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="debitString" title="Débit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column" ><div style="text-align:right">{{ this.sousGroupeSelect.debitString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="creditString" title="Crédit" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.sousGroupeSelect.creditString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="soldeString" title="Solde" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.sousGroupeSelect.soldeString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column title="Détail" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'zoom'" style="border-radius: 50%;" (click)="compteZoomInClick($event, dataItem)"></button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le sous-groupe vers excel</button>
+    </div>
+</div>

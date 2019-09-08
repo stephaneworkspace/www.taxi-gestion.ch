@@ -1,0 +1,36 @@
+<button mat-icon-button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" >
+    <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
+    <!--<span (mouseleave)="userMenuTrigger.closeMenu()">-->
+        <mat-toolbar color="primary">
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+                <!--<img [src]="userImage" alt="user-image" width="80" class="rounded mat-elevation-z6">-->
+                <p>Prenom/Nom <br> <small>Chauffeur de taxi</small></p>
+            </div>  
+        </mat-toolbar>
+        <a mat-menu-item routerLink="/index/profile/user-info"> 
+            <mat-icon>edit</mat-icon>
+            <span>Editer profile</span> 
+        </a>
+        <!--<a mat-menu-item routerLink="/index/settings"> 
+            <mat-icon>settings</mat-icon>
+            <span>Paramètres</span> 
+        </a>-->
+        <!--
+        <a mat-menu-item routerLink="/"> 
+            <mat-icon>lock</mat-icon>
+            <span>Lock screen</span> 
+        </a>-->
+        <!--<a mat-menu-item routerLink="/index/help"> 
+            <mat-icon>help</mat-icon>
+            <span>Aide</span> 
+        </a>-->
+        <div class="divider"></div>
+        <a mat-menu-item routerLink="/login"> 
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Se déconnecter</span> 
+        </a>
+    <!--</span>-->
+</mat-menu>

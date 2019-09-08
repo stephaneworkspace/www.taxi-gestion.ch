@@ -1,0 +1,44 @@
+[
+  {
+    "DateEcriture": "03.04.2020",
+    "EcritureJournal": [
+      {
+        "NoCompteDebit": "",
+        "NoCompteCredit": "620000", // charges du vehicule
+        "Libelle1": "Location du vehicule",
+        "Libelle2": "Toyota Prius",
+        "Montant": "1100",
+        "SwAutomatique": false
+      },
+      {
+        "NoCompteDebit": "421000", // rabais et remises obtenues (sur marchandises)
+        "NoCompteCredit": "", //
+        "Libelle1": "Location du vehicule - Rabais 100.--",
+        "Libelle2": "Toyota Prius",
+        "Montant": "100",
+        "SwAutomatique": false
+      },
+      {
+        "NoCompteDebit": "100000", // caisse
+        "NoCompteCredit": "",
+        "Libelle1": "Location du vehicule",
+        "Libelle2": "Toyota Prius",
+        "Montant": "1000",
+        "SwAutomatique": false
+      }
+    ]
+  },
+  {
+    "DateEcriture": "03.04.2020",
+    "EcritureJournal": [
+      {
+        "NoCompteDebit": "100000", // caisse
+        "NoCompteCredit": "620000", // charges du vehicule
+        "Libelle1": "Essence", // analyse des stations essence ?
+        "Libelle2": "BP",
+        "Montant": "70",
+        "SwAutomatique": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,109 @@
+<mat-sidenav-container>
+    <!--intégrer ça https://material.angular.io/components/stepper/overview-->
+    <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+  
+        <!--form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" fxFlex="80" fxFlex.gt-sm="30" fxFlex.sm="60">
+        -->
+        <div fxFlex="80" fxFlex.gt-sm="30" fxFlex.sm="60">
+        
+              <mat-card class="p-0 mat-elevation-z24 box register">
+                  <div fxLayout="column" fxLayoutAlign="center center" class="bg-primary box-header">
+                      <button mat-fab color="default" class="mat-elevation-z12"><!--(click)="onSubmit(form.value);">-->
+                          <mat-icon>person_add</mat-icon>
+                      </button>
+                      <a mat-button routerLink="/login">Vous avez déjà un compte ?</a>
+                  </div>
+
+                  <mat-horizontal-stepper [linear]="true" #stepper>
+                    <mat-step [stepControl]="firstFormGroup">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Étape 1</ng-template>
+                            <mat-card-content fxLayout="column" fxLayoutAlign="end center" style="margin-top: 20px;"><!-- class="box-content">-->
+                                <mat-card fxLayout="column" fxLayoutAlign="start" class="mat-elevation-z12 box-content-inner mat-card-box-stepper">
+                                    <span class="box-content-header">Création d'un compte</span>  
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Nom d'utilisateur unique" formControlName="nomUtilisateur" (change)="messageErreurNomUtilisateurDisponible()">
+                                        <mat-error *ngIf="firstFormGroup.controls.nomUtilisateur.errors?.nomUtilisateurExiste">{{ matErrorNomUtilisateurDisponible }}</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.nomUtilisateur.errors?.required">Le nom d'utilisateur est nécessaire</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.nomUtilisateur.hasError('minlength')">Le nom d'utilisateur doit faire un minimum de 2 caractères</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="E-mail" formControlName="email" (change)="messageErreurEmailDisponible()">
+                                        <mat-error *ngIf="firstFormGroup.controls.email.errors?.emailExiste">{{ matErrorEmailDisponible }}</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.email.errors?.required">L'e-mail est nécessaire</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.email.hasError('invalidEmail')">E-mail invalide</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Mot de passe" formControlName="motDePasse" type="password" minlength="6">
+                                        <mat-error *ngIf="firstFormGroup.controls.motDePasse.errors?.required">Le mot de passe est nécessaire</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.motDePasse.hasError('minlength')">Le mot de passe doit faire un minimum de 6 caractères</mat-error>
+                                    </mat-form-field> 
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Confirmation mot de passe" formControlName="confirmMotDePasse" type="password">
+                                        <mat-error *ngIf="firstFormGroup.controls.confirmMotDePasse.errors?.required">La confirmation du mot de passe est nécessaire</mat-error>
+                                        <mat-error *ngIf="firstFormGroup.controls.confirmMotDePasse.hasError('mismatchedPasswords')">Le mot de passe n'est pas le même</mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                                <div class="btn-margin">
+                                    <button mat-raised-button matStepperNext color="primary" class="mat-elevation-z12 box-button">Aller à l'étape 2</button>
+                                </div>
+                            </mat-card-content>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Étape 2</ng-template>
+                            <mat-card-content fxLayout="column" fxLayoutAlign="end center" style="margin-top: 20px;"><!-- class="box-content">-->
+                                <mat-card fxLayout="column" fxLayoutAlign="start" class="mat-elevation-z12 box-content-inner mat-card-box-stepper">
+                                    <span class="box-content-header">Création d'un compte</span>  
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Nom de famille du chauffeur de taxi" formControlName="nomDeFamille">
+                                        <mat-error *ngIf="secondFormGroup.controls.nomDeFamille.errors?.required">Le nom de famille est nécessaire</mat-error>
+                                        <mat-error *ngIf="secondFormGroup.controls.nomDeFamille.hasError('minlength')">Le nom de famille doit faire un minimum de 2 caractères</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Prenom du chauffeur de taxi" formControlName="prenom">
+                                        <mat-error *ngIf="secondFormGroup.controls.prenom.errors?.required">Le prenom est nécessaire</mat-error>
+                                        <mat-error *ngIf="secondFormGroup.controls.prenom.hasError('minlength')">Le prenom doit faire un minimum de 2 caractères</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100">
+                                        <input matInput placeholder="Adresse du chauffeur de taxi" formControlName="adresse">
+                                        <mat-error *ngIf="secondFormGroup.controls.adresse.errors?.required">L'adresse est nécessaire</mat-error>
+                                        <mat-error *ngIf="secondFormGroup.controls.adresse.hasError('minlength')">L'adresse doit faire un minimum de 2 caractères</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-100">
+                                        <input type="text" placeholder="Npa du chauffeur de taxi (canton GE uniquement)" aria-label="Number" matInput formControlName="npa" [matAutocomplete]="auto">
+                                        <mat-autocomplete #auto="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                            {{ option }}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <mat-error *ngIf="secondFormGroup.controls.npa.errors?.npaGeneve">{{ matErrorNpaGeneve }}</mat-error>
+                                        <mat-error *ngIf="secondFormGroup.controls.npa.errors?.required">Le npa est nécessaire</mat-error>
+                                        <mat-error *ngIf="secondFormGroup.controls.npa.hasError('minlength')">Le npa doit faire un minimum de 4 caractères</mat-error>
+                                    </mat-form-field>
+                                </mat-card>
+                                <div class="btn-margin">
+                                    <button mat-raised-button matStepperNext color="primary" class="mat-elevation-z12 box-button">Aller à l'étape 3</button>
+                                </div>
+                            </mat-card-content>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Étape 3</ng-template>
+                        <mat-card-content fxLayout="column" fxLayoutAlign="end center" style="margin-top: 20px;"><!-- class="box-content">-->
+                            <mat-card fxLayout="column" fxLayoutAlign="start" class="mat-elevation-z12 box-content-inner mat-card-box-stepper">
+                                <span class="box-content-header">Création d'un compte</span>  
+                                <div class="w-100">Le formulaire d'inscription n'a plus qu'à être validé.<br />Ensuite vous recevrez un e-mail avec un lien pour confirmer votre identitée.<br />Veuillez vérifier dans votre dossier spam si l'e-mail n'arrive pas</div>
+                            </mat-card>
+                            <div class="btn-margin">
+                                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" (keyup.enter)="btnClickInscription()" (click)="btnClickInscription()">Valider l'inscription</button>
+                            </div>
+                        </mat-card-content>
+                    </mat-step>
+                  </mat-horizontal-stepper>
+              </mat-card>
+        <!--</form>-->
+        </div>      
+    </div>
+</mat-sidenav-container>

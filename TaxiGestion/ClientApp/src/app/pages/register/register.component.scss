@@ -1,0 +1,61 @@
+.mat-card-box-stepper {
+    display: block !important;
+}
+.btn-margin {
+    margin-top: 40px;
+}
+input[type="text"]:disabled{background-color:black !important;}
+$box-height: 140px !important;
+$box-position: 340px !important;
+$register-box-height: 300px !important;
+.box{
+    border-radius: 0;
+    .box-header{
+        height: 140px;
+    }
+    .box-content-header{
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight:500;
+    }
+    /*
+    .box-content{
+        position: relative;
+        height: $box-height;     
+        .box-content-inner{
+            position: absolute;
+            top: -$box-position;
+            left: $box-position;
+            right: $box-position;
+            height: $box-height;
+        }
+        .box-content-header{
+            font-size: 24px; 
+            text-transform: uppercase;
+            font-weight:500;
+            &.server-error{
+                margin-bottom: 36px;
+            }
+        }
+        .box-text{
+            margin-bottom: 10px;
+            &::last-child{
+                margin-bottom: 15px;
+            }
+        }
+        .box-button{
+            bottom: 16px;
+            width: 40%;
+            border-radius: 20px;
+            overflow: hidden; 
+        }
+    }*/
+    &.register{
+        .box-content{
+            height: $register-box-height;
+            .box-content-inner{
+                height: $register-box-height;
+            }  
+        }
+    }
+}

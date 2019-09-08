@@ -1,0 +1,124 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: './*.sln' # **/*.sln
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+    
+- task: DotNetCoreInstaller@0
+  displayName: 'Install .net core 3.0 (preview)'
+  inputs:
+    packageType: 'sdk'
+    version: '3.0.100-preview8-013656'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo '{
+          "JWTSettings": {
+            "Token": "'$JWTSETTINGS'"
+          },
+          "Logging": {
+            "LogLevel": {
+              "Default": "Information",
+              "Microsoft": "Warning",
+              "Microsoft.Hosting.Lifetime": "Information"
+            }
+          },
+          "AllowedHosts": "*",
+          "ConnectionStrings": {
+            "DefaultConnection": "'$SQLSERVERCONNECTION'",
+            "DevConnection": "'$SQLSERVERCONNECTION'"
+          },
+          "Email": {
+            "Smtp": "'$SMTP'",
+            "Port": "'$SMTP-PORT'"
+          },
+          "LetsEncrypt": {
+            "AcceptTermsOfService": true,
+            "DomainNames": [ "www.taxi-gestion.ch", "taxi-gestion.ch" ],
+            "EmailAddress": "'$EMAIL-LETSENCRYPT'"
+          }
+        }' >> ./TaxiGestion/appsettings.json
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: './TaxiGestion/ClientApp/'
+
+#ubuntu
+- script: dotnet restore
+  displayName: 'dotnet restore'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+#windows only
+#- task: VSBuild@1
+#  inputs:
+#    solution: '$(solution)'
+#    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+#    platform: '$(buildPlatform)'
+#    configuration: '**/$(buildConfiguration)'
+
+#windows only
+#- task: VSTest@2
+#  inputs:
+#    platform: '$(buildPlatform)'
+#    configuration: '**/$(buildConfiguration)'
+
+# ne fonctionne pas
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: test
+#    projects: '*Unit/*.csproj'
+#    arguments: '--configuration **/$(buildConfiguration)'
+
+# ici probleme angular
+# do this after your tests have run
+- script: dotnet test TaxiGestionUnit --logger trx
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '*Unit/TestResults/*.trx'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True 
+
+- task: FtpUpload@2
+  inputs:
+    
+    credentialsOption: 'inputs'
+    serverUrl: '$(ftp-server)'
+    username: '$(ssh-user)'
+    password: '$(ssh-password)'
+    rootDirectory: '$(Build.ArtifactStagingDirectory)'
+    filePatterns: '**'
+    remoteDirectory: '/home/$(ssh-user)/upload/$(Build.BuildId)/'
+    clean: false
+    cleanContents: false
+    preservePaths: false
+    trustSSL: false

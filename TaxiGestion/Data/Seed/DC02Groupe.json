@@ -1,0 +1,42 @@
+[
+  {
+    "NoGroupe": "10",
+    "Texte": "Actifs circulants"
+  },
+  {
+    "NoGroupe": "14",
+    "Texte": "Actifs immobilisés"
+  },
+  {
+    "NoGroupe": "20",
+    "Texte": "Fonds étrangers"
+  },
+  {
+    "NoGroupe": "28",
+    "Texte": "Fonds propres"
+  },
+  {
+    "NoGroupe": "32",
+    "Texte": "Chiffre d'affaire de ventes et prestations de services"
+  },
+  {
+    "NoGroupe": "42",
+    "Texte": "Charges de marchandises/Matière"
+  },
+  {
+    "NoGroupe": "52",
+    "Texte": "Charges de personnel"
+  },
+  {
+    "NoGroupe": "60",
+    "Texte": "Autres charges d'exploitation"
+  },
+  {
+    "NoGroupe": "70",
+    "Texte": "Activités annexes d'exploitation"
+  },
+  {
+    "NoGroupe": "80",
+    "Texte": "Résultats exceptionnels"
+  }
+]
