@@ -99,7 +99,7 @@ namespace TaxiGestion.Mappings
                 .ForMember(x => x.DateEcriture, opt => opt.MapFrom(y => y.EcritureCollectiveJournal.DateEcriture));
             // TGZ001 Affichage
             // Liste des comptes
-            CreateMap<DC10Compte, DtoTGZ001OutDB10CompteForList>()
+            CreateMap<DC10Compte, DtoTGZ001OutDC10CompteForList>()
                 .ForMember(x => x.Solde1, opt => opt.Ignore())
                 .ForMember(x => x.Solde1Plus2, opt => opt.Ignore())
                 .AfterMap((a, b) =>

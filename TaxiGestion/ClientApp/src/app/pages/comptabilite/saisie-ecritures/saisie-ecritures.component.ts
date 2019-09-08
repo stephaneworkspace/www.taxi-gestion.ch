@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { AppSettings } from '../../../app.settings';
@@ -40,6 +40,7 @@ export class SaisieEcrituresComponent implements OnInit {
   constructor(
     public appSettings:AppSettings, 
     private route: ActivatedRoute,
+    public router: Router,
     private service: TGC001BilanService
   ) {
     //this.settings = this.appSettings.settings; 
@@ -54,7 +55,7 @@ export class SaisieEcrituresComponent implements OnInit {
   }
 
   btnClickNouvelleEcritureSimple(): void {
-
+    this.router.navigate(['/index/comptabilite/saisie-ecriture-simple'])
   }
 
   btnClickNouvelleEcritureCollective(): void {

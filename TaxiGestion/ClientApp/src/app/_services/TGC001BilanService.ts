@@ -11,28 +11,30 @@ import numeral from 'numeral';
 import * as moment from 'moment';
 import { SortDescriptor } from '@progress/kendo-data-query';
 
-numeral.register('locale', 'fr-ch', {
-  delimiters: {
-      thousands: '\'',
-      decimal: ','
-  },
-  abbreviations: {
-      thousand: 'k',
-      million: 'm',
-      billion: 'b',
-      trillion: 't'
-  },
-  ordinal : function (number) {
-      return number === 1 ? 'er' : 'ème';
-  },
-  currency: {
-      symbol: 'CHF'
-  }
-});
+try {
+  numeral.register('locale', 'fr-ch', {
+    delimiters: {
+        thousands: '\'',
+        decimal: ','
+    },
+    abbreviations: {
+        thousand: 'k',
+        million: 'm',
+        billion: 'b',
+        trillion: 't'
+    },
+    ordinal : function (number) {
+        return number === 1 ? 'er' : 'ème';
+    },
+    currency: {
+        symbol: 'CHF'
+    }
+  });
 
-// switch between locales
-numeral.locale('fr-ch'); // http://numeraljs.com/#custom-formats fr-ch
 
+  // switch between locales
+  numeral.locale('fr-ch'); // http://numeraljs.com/#custom-formats fr-ch
+} catch (e) {}
 //numeral.defaultFormat('0,0[.]00 $');
 
 // moment
@@ -152,10 +154,7 @@ export interface EcritureCollectiveMontant {
 })
 export class TGC001BilanService {
   baseUrl = environment.apiUrl;
-
-  // Headers
   httpOptions = {};
-  // headers_fix;
 
   constructor(private http: HttpClient) {}
 
@@ -165,10 +164,6 @@ export class TGC001BilanService {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       })
     };
-    /*
-    this.headers_fix = new HttpHeaders({
-      'Authorization': 'Bearer ' + localStorage.getItem('token')
-    });*/
   }
 
   getPlanComptable(): Observable<DtoDC10[]> {

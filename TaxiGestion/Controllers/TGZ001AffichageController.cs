@@ -33,13 +33,13 @@ namespace TaxiGestion.Controllers
         }
 
         [HttpGet("comptes")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(List<DtoTGZ001OutDB10CompteForList>), Description = "Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(List<DtoTGZ001OutDC10CompteForList>), Description = "Ok")]
         public async Task<IActionResult> GetPlanComptableComplet()
         {
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var noClient = await _authRepo.NoClient(noUser);
             var item = await _repo.AffichageCompte(noClient);
-            var itemDto = _mapper.Map<List<DtoTGZ001OutDB10CompteForList>>(item);
+            var itemDto = _mapper.Map<List<DtoTGZ001OutDC10CompteForList>>(item);
             return Ok(itemDto);
         }
     }

@@ -4,13 +4,13 @@ export const verticalMenuItemsSmall = [
     new Menu (1, 'Dashboard', '/index', null, 'dashboard', null, false, 0),
     new Menu (2, 'Comptabilité', null, null, 'view_module', null, true, 0),
     new Menu (3, 'Bilan situation à l\'écran', '/index/comptabilite/bilan-ecran', null, 'view_array', null, false, 2),
-    new Menu (4, 'Saisie d\'écritures [Expert]', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),]
+    new Menu (4, 'Saisie d\'écritures', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),]
 
 export const verticalMenuItems = [ 
     new Menu (1, 'Dashboard', '/index', null, 'dashboard', null, false, 0),
     new Menu (2, 'Comptabilité', null, null, 'view_module', null, true, 0),
     new Menu (3, 'Bilan situation à l\'écran', '/index/comptabilite/bilan-ecran', null, 'view_array', null, false, 2),
-    new Menu (4, 'Saisie d\'écritures [Expert]', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),
+    new Menu (4, 'Saisie d\'écritures', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),
     new Menu (5, 'Users', '/index//users', null, 'supervisor_account', null, false, 0), 
     new Menu (6, 'UI Features', null, null, 'computer', null, true, 0),   
     new Menu (7, 'Buttons', '/index//ui/buttons', null, 'keyboard', null, false, 6),  

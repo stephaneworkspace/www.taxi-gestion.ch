@@ -1,0 +1,81 @@
+<form [formGroup]="form">
+    <div fxLayout="column" fxLayout.gt-sm="row wrap"> 
+        <div fxFlex="30" class="flex-p"> 
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Date d'écriture</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+                    <mat-form-field class="example-full-width">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker3" placeholder="Date de l'écriture">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+        </div> 
+        <div fxFlex="35" class="flex-p">  
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2 style="display: inline-block; vertical-align: middle;">Débit</h2> <button kendoButton [icon]="'zoom'" style="border-radius: 50%; display: inline-block; margin-left: 10px;" (click)="selectionPlanComptableDebit()"></button></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+                    <table cellspacing="0" class="w-100">
+                        <tr>
+                            <td>
+                                <mat-form-field class="w-25">
+                                    <input type="text" maxlength="6" placeholder="N° de compte débit" aria-label="Number" matInput formControlName="noCompteDebit" [matAutocomplete]="auto">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                        {{ option }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error *ngIf="form.controls.noCompteDebit.errors?.noCompteInvalide">{{ matErrorNoCompteDebit }}</mat-error>
+                                    <mat-error *ngIf="form.controls.noCompteDebit.errors?.required">Le n° de compte est nécessaire</mat-error>
+                                    <mat-error *ngIf="form.controls.noCompteDebit.hasError('minlength')">Le n° de cpte. doit faire 6 caractères</mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field class="w-50">
+                                    <input disabled matInput maxlength="30" placeholder="Désignation" value="Caisse">
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="35" class="flex-p">  
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Crédit</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row wrap"> 
+        <div fxFlex="30" class="flex-p"> 
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Pièce</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+
+                </mat-card-content>
+            </mat-card>
+        </div> 
+        <div fxFlex="70" class="flex-p">  
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Montant</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+    
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</form>

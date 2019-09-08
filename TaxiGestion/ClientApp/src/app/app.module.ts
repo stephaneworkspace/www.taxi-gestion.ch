@@ -46,6 +46,7 @@ import { TGA001AuthentificationService } from './_services/TGA001Authentificatio
 import { ComptabiliteBilanEcranResolver } from './_resolver/comptabilite/bilan-ecran.resolver';
 import { EmailConfirmationInscriptionResolver } from './_resolver/e-mail/confirmation-inscription.resolver' 
 import { EmailConfirmationInscriptionComponent } from './pages/email/confirmation-inscription/confirmation-inscription.component';
+import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan-comptable.resolver';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { EmailConfirmationInscriptionComponent } from './pages/email/confirmatio
     TGC001BilanService,
     EmailConfirmationInscriptionResolver,
     ComptabiliteBilanEcranResolver,
+    ComptabilitePlanComptableResolver
   ],
   bootstrap: [AppComponent]
 })
