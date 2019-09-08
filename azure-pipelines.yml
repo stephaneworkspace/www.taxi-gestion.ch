@@ -27,7 +27,7 @@ steps:
     script: |
       echo '{
           "JWTSettings": {
-            "Token": "'$JWTSETTINGS'"
+            "Token": "$(JWTSettings)"
           },
           "Logging": {
             "LogLevel": {
@@ -38,12 +38,12 @@ steps:
           },
           "AllowedHosts": "*",
           "ConnectionStrings": {
-            "DefaultConnection": "'$SQLSERVERCONNECTION'",
-            "DevConnection": "'$SQLSERVERCONNECTION'"
+            "DefaultConnection": "$(SqlServerConnection)",
+            "DevConnection": "$(SqlServerConnection)"
           },
           "Email": {
-            "Smtp": "'$SMTP'",
-            "Port": "'$SMTP-PORT'"
+            "Smtp": "$(smtp)",
+            "Port": "$(smtp-port)"
           },
           "LetsEncrypt": {
             "AcceptTermsOfService": true,
@@ -113,11 +113,11 @@ steps:
     
     credentialsOption: 'inputs'
     serverUrl: '$(ftp-server)'
-    username: '$(ssh-user)'
-    password: '$(ssh-password)'
+    username: '$(ftp-user)'
+    password: '$(ftp-password)'
     rootDirectory: '$(Build.ArtifactStagingDirectory)'
     filePatterns: '**'
-    remoteDirectory: '/home/$(ssh-user)/upload/$(Build.BuildId)/'
+    remoteDirectory: '/home/$(ftp-user)/upload/$(Build.BuildId)/'
     clean: false
     cleanContents: false
     preservePaths: false
