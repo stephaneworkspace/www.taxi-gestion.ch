@@ -19,15 +19,19 @@ import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoD
 export class SimpleComponent {  
   public settings: Settings;
   public form: FormGroup;
-  filteredOptions: Observable<string[]>;
-
+  
   public planComptable: DtoDC10[];
   public planComptableString: string[];
   public planComptable6String: string[];
 
+  public filteredOptionsDebit: Observable<string[]>;
   public placeholderNoCompteDebit: string = "N°";
   public placeholderCompteDebit: string = "Compte";
   public matErrorNoCompteDebit: string;
+  public filteredOptionsCredit: Observable<string[]>;
+  public placeholderNoCompteCredit: string = "N°";
+  public placeholderCompteCredit: string = "Compte";
+  public matErrorNoCompteCredit: string;
   
   constructor(
         public appSettings:AppSettings,
@@ -49,19 +53,33 @@ export class SimpleComponent {
             'compteDebit': [{value: '', disabled: true}],
             'libelle1Debit' : [null],
             'libelle2Debit' : [null],
+            'noCompteCredit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+            'compteCredit': [{value: '', disabled: true}],
+            'libelle1Credit' : [null],
+            'libelle2Credit' : [null],
         });
-        this.filteredOptions = this.form.get('noCompteDebit').valueChanges
+        this.filteredOptionsDebit = this.form.get('noCompteDebit').valueChanges
+        .pipe(
+            startWith(''),
+            map(val => this.filter(val))
+        );
+        this.filteredOptionsCredit = this.form.get('noCompteCredit').valueChanges
         .pipe(
             startWith(''),
             map(val => this.filter(val))
         );
       });
-    this.onChangeNoCompteDebit();/*
+    this.onChangeNoCompteDebit();
+    this.onChangeNoCompteCredit();
+    /*
     this.messageErreurNomUtilisateurDisponible();
     this.messageErreurEmailDisponible();
     this.messageErreurNpaGeneve();*/
   }
 
+  /**
+   * Au moment d'un changement dans le n° de compte - débit
+   */
   onChangeNoCompteDebit() {
     this.form.get('noCompteDebit').valueChanges.subscribe(val => {
       // Sécurité à 6 charactères
@@ -92,6 +110,43 @@ export class SimpleComponent {
         this.placeholderNoCompteDebit = "N°";
         this.placeholderCompteDebit = "Compte";
         this.form.get('compteDebit').setValue('');
+      }
+    });
+  }
+
+  /**
+   * Au moment d'un changement dans le n° de compte - crédit
+   */
+  onChangeNoCompteCredit() {
+    this.form.get('noCompteCredit').valueChanges.subscribe(val => {
+      // Sécurité à 6 charactères
+      let swOk = false;
+      if (val.length > 6) {
+          this.form.get('noCompteCredit').setValue(val.slice(0, 6));
+          swOk = true;
+      }
+      // Texte d'erreur si le validator en décide ainsi
+      this.matErrorNoCompteCredit = "« " + val + " » faux";
+      // Trouver le compte et changer le placeholder
+      if (val.length == 6 || swOk) {
+        let swChange = false;
+        this.planComptable.forEach(element => {
+          if (element.noCompte.toString() == val.slice(0, 6)) {
+            swChange = true;
+            this.placeholderNoCompteCredit = "N° compte";
+            this.placeholderCompteCredit = "Désignation";
+            this.form.get('compteCredit').setValue(element.texte);
+          }
+        });
+        if (swChange == false) {
+          this.placeholderNoCompteCredit = "N°";
+          this.placeholderCompteCredit = "Compte";
+          this.form.get('compteCredit').setValue('');
+        }
+      } else {
+        this.placeholderNoCompteCredit = "N°";
+        this.placeholderCompteCredit = "Compte";
+        this.form.get('compteCredit').setValue('');
       }
     });
   }
