@@ -1,0 +1,19 @@
+.noCompteSize {
+    min-width: 75px;
+    max-width: 75px;
+    width: auto !important;
+}
+.noCompteMatIcon {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.libelleMatIcon {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+::ng-deep .cdk-overlay-pane {
+    /* Do you changes here */
+    min-width:450px;
+}

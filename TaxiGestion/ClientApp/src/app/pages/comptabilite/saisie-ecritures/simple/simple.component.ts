@@ -9,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGZ/DtoTGZ001OutDC10CompteForList';
 import { TGZ001AffichageService as Service } from 'src/app/_services/TGZ001AffichageService';
 import { CompteValideValidator, compteValidator } from 'src/app/_validator/TGZ/compteValide.validator';
+import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
 
 @Component({
   selector: 'app-saisie-ecritures-simple',
   templateUrl: './simple.component.html',
-  // styleUrls: ['./simple.component.scss']
+  styleUrls: ['./simple.component.scss']
 })
 export class SimpleComponent {  
   public settings: Settings;
@@ -24,6 +25,8 @@ export class SimpleComponent {
   public planComptableString: string[];
   public planComptable6String: string[];
 
+  public placeholderNoCompteDebit: string = "N°";
+  public placeholderCompteDebit: string = "Compte";
   public matErrorNoCompteDebit: string;
   
   constructor(
@@ -42,7 +45,10 @@ export class SimpleComponent {
         this.planComptable6String = this.service.computeArrayString6PlanComptable(this.planComptable);
         // Je set la form après le retour du service
         this.form  = this.fb.group({
-            'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])]
+            'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+            'compteDebit': [{value: '', disabled: true}],
+            'libelle1Debit' : [null],
+            'libelle2Debit' : [null],
         });
         this.filteredOptions = this.form.get('noCompteDebit').valueChanges
         .pipe(
@@ -59,10 +65,34 @@ export class SimpleComponent {
   onChangeNoCompteDebit() {
     this.form.get('noCompteDebit').valueChanges.subscribe(val => {
       // Sécurité à 6 charactères
+      let swOk = false;
       if (val.length > 6) {
           this.form.get('noCompteDebit').setValue(val.slice(0, 6));
+          swOk = true;
       }
-      this.matErrorNoCompteDebit = "Le n° de cpte. « " + val + " » n'existe pas"
+      // Texte d'erreur si le validator en décide ainsi
+      this.matErrorNoCompteDebit = "« " + val + " » faux";
+      // Trouver le compte et changer le placeholder
+      if (val.length == 6 || swOk) {
+        let swChange = false;
+        this.planComptable.forEach(element => {
+          if (element.noCompte.toString() == val.slice(0, 6)) {
+            swChange = true;
+            this.placeholderNoCompteDebit = "N° compte";
+            this.placeholderCompteDebit = "Désignation";
+            this.form.get('compteDebit').setValue(element.texte);
+          }
+        });
+        if (swChange == false) {
+          this.placeholderNoCompteDebit = "N°";
+          this.placeholderCompteDebit = "Compte";
+          this.form.get('compteDebit').setValue('');
+        }
+      } else {
+        this.placeholderNoCompteDebit = "N°";
+        this.placeholderCompteDebit = "Compte";
+        this.form.get('compteDebit').setValue('');
+      }
     });
   }
 
@@ -91,5 +121,9 @@ export class SimpleComponent {
 
   selectionPlanComptableDebit() {
       alert('à faire');
+  }
+
+  formSubmit() {
+    let dto: DtoDC31;
   }
 }

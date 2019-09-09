@@ -83,8 +83,10 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                 NoCompteDebit = dto.NoCompteDebit,
                 NoCompteCredit = dto.NoCompteCredit,
                 NoPiece = dto.NoPiece,
-                Libelle1 = dto.Libelle1,
-                Libelle2 = dto.Libelle2,
+                // DatePiece A FAIRE ISSUE 31
+                Libelle1 = dto.Libelle1Debit,
+                Libelle2 = dto.Libelle2Debit,
+                // Libellé crédit A FAIRE ISSUE 31
                 Montant = dto.Montant,
                 SwAutomatique = false,
             };
