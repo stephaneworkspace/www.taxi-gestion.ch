@@ -47,6 +47,7 @@ import { ComptabiliteBilanEcranResolver } from './_resolver/comptabilite/bilan-e
 import { EmailConfirmationInscriptionResolver } from './_resolver/e-mail/confirmation-inscription.resolver' 
 import { EmailConfirmationInscriptionComponent } from './pages/email/confirmation-inscription/confirmation-inscription.component';
 import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan-comptable.resolver';
+import { TGC003SaisieEcritureService } from './_services/TGC003SaisieEcrituresService';
 
 @NgModule({
   imports: [
@@ -93,8 +94,6 @@ import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan
     AppSettings,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
-    TGA001AuthentificationService,
-    TGC001BilanService,
     EmailConfirmationInscriptionResolver,
     ComptabiliteBilanEcranResolver,
     ComptabilitePlanComptableResolver

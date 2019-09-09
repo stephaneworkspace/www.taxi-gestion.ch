@@ -3,7 +3,7 @@ export interface DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple
     noCompteCredit: number;
     dateEcriture: Date;
     noPiece: number;
-    datePiece: Date;
+    datePiece?: Date;
     montant: number;
     libelle1Debit: string;
     libelle2Debit: string;

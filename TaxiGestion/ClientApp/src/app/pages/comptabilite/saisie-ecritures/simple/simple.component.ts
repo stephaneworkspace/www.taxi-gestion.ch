@@ -5,14 +5,17 @@ import { Settings } from '../../../../app.settings.model';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGZ/DtoTGZ001OutDC10CompteForList';
-import { TGZ001AffichageService as Service } from 'src/app/_services/TGZ001AffichageService';
-import { CompteValideValidator, compteValidator } from 'src/app/_validator/TGZ/compteValide.validator';
-import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
+import { ActivatedRoute, Router } from '@angular/router';
+import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { CurrencyPipe  } from '@angular/common';
+import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
+import { TGC003SaisieEcritureService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
+import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
+import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
+import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGZ/DtoTGZ001OutDC10CompteForList';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-saisie-ecritures-simple',
@@ -45,7 +48,10 @@ export class SimpleComponent {
         public appSettings:AppSettings,
         private route: ActivatedRoute,
         public fb: FormBuilder,
-        private service: Service,
+        private snackBar: MatSnackBar,
+        private router: Router,
+        private serviceTGZ001: ServiceTGZ001,
+        private serviceTGC003: ServiceTGC003,
         private currencyPipe: CurrencyPipe ) {
         //private compteValidator: CompteValideValidator) {
     this.settings = this.appSettings.settings; 
@@ -54,10 +60,14 @@ export class SimpleComponent {
   ngOnInit() {
     this.route.data.subscribe(data => {
         this.planComptable = data['planComptable'];
-        this.planComptableString = this.service.computeArrayStringPlanComptable(this.planComptable);
-        this.planComptable6String = this.service.computeArrayString6PlanComptable(this.planComptable);
+        this.planComptableString = this.serviceTGZ001.computeArrayStringPlanComptable(this.planComptable);
+        this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
         // Je set la form après le retour du service
         this.form  = this.fb.group({
+            'dateEcriture': [null, Validators.compose([Validators.required])],
+            'montant': [null, Validators.compose([Validators.required, montantValidator()])],
+            'noPiece': [null],
+            'datePiece': [null],
             'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
             'compteDebit': [{value: '', disabled: true}],
             'libelle1Debit' : [null],
@@ -66,7 +76,7 @@ export class SimpleComponent {
             'compteCredit': [{value: '', disabled: true}],
             'libelle1Credit' : [null],
             'libelle2Credit' : [null],
-            'montant': [null, Validators.compose([Validators.required])] // validator pour refuser montant 0 CHF
+            
         });
         this.filteredOptionsDebit = this.form.get('noCompteDebit').valueChanges
         .pipe(
@@ -81,10 +91,6 @@ export class SimpleComponent {
       });
     this.onChangeNoCompteDebit();
     this.onChangeNoCompteCredit();
-    /*
-    this.messageErreurNomUtilisateurDisponible();
-    this.messageErreurEmailDisponible();
-    this.messageErreurNpaGeneve();*/
   }
 
   /**
@@ -161,11 +167,22 @@ export class SimpleComponent {
     });
   }
 
-  blurMontant(val) {
+  blurMontant() {
+    let base = this.form.controls.montant.value.toString().replace(/[^\d.-]/g, '');
     let re = /,/gi; 
-    let str = this.currencyPipe.transform(this.form.controls.montant.value, 'CHF', '', '1.2-2');
-    var newstr = str.replace(re, "\'"); 
-    this.form.get('montant').setValue(newstr);
+    let str = this.currencyPipe.transform(base, 'CHF', '', '1.2-2');
+    let newStr = str.replace(re, '\''); 
+    this.form.get('montant').setValue(newStr);
+  }
+
+  blueNoPiece() {
+    let re = /[^0-9]/g;
+    let str = this.form.controls.noPiece.value;
+    if (str == null)
+      str = '';
+    let newStr = str.toString().replace(re, '');
+    console.log(newStr);
+    this.form.get('noPiece').setValue(newStr);
   }
 
   filter(val): string[] {
@@ -195,7 +212,33 @@ export class SimpleComponent {
       alert('à faire');
   }
 
-  formSubmit() {
-    let dto: DtoDC31;
+  onSubmit() {
+    if (this.form.valid) {
+      let dto: DtoDC31 = {
+        noCompteDebit: +this.form.controls.noCompteDebit.value,
+        noCompteCredit: +this.form.controls.noCompteCredit.value,
+        dateEcriture: new Date(this.form.controls.dateEcriture.value),
+        noPiece: +this.form.controls.noPiece.value,
+        datePiece: this.form.controls.datePiece.value == null || this.form.controls.datePiece.value == '' ? null : new Date(this.form.controls.datePiece.value),
+        montant: +(this.form.controls.montant.value.toString().replace(/[^\d.-]/g, '')),
+        libelle1Debit: this.form.controls.libelle1Debit.value,
+        libelle2Debit: this.form.controls.libelle2Debit.value,
+        libelle1Credit: this.form.controls.libelle1Credit.value,
+        libelle2Credit: this.form.controls.libelle2Credit.value,
+      };
+      this.serviceTGC003.inscription(dto).subscribe(next => {
+        this.snackBar.open('Login avec succès', 'Message', {
+          duration: 2000,
+          panelClass: ['success-snackbar']
+        });
+        this.router.navigate(['/index/comptabilite/saisie-ecritures']);
+      }, error => {
+        console.log(error);
+        this.snackBar.open('Erreur pendant l\'envoi de l\'écriture', 'Erreur Http', {
+          duration: 7000,
+          panelClass: ['error-snackbar']
+        });
+      });
+    }
   }
 }

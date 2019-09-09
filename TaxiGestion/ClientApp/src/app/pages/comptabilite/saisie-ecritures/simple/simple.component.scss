@@ -1,8 +1,15 @@
+.noPieceSize {
+    min-width: 100px;
+    max-width: 100px;
+    width: auto !important;
+}
+
 .noCompteSize {
     min-width: 75px;
     max-width: 75px;
     width: auto !important;
 }
+
 .noCompteMatIcon {
     cursor: pointer;
     vertical-align: middle;
@@ -19,6 +26,16 @@
 }
 
 .libelleMatIcon:active {
+    border-radius: 50%;
+    background-color: #e1e1e1 !important;
+}
+
+.noPieceMatIcon {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.noPieceMatIcon:active {
     border-radius: 50%;
     background-color: #e1e1e1 !important;
 }

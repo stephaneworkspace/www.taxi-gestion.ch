@@ -1,18 +1,61 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div fxLayout="column" fxLayout.gt-sm="row wrap"> 
         <div fxFlex="30" class="flex-p"> 
             <mat-card>
                 <mat-card-header fxLayoutAlign="center">                
                     <mat-card-subtitle><h2>Date d'écriture</h2></mat-card-subtitle>
                 </mat-card-header>
+                <br />
                 <mat-card-content fxLayoutAlign="center">
-                    <mat-form-field class="example-full-width">
-                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker3" placeholder="Date de l'écriture">
-                        <mat-datepicker-toggle matSuffix [for]="picker3">
+                    <mat-form-field class="w-100">
+                        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerDate" placeholder="Date de l'écriture" formControlName="dateEcriture">
+                        <mat-datepicker-toggle matSuffix [for]="pickerDate">
                             <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
                         </mat-datepicker-toggle>
-                        <mat-datepicker #picker3></mat-datepicker>
+                        <mat-datepicker #pickerDate></mat-datepicker>
+                        <mat-error *ngIf="form.controls.dateEcriture.errors?.required">La date de l'écriture est nécessaire</mat-error>
                     </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+            <br />
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Montant CHF</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+                    <mat-form-field class="w-100">
+                        <input matInput type="text" class="montantInput" value="" (blur)="blurMontant()" formControlName="montant"/>
+                        <mat-icon class="montantMatIcon" matSuffix>money</mat-icon>
+                        <mat-error *ngIf="form.controls.montant.errors?.required">Le montant est nécessaire</mat-error>
+                        <mat-error *ngIf="form.controls.montant.errors?.montantInvalide">Veuillez insérer un montant en positif ou négatif</mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
+            <br />
+            <mat-card>
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Pièce</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+                    <table cellspacing="0" cellpadding="0" class="w-100">
+                        <tr>
+                            <td style="width: 15%;">
+                                <mat-form-field class="w-100 noPieceSize">
+                                    <mat-icon class="noPieceMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>add</mat-icon>
+                                    <input matInput maxlength="12" type="number" placeholder="N° de pièce" formControlName="noPiece" value="" (blur)="blueNoPiece()">
+                                </mat-form-field>
+                            </td>
+                            <td style="width: 75%;">
+                                <mat-form-field class="w-100">
+                                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerPiece" placeholder="Date de la pièce">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerPiece">
+                                        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #pickerPiece></mat-datepicker>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
                 </mat-card-content>
             </mat-card>
         </div> 
@@ -111,29 +154,9 @@
             </mat-card>
         </div>
     </div>
-    <div fxLayout="column" fxLayout.gt-sm="row wrap"> 
-        <div fxFlex="30" class="flex-p"> 
-            <mat-card>
-                <mat-card-header fxLayoutAlign="center">                
-                    <mat-card-subtitle><h2>Pièce</h2></mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content fxLayoutAlign="center">
-
-                </mat-card-content>
-            </mat-card>
-        </div> 
-        <div fxFlex="70" class="flex-p">  
-            <mat-card>
-                <mat-card-header fxLayoutAlign="center">                
-                    <mat-card-subtitle><h2>Montant CHF</h2></mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content fxLayoutAlign="center">
-                    <mat-form-field class="w-100">
-                        <input matInput type="text" class="montantInput" value="" (blur)="blurMontant()" formControlName="montant"/>
-                        <mat-icon class="montantMatIcon" matSuffix>money</mat-icon>
-                    </mat-form-field>
-                </mat-card-content>
-            </mat-card>
+    <div fxLayout="column">
+        <div class="flex-p">
+            <button kendoButton [icon]="'plus'" [primary]="true" style="float: right;" type="submit">Ajouter écriture</button>
         </div>
     </div>
 </form>

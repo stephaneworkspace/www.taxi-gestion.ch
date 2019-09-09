@@ -11,7 +11,7 @@ namespace TaxiGestion.Dto.TGC
         public int NoCompteCredit { get; set; }
         public DateTime DateEcriture { get; set; }
         public int NoPiece { get; set; }
-        public DateTime DatePiece { get; set; }
+        public DateTime? DatePiece { get; set; }
         public double Montant { get; set; }
         public string Libelle1Debit { get; set; }
         public string Libelle2Debit { get; set; }
