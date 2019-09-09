@@ -12,12 +12,16 @@
     cursor: pointer;
     vertical-align: middle;
 }
-::ng-deep .cdk-overlay-pane {
+::ng-deep  {
+    @media screen and (min-width: 1920px) {
+        .cdk-overlay-pane {
+            min-width: 500px;
+        }
+    }
     @media screen and (min-width: 1366px) {
         /* Do you changes here */
-        min-width: 350px;
-    }
-    @media screen and (min-width: 1920px) {
-        min-width: 500px;
+        .cdk-overlay-pane {
+            min-width: 350px;
+        }
     }
 }

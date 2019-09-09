@@ -10,11 +10,17 @@ import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGZ/DtoTG
 import { TGZ001AffichageService as Service } from 'src/app/_services/TGZ001AffichageService';
 import { CompteValideValidator, compteValidator } from 'src/app/_validator/TGZ/compteValide.validator';
 import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
+import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
 @Component({
   selector: 'app-saisie-ecritures-simple',
   templateUrl: './simple.component.html',
-  styleUrls: ['./simple.component.scss']
+  styleUrls: ['./simple.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: AppDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+  ]
 })
 export class SimpleComponent {  
   public settings: Settings;
