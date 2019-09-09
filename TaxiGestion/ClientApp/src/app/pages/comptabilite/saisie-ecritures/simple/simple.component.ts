@@ -12,6 +12,7 @@ import { CompteValideValidator, compteValidator } from 'src/app/_validator/TGZ/c
 import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { CurrencyPipe  } from '@angular/common';
 
 @Component({
   selector: 'app-saisie-ecritures-simple',
@@ -19,7 +20,8 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
   styleUrls: ['./simple.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: AppDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
+    CurrencyPipe 
   ]
 })
 export class SimpleComponent {  
@@ -43,7 +45,8 @@ export class SimpleComponent {
         public appSettings:AppSettings,
         private route: ActivatedRoute,
         public fb: FormBuilder,
-        private service: Service) {
+        private service: Service,
+        private currencyPipe: CurrencyPipe ) {
         //private compteValidator: CompteValideValidator) {
     this.settings = this.appSettings.settings; 
   }
@@ -63,6 +66,7 @@ export class SimpleComponent {
             'compteCredit': [{value: '', disabled: true}],
             'libelle1Credit' : [null],
             'libelle2Credit' : [null],
+            'montant': [null, Validators.compose([Validators.required])] // validator pour refuser montant 0 CHF
         });
         this.filteredOptionsDebit = this.form.get('noCompteDebit').valueChanges
         .pipe(
@@ -155,6 +159,13 @@ export class SimpleComponent {
         this.form.get('compteCredit').setValue('');
       }
     });
+  }
+
+  blurMontant(val) {
+    let re = /,/gi; 
+    let str = this.currencyPipe.transform(this.form.controls.montant.value, 'CHF', '', '1.2-2');
+    var newstr = str.replace(re, "\'"); 
+    this.form.get('montant').setValue(newstr);
   }
 
   filter(val): string[] {

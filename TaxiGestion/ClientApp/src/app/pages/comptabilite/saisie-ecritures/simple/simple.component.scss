@@ -8,20 +8,31 @@
     vertical-align: middle;
 }
 
+.noCompteMatIcon:active {
+    border-radius: 50%;
+    background-color: #e1e1e1 !important;
+}
+
 .libelleMatIcon {
     cursor: pointer;
     vertical-align: middle;
 }
-::ng-deep  {
-    @media screen and (min-width: 1920px) {
-        .cdk-overlay-pane {
-            min-width: 500px;
-        }
-    }
-    @media screen and (min-width: 1366px) {
-        /* Do you changes here */
-        .cdk-overlay-pane {
-            min-width: 350px;
-        }
-    }
+
+.libelleMatIcon:active {
+    border-radius: 50%;
+    background-color: #e1e1e1 !important;
+}
+
+.montantMatIcon {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.montantInput {
+    text-align: right;
+}
+
+::ng-deep .cdk-overlay-pane {
+    /* Do you changes here */
+    min-width: 350px;
 }
