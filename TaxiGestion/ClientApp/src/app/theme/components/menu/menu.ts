@@ -4,8 +4,9 @@ export const verticalMenuItemsSmall = [
     new Menu (1, 'Dashboard', '/index', null, 'dashboard', null, false, 0),
     new Menu (2, 'Comptabilité', null, null, 'view_module', null, true, 0),
     new Menu (3, 'Bilan situation à l\'écran', '/index/comptabilite/bilan-ecran', null, 'view_array', null, false, 2),
-    new Menu (4, 'Saisie d\'écritures', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),]
+    new Menu (4, 'Saisie d\'écritures', '/index/comptabilite/saisie-ecritures', null, 'open_in_new', null, false, 2),
     new Menu (5, 'Journaliser écritures', '/index/comptabilite/journaliser-ecritures', null , 'list' , null, false, 2)
+]
 export const verticalMenuItems = [ 
     new Menu (1, 'Dashboard', '/index', null, 'dashboard', null, false, 0),
     new Menu (2, 'Comptabilité', null, null, 'view_module', null, true, 0),
