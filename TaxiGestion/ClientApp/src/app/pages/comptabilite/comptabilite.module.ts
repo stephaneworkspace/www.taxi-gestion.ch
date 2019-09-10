@@ -14,12 +14,14 @@ import { SimpleComponent } from './saisie-ecritures/simple/simple.component';
 import { ComptabilitePlanComptableResolver } from 'src/app/_resolver/comptabilite/plan-comptable.resolver';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComptabiliteListeEcrituresResolver } from 'src/app/_resolver/comptabilite/liste-ecritures-journal.resolver';
+import { JournaliserComponent } from './journaliser/journaliser.component';
 
 export const routes = [
   { path: '', redirectTo: 'bilan-ecran', pathMatch: 'full'},
   { path: 'bilan-ecran', component: BilanEcranComponent, data: { breadcrumb: 'Bilan situation à l\'écran' }, resolve: { items: ComptabiliteBilanEcranResolver } },
   { path: 'saisie-ecritures', component: SaisieEcrituresComponent, data: { breadcrumb: 'Saisie d\'écritures'}, resolve: { ecritures : ComptabiliteListeEcrituresResolver } },
   { path: 'saisie-ecriture-simple', component: SimpleComponent, data: { breadcrumb: 'Saisie d\'écriture simple'}, resolve: { planComptable: ComptabilitePlanComptableResolver } },
+  { path: 'journaliser-ecritures', component: JournaliserComponent, data: { breadcrumb: 'Journaliser écritures'} }
 ];
 
 @NgModule({
@@ -36,7 +38,8 @@ export const routes = [
   declarations: [
     BilanEcranComponent, 
     SaisieEcrituresComponent,
-    SimpleComponent
+    SimpleComponent,
+    JournaliserComponent
   ],
 })
 export class ComptabiliteModule { }

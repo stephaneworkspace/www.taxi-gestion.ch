@@ -36,8 +36,12 @@ namespace TaxiGestion.Controllers
         [HttpPost("journaliser")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(DtoTGC002OutDC20JournalForRead), Description = "Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Impossible de journaliser un journal vide")]
-        public async Task<IActionResult> PostJournaliser(DtoTGC002InpDC20JournalForCreate dto)
+        public async Task<IActionResult> PostJournaliser()//(DtoTGC002InpDC20JournalForCreate dto)
         {
+            var dto = new DtoTGC002InpDC20JournalForCreate()
+            {
+                DateCompta = DateTime.Now
+            };
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var noClient = await _authRepo.NoClient(noUser);
             if (!await _repo.SwJournalisation(noClient, noUser))

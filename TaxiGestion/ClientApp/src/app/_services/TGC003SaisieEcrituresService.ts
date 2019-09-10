@@ -68,10 +68,10 @@ export class TGC003SaisieEcrituresService {
                 noEcritureJournalMod: element.noEcritureCollectiveJournal + '-' + element.noEcritureJournal,
                 noCompteDebit: element.noCompteDebit,
                 desiCompteDebit: element.desiCompteDebit,
-                desiCompteDebitMod: element.desiCompteDebit !== null && element.desiCompteDebit.length > 20 ? element.desiCompteDebit.slice(0, 20) + '...' : element.desiCompteDebit,
+                desiCompteDebitMod: element.desiCompteDebit !== null && element.desiCompteDebit.length > 19 ? element.desiCompteDebit.slice(0, 19) + '...' : element.desiCompteDebit,
                 noCompteCredit: element.noCompteCredit,
                 desiCompteCredit: element.desiCompteCredit,
-                desiCompteCreditMod: element.desiCompteCredit !== null && element.desiCompteCredit.length > 20 ? element.desiCompteCredit.slice(0, 20) + '...' : element.desiCompteCredit,
+                desiCompteCreditMod: element.desiCompteCredit !== null && element.desiCompteCredit.length > 19 ? element.desiCompteCredit.slice(0, 19) + '...' : element.desiCompteCredit,
                 dateEcriture: element.dateEcriture, // convertir avec moment.js à faire
                 dateEcritureMoment: moment(element.dateEcriture).format("L"),
                 noPiece: element.noPiece,
