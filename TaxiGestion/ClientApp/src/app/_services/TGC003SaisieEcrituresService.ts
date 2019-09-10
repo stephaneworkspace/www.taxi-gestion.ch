@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Pipe } from '@angular/core';
 import { environment } from '../../environments/environment'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31ForWriteEcritureSimple } from '../_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
 import { DtoTGC003OutDC30EcritureJournalForList, DtoTGC003OutDC30EcritureJournalForListMod } from '../_dto/TGC/DtoTGC003OutDC30EcritureJournalForList';
 import { Observable } from 'rxjs';
+import * as numberFillZero from '../_helper/number-fill-zero';
 import * as moment from 'moment';
 import numeral from 'numeral';
 try {
@@ -32,14 +33,15 @@ try {
 // moment
 moment.locale('fr-ch')
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable(({
+    providedIn: 'root',
+}))
 export class TGC003SaisieEcrituresService {
     baseUrl = environment.apiUrl;
     httpOptions = {};
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     setHeaders() {
         this.httpOptions = {
@@ -58,16 +60,18 @@ export class TGC003SaisieEcrituresService {
         let array: DtoTGC003OutDC30EcritureJournalForListMod[];
         array = new Array();
         dto.forEach(element => {
+            let noSort: string = numberFillZero.pad(element.noEcritureCollectiveJournal, 6) + numberFillZero.pad(element.noEcritureJournal, 6);
             array.push({
+                noSort: noSort,
                 noEcritureCollectiveJournal: element.noEcritureCollectiveJournal,
                 noEcritureJournal: element.noEcritureJournal,
                 noEcritureJournalMod: element.noEcritureCollectiveJournal + '-' + element.noEcritureJournal,
                 noCompteDebit: element.noCompteDebit,
                 desiCompteDebit: element.desiCompteDebit,
-                desiCompteDebitMod: element.desiCompteDebit !== null && element.desiCompteDebit.length > 22 ? element.desiCompteDebit.slice(0, 22) + '...' : element.desiCompteDebit,
+                desiCompteDebitMod: element.desiCompteDebit !== null && element.desiCompteDebit.length > 20 ? element.desiCompteDebit.slice(0, 20) + '...' : element.desiCompteDebit,
                 noCompteCredit: element.noCompteCredit,
                 desiCompteCredit: element.desiCompteCredit,
-                desiCompteCreditMod: element.desiCompteCredit !== null && element.desiCompteCredit.length > 22 ? element.desiCompteCredit.slice(0, 22) + '...' : element.desiCompteCredit,
+                desiCompteCreditMod: element.desiCompteCredit !== null && element.desiCompteCredit.length > 20 ? element.desiCompteCredit.slice(0, 20) + '...' : element.desiCompteCredit,
                 dateEcriture: element.dateEcriture, // convertir avec moment.js à faire
                 dateEcritureMoment: moment(element.dateEcriture).format("L"),
                 noPiece: element.noPiece,

@@ -37,13 +37,14 @@ import { FullScreenComponent } from './theme/components/fullscreen/fullscreen.co
 import { ApplicationsComponent } from './theme/components/applications/applications.component';
 import { MessagesComponent } from './theme/components/messages/messages.component';
 import { UserMenuComponent } from './theme/components/user-menu/user-menu.component';
-import { TGC001BilanService } from './_services/TGC001BilanService';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { ComptabiliteBilanEcranResolver } from './_resolver/comptabilite/bilan-ecran.resolver';
 import { EmailConfirmationInscriptionResolver } from './_resolver/e-mail/confirmation-inscription.resolver' 
 import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan-comptable.resolver';
 import { ComptabiliteListeEcrituresResolver } from './_resolver/comptabilite/liste-ecritures-journal.resolver';
+import { TGC003SaisieEcrituresService } from './_services/TGC003SaisieEcrituresService';
+import { DecimalPipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -93,7 +94,7 @@ import { ComptabiliteListeEcrituresResolver } from './_resolver/comptabilite/lis
     EmailConfirmationInscriptionResolver,
     ComptabiliteBilanEcranResolver,
     ComptabilitePlanComptableResolver,
-    ComptabiliteListeEcrituresResolver
+    ComptabiliteListeEcrituresResolver,
   ],
   bootstrap: [AppComponent]
 })

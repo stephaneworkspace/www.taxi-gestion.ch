@@ -327,4 +327,8 @@ export class BilanEcranComponent implements OnInit {
     };
   }
 
+  btnAfaire() {
+    alert('À faire');
+  }
+
 }

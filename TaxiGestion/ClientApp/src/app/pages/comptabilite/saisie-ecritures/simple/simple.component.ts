@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { CurrencyPipe  } from '@angular/common';
+import { CurrencyPipe, DecimalPipe  } from '@angular/common';
 import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
 import { TGC003SaisieEcrituresService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
 import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
@@ -24,7 +24,7 @@ import { MatSnackBar } from '@angular/material';
   providers: [
     {provide: DateAdapter, useClass: AppDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-    CurrencyPipe 
+    CurrencyPipe,
   ]
 })
 export class SimpleComponent {  

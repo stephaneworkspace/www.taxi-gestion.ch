@@ -19,7 +19,7 @@ export class SaisieEcrituresComponent implements OnInit {
   public gridView: GridDataResult;
   public gridViewEcrituresCollective: GridDataResult;
   public sort: SortDescriptor[] = [{
-    field: 'noEcritureJournalMod',
+    field: 'noSort',
     dir: 'asc'
   }];
   public allowUnsort = true;
@@ -49,6 +49,7 @@ export class SaisieEcrituresComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.ecritures = this.service.computeListeDesEcritures(data['ecritures']);
+      this.ecritures.reverse();
       this.gridView = {
           data: orderBy(this.ecritures, this.sort),
           total: this.ecritures.length
@@ -61,10 +62,14 @@ export class SaisieEcrituresComponent implements OnInit {
   }
 
   btnClickNouvelleEcritureCollective(): void {
-
+    alert('À faire');
   }
 
   btnClickEffacerTout(): void {
-    
+    alert('À faire');
+  }
+
+  aFaire(): void {
+    alert('À faire');
   }
 }

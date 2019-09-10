@@ -49,7 +49,7 @@
     <div class="flex-p">
         <kendo-buttongroup style="float: right;">
             <button kendoButton [icon]="'refresh'" [primary]="false" style="float: right;" (click)="btnClickRafraichir();">Rafraichir</button>
-            <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le bilan vers excel</button>
+            <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;" (click)="btnAfaire()">Exporter le bilan vers excel</button>
         </kendo-buttongroup>
     </div>
     <!-- trop gourmant en ressource 
@@ -292,7 +292,7 @@
         </kendo-grid>
     </div>
     <div class="flex-p">
-        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter la classe vers excel</button>
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;" (click)="btnAfaire()">Exporter la classe vers excel</button>
     </div>
 </div>
 <div *ngIf="this.statusWindows == StatusWindows.Groupe" fxLayout="column">
@@ -337,7 +337,7 @@
         </kendo-grid>
     </div>
     <div class="flex-p">
-        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le groupe vers excel</button>
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;" (click)="btnAfaire()">Exporter le groupe vers excel</button>
     </div>
 </div>
 
@@ -385,7 +385,7 @@
         </kendo-grid>
     </div>
     <div class="flex-p">
-        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le sous-groupe vers excel</button>
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;" (click)="btnAfaire()">Exporter le sous-groupe vers excel</button>
     </div>
 </div>
 <div *ngIf="this.statusWindows == StatusWindows.Compte" fxLayout="column">
@@ -448,7 +448,7 @@
         </kendo-grid>
     </div>
     <div class="flex-p">
-        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;">Exporter le compte vers excel</button>
+        <button kendoButton [icon]="'xls'" [primary]="true" style="float: right;" (click)="btnAfaire()">Exporter le compte vers excel</button>
     </div>
 </div>
 <div *ngIf="this.statusWindows == StatusWindows.DetailCompte" fxLayout="column">

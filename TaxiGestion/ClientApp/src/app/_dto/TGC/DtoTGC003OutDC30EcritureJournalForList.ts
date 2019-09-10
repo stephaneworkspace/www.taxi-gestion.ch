@@ -14,6 +14,7 @@ export interface DtoTGC003OutDC30EcritureJournalForList {
     swAutomatique: boolean
 }
 export interface DtoTGC003OutDC30EcritureJournalForListMod {
+    noSort: string
     noEcritureCollectiveJournal: number,
     noEcritureJournal: number,
     noEcritureJournalMod: string,

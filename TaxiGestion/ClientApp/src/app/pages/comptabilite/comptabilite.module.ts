@@ -38,7 +38,5 @@ export const routes = [
     SaisieEcrituresComponent,
     SimpleComponent
   ],
-  providers: [
-  ]
 })
 export class ComptabiliteModule { }

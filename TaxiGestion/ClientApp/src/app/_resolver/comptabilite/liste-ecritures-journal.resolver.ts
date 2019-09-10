@@ -25,12 +25,19 @@ export class ComptabiliteListeEcrituresResolver implements Resolve<Dto[]> {
                             });
                         this.router.navigate(['/index']);
                         return of(null); 
-                    default:
+                    case 401:
                         this.snackBar.open('Veuillez vous authentifier' , 'Sécurité', {
                             duration: 7000,
                             panelClass: ['error-snackbar']
                             });
                         this.router.navigate(['/login']);
+                        return of(null); 
+                    default:
+                        this.snackBar.open('Erreur lors du chargement de la liste d\'écritures' , 'Erreur Http', {
+                            duration: 7000,
+                            panelClass: ['error-snackbar']
+                            });
+                        this.router.navigate(['/index']);
                         return of(null); 
                 }
             })
