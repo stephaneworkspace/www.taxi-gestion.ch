@@ -181,9 +181,29 @@ export class SimpleComponent {
     if (str == null)
       str = '';
     let newStr = str.toString().replace(re, '');
-    console.log(newStr);
     this.form.get('noPiece').setValue(newStr);
   }
+
+  blurLibelle1Debit() {
+    if (!this.form.controls.libelle1Credit.touched)
+      this.form.get('libelle1Credit').setValue(this.form.controls.libelle1Debit.value)
+  }
+
+  blurLibelle2Debit() {
+    if (!this.form.controls.libelle2Credit.touched)
+      this.form.get('libelle2Credit').setValue(this.form.controls.libelle2Debit.value)
+  }
+
+  blurLibelle1Credit() {
+    if (!this.form.controls.libelle1Debit.touched)
+      this.form.get('libelle1Debit').setValue(this.form.controls.libelle1Credit.value)
+  }
+
+  blurLibelle2Credit() {
+    if (!this.form.controls.libelle2Debit.touched)
+      this.form.get('libelle2Debit').setValue(this.form.controls.libelle2Credit.value)
+  }
+
 
   filter(val): string[] {
     return this.planComptableString.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);

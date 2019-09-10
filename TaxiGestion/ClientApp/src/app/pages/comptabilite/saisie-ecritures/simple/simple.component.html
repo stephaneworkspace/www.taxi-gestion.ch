@@ -69,8 +69,8 @@
                         <tr>
                             <td style="width: 15%;">
                                 <mat-form-field class="w-100 noCompteSize">
-                                    <input type="text" maxlength="6" [placeholder]="placeholderNoCompteDebit" aria-label="Number" matInput formControlName="noCompteDebit" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete" class="noCompteAutoComplete">
+                                    <input type="text" maxlength="6" [placeholder]="placeholderNoCompteDebit" aria-label="Number" matInput formControlName="noCompteDebit" [matAutocomplete]="autoDebit">
+                                    <mat-autocomplete #autoDebit="matAutocomplete" class="noCompteAutoComplete">
                                         <mat-option *ngFor="let option of filteredOptionsDebit | async" [value]="option">
                                         {{ option }}
                                         </mat-option>
@@ -91,14 +91,14 @@
                             <td colspan="2">
                                 <mat-form-field class="w-100">
                                     <mat-icon class="libelleMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>zoom_in</mat-icon>
-                                    <input matInput maxlength="25" placeholder="Libellé 1" formControlName="libelle1Debit" value="">
+                                    <input matInput maxlength="25" placeholder="Libellé 1" formControlName="libelle1Debit" value="" (blur)="blurLibelle1Debit()">
                                 </mat-form-field>
                             </td>
                         <tr>
                             <td colspan="2">
                                 <mat-form-field class="w-100">
                                     <mat-icon class="libelleMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>zoom_in</mat-icon>
-                                    <input matInput maxlength="25" placeholder="Libellé 2" formControlName="libelle2Debit" value="">
+                                    <input matInput maxlength="25" placeholder="Libellé 2" formControlName="libelle2Debit" value="" (blur)="blurLibelle2Debit()">
                                 </mat-form-field>
                             </td>
                         </tr>
@@ -116,8 +116,8 @@
                         <tr>
                             <td style="width: 15%;">
                                 <mat-form-field class="w-100 noCompteSize">
-                                    <input type="text" maxlength="6" [placeholder]="placeholderNoCompteCredit" aria-label="Number" matInput formControlName="noCompteCredit" [matAutocomplete]="auto">
-                                    <mat-autocomplete #auto="matAutocomplete" class="noCompteAutoComplete">
+                                    <input type="text" maxlength="6" [placeholder]="placeholderNoCompteCredit" aria-label="Number" matInput formControlName="noCompteCredit" [matAutocomplete]="autoCredit">
+                                    <mat-autocomplete #autoCredit="matAutocomplete" class="noCompteAutoComplete">
                                         <mat-option *ngFor="let option of filteredOptionsCredit | async" [value]="option">
                                         {{ option }}
                                         </mat-option>
@@ -138,14 +138,14 @@
                             <td colspan="2">
                                 <mat-form-field class="w-100">
                                     <mat-icon class="libelleMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>zoom_in</mat-icon>
-                                    <input matInput maxlength="25" placeholder="Libellé 1" formControlName="libelle1Credit" value="">
+                                    <input matInput maxlength="25" placeholder="Libellé 1" formControlName="libelle1Credit" value="" (blur)="blurLibelle1Credit()">
                                 </mat-form-field>
                             </td>
                         <tr>
                             <td colspan="2">
                                 <mat-form-field class="w-100">
                                     <mat-icon class="libelleMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>zoom_in</mat-icon>
-                                    <input matInput maxlength="25" placeholder="Libellé 2" formControlName="libelle2Credit" value="">
+                                    <input matInput maxlength="25" placeholder="Libellé 2" formControlName="libelle2Credit" value="" (blur)="blurLibelle2Credit()">
                                 </mat-form-field>
                             </td>
                         </tr>
