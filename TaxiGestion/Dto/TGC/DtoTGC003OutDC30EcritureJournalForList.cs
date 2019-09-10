@@ -7,8 +7,8 @@ namespace TaxiGestion.Dto.TGC
 {
     public class DtoTGC003OutDC30EcritureJournalForList
     {
-        public int NoEcritureCollective { get; set; }
-        public int NoEcriture { get; set; }
+        public int NoEcritureCollectiveJournal { get; set; }
+        public int NoEcritureJournal { get; set; }
         public int? NoCompteDebit { get; set; }
         public string DesiCompteDebit { get; set; }
         public int? NoCompteCredit { get; set; }

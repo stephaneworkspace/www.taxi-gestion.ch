@@ -40,14 +40,10 @@ import { UserMenuComponent } from './theme/components/user-menu/user-menu.compon
 import { TGC001BilanService } from './_services/TGC001BilanService';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
-
-import { TGA001AuthentificationService } from './_services/TGA001AuthentificationService';
-
 import { ComptabiliteBilanEcranResolver } from './_resolver/comptabilite/bilan-ecran.resolver';
 import { EmailConfirmationInscriptionResolver } from './_resolver/e-mail/confirmation-inscription.resolver' 
-import { EmailConfirmationInscriptionComponent } from './pages/email/confirmation-inscription/confirmation-inscription.component';
 import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan-comptable.resolver';
-import { TGC003SaisieEcritureService } from './_services/TGC003SaisieEcrituresService';
+import { ComptabiliteListeEcrituresResolver } from './_resolver/comptabilite/liste-ecritures-journal.resolver';
 
 @NgModule({
   imports: [
@@ -96,7 +92,8 @@ import { TGC003SaisieEcritureService } from './_services/TGC003SaisieEcrituresSe
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     EmailConfirmationInscriptionResolver,
     ComptabiliteBilanEcranResolver,
-    ComptabilitePlanComptableResolver
+    ComptabilitePlanComptableResolver,
+    ComptabiliteListeEcrituresResolver
   ],
   bootstrap: [AppComponent]
 })

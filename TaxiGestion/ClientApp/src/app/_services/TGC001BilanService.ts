@@ -30,12 +30,9 @@ try {
         symbol: 'CHF'
     }
   });
-
-
   // switch between locales
   numeral.locale('fr-ch'); // http://numeraljs.com/#custom-formats fr-ch
 } catch (e) {}
-//numeral.defaultFormat('0,0[.]00 $');
 
 // moment
 moment.locale('fr-ch')

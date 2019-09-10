@@ -11,7 +11,7 @@ import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepic
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { CurrencyPipe  } from '@angular/common';
 import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
-import { TGC003SaisieEcritureService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
+import { TGC003SaisieEcrituresService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
 import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
 import { DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple as DtoDC31 } from 'src/app/_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple';
 import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGZ/DtoTGZ001OutDC10CompteForList';

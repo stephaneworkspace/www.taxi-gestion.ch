@@ -4,54 +4,56 @@ import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
-import { TGC001BilanService, Bilan, Classe, Groupe, SousGroupe, Compte } from '../../../_services/TGC001BilanService'
-import { DtoTGC001OutDC10CompteForList as Dto } from 'src/app/_dto/TGC/DtoTGC001OutDC10CompteForList';
-
-
+import { DtoTGC003OutDC30EcritureJournalForListMod as Dto } from 'src/app/_dto/TGC/DtoTGC003OutDC30EcritureJournalForList';
+import { TGC003SaisieEcrituresService as Service } from 'src/app/_services/TGC003SaisieEcrituresService';
 
 @Component({
   selector: 'app-saisie-ecritures',
-  templateUrl: './saisie-ecritures.component.html'
+  templateUrl: './saisie-ecritures.component.html',
+  styleUrls: ['./saisie-ecritures.component.scss']
 })
 export class SaisieEcrituresComponent implements OnInit {
 
-/*
-  public items: Dto[];
-  public classes: Classe[];
-  public totalBilan: Bilan;
-  public classesBilan: Classe[];
-  public totalExploitation: Bilan;
-  public classesExploitation: Classe[];*/
-
-  // Groupe / Sous Groupe
-  /*
-  public classeSelect: Classe;
-  public groupeSelect: Groupe;
-  public sousGroupeSelect: SousGroupe;
+  public ecritures: Dto[];
+  public soldeTotalString: string;
   public gridView: GridDataResult;
+  public gridViewEcrituresCollective: GridDataResult;
   public sort: SortDescriptor[] = [{
-    field: 'id',
+    field: 'noEcritureJournalMod',
     dir: 'asc'
   }];
   public allowUnsort = true;
 
-  public settings: Settings;*/
+  public settings: Settings;
 
   constructor(
     public appSettings:AppSettings, 
     private route: ActivatedRoute,
     public router: Router,
-    private service: TGC001BilanService
+    private service: Service
   ) {
     //this.settings = this.appSettings.settings; 
  }
 
+  public pageSize = 10;
+  public skip = 0;
+
+  public sliderChange(pageIndex: number): void {
+      this.skip = (pageIndex - 1) * this.pageSize;
+  }
+
+  public onPageChange(state: any): void {
+      this.pageSize = state.take;
+  }
 
   ngOnInit(): void {
-    /*this.route.data.subscribe(data => {
-      this.items = data['items'];
-      this.loadClasses();
-    });*/
+    this.route.data.subscribe(data => {
+      this.ecritures = this.service.computeListeDesEcritures(data['ecritures']);
+      this.gridView = {
+          data: orderBy(this.ecritures, this.sort),
+          total: this.ecritures.length
+      };
+    });
   }
 
   btnClickNouvelleEcritureSimple(): void {

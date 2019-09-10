@@ -1,6 +1,45 @@
 
 <div fxLayout="column">
     <div class="flex-p">
+        <kendo-grid 
+            [kendoGridBinding]="this.ecritures"
+            [pageSize]="5"
+            [skip]="skip"
+            [pageable]="true"
+            (pageChange)="onPageChange($event)"
+        >
+            <ng-template kendoGridNoRecordsTemplate>
+                Il n'y a pas d'écritures en attente d'être journalisé
+            </ng-template>
+            <kendo-grid-column field="noEcritureJournalMod" title="N°" [style]="{'text-align': 'right'}" width="90">
+            </kendo-grid-column>
+            <kendo-grid-column field="dateEcritureMoment" title="Date écriture" width="120">
+                <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="montantString" title="Montant" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="140"> 
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.soldeTotalString }}</div></ng-template>  
+            </kendo-grid-column>
+            <kendo-grid-column field="noCompteDebit" title="Débit" width="100"> 
+            </kendo-grid-column>
+            <kendo-grid-column field="desiCompteDebitMod" title=""> 
+            </kendo-grid-column>
+            <kendo-grid-column field="noCompteCredit" title="Crédit" width="100"> 
+            </kendo-grid-column>
+            <kendo-grid-column field="desiCompteCreditMod" title="" class="desiCompte"> 
+            </kendo-grid-column>
+            <kendo-grid-column title="Modifier" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="100">
+                <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex" >
+                    <button kendoButton [icon]="'edit'" style="border-radius: 50%;"></button>
+                </ng-template>
+            </kendo-grid-column>
+            <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="currentPage">
+                <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
+                <!--<kendo-pager-info></kendo-pager-info>-->
+                <kendo-pager-next-buttons></kendo-pager-next-buttons>
+            </ng-template>
+        </kendo-grid>
+    </div>
+    <div class="flex-p">
         <kendo-buttongroup style="float: right;">
             <button kendoButton [icon]="'plus'" [primary]="true" style="float: right;" (click)="btnClickNouvelleEcritureSimple();">Nouvelle écriture simple</button>
             <button kendoButton [icon]="'plus'" [primary]="true" style="float: right;" (click)="btnClickNouvelleEcritureCollective();">Nouvelle écriture collective</button>
