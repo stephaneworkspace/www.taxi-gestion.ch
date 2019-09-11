@@ -12,9 +12,8 @@ import { TGZ001AffichageService } from "src/app/_services/TGZ001AffichageService
     styleUrls: ['./input-no-compte.scss'],
 })
 export class InputNoCompteFormField implements OnInit {
-    @Input() groupNoCompte: FormGroup;
+    @Input() formGroup: FormGroup;
     @Input() fbNoCompte: string;
-    @Input() groupCompte: FormGroup;
     @Input() fbCompte: string;
     @Input() planComptable: DtoDC10[];
     private _touch: Boolean;
@@ -28,10 +27,9 @@ export class InputNoCompteFormField implements OnInit {
         // console.log('got name: ', touch);
         this._touch = touch;
         if (touch)
-            this.groupNoCompte.get(this.fbNoCompte).markAsTouched();
+            this.formGroup.get(this.fbNoCompte).markAsTouched();
 
     }
-    @Output() output: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
     public planComptableString: string[];
     public planComptable6String: string[];
@@ -50,20 +48,20 @@ export class InputNoCompteFormField implements OnInit {
     ngOnInit() {
         this.planComptableString = this.serviceTGZ001.computeArrayStringPlanComptable(this.planComptable);
         this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
-        this.groupNoCompte.get(this.fbNoCompte).setValidators(Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)]));
-        this.groupCompte.get(this.fbCompte).disable();
+        this.formGroup.get(this.fbNoCompte).setValidators(Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)]));
+        this.formGroup.get(this.fbCompte).disable();
         // Autocomplète
-        this.filteredOptions = this.groupNoCompte.get(this.fbNoCompte).valueChanges
+        this.filteredOptions = this.formGroup.get(this.fbNoCompte).valueChanges
         .pipe(
             startWith(''),
             map(val => this.filter(val))
         );
         // OnChange n°
-        this.groupNoCompte.get(this.fbNoCompte).valueChanges.subscribe(val => {
+        this.formGroup.get(this.fbNoCompte).valueChanges.subscribe(val => {
             // Sécurité à 6 charactères
             let swOk = false;
             if (val.length > 6) {
-                this.groupNoCompte.get(this.fbNoCompte).setValue(val.slice(0, 6));
+                this.formGroup.get(this.fbNoCompte).setValue(val.slice(0, 6));
                 swOk = true;
             }
             // Texte d'erreur si le validator en décide ainsi
@@ -76,20 +74,19 @@ export class InputNoCompteFormField implements OnInit {
                         swChange = true;
                         this.placeholderNoCompte = "N° compte";
                         this.placeholderCompte = "Désignation";
-                        this.groupCompte.get(this.fbCompte).setValue(element.texte);
+                        this.formGroup.get(this.fbCompte).setValue(element.texte);
                     }
                 });
                 if (swChange == false) {
                     this.placeholderNoCompte = "N°";
                     this.placeholderCompte = "Compte";
-                    this.groupCompte.get(this.fbCompte).setValue('');
+                    this.formGroup.get(this.fbCompte).setValue('');
                 }
             } else {
                 this.placeholderNoCompte = "N°";
                 this.placeholderCompte = "Compte";
-                this.groupCompte.get(this.fbCompte).setValue('');
+                this.formGroup.get(this.fbCompte).setValue('');
             }
-            this.output.emit(this.groupNoCompte);
         });
     }
 

@@ -45,11 +45,8 @@ export class SimpleComponent implements OnInit {
   public placeholderCompteCredit: string = "Compte";
   public matErrorNoCompteCredit: string;
 
-  dataNoCompteDebit = {
-    noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-  };
-
   dataCompteDebit = {
+    noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
     compteDebit: ''
   };
 
@@ -77,7 +74,6 @@ export class SimpleComponent implements OnInit {
             'montant': [null, Validators.compose([Validators.required, montantValidator()])],
             'noPiece': [null],
             'datePiece': [null],
-            'noCompteDebit': this.fb.group(this.dataNoCompteDebit),
             'compteDebit': this.fb.group(this.dataCompteDebit),
             //'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
             //'compteDebit': [{value: '', disabled: true}],
@@ -103,19 +99,6 @@ export class SimpleComponent implements OnInit {
       });
     //this.onChangeNoCompteDebit();
     this.onChangeNoCompteCredit();
-  }
-
-  noCompteChange(event: FormGroup, type: string): void {
-    switch (type) {
-      case 'debit':
-        console.log(event.controls.noCompteDebit.value)
-        // this.form.get('noCompteDebit').setValue(event.controls.noCompteDebit.value);
-        //this.form.get('noCompteDebit').setValue();
-        break;
-      case 'credit':
-        this.form.get('noCompteCredit').setValue(event);
-        break;
-    }
   }
 
   /**
@@ -261,9 +244,9 @@ export class SimpleComponent implements OnInit {
   onSubmit() {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
-    if (this.form.valid && this.form.controls.noCompteDebit.get('noCompteDebit').valid) {
+    if (this.form.valid && this.form.controls.compteDebit.get('noCompteDebit').valid) {
       let dto: DtoDC31 = {
-        noCompteDebit: +this.form.controls.noCompteDebit.get('noCompteDebit').value,
+        noCompteDebit: +this.form.controls.compteDebit.get('noCompteDebit').value,
         noCompteCredit: +this.form.controls.noCompteCredit.value,
         dateEcriture: new Date(this.form.controls.dateEcriture.value),
         noPiece: +this.form.controls.noPiece.value,
