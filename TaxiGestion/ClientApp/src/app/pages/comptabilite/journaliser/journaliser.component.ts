@@ -69,7 +69,7 @@ export class JournaliserComponent implements OnInit {
   btnSubmit(): void {
     if (this.ecritures === undefined || this.ecritures.length == 0) {
       this.snackBar.open('Rien à journaliser', 'Comptabilité', {
-        duration: 7000,
+        duration: 2000,
         panelClass: ['warning-snackbar']
       });
     } else {
