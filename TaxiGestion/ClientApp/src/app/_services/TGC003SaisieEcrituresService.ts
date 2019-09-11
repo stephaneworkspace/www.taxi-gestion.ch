@@ -116,7 +116,6 @@ export class TGC003SaisieEcrituresService {
             creditTotalString: numeral(creditTotal).format('0,0.00 $'),
             soldeTotalString: numeral(soldeTotal).format('0,0.00 $'),
         } as EcrituresTotal;
-        console.log(item);
         return item;
     }
 

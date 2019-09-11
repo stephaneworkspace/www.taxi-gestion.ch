@@ -65,29 +65,6 @@
                     <mat-card-subtitle><h2>Débit</h2></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content fxLayoutAlign="center" class="flexbox">
-                    <!--<table cellspacing="0" cellpadding="0" class="w-100">
-                        <tr>
-                            <td style="width: 15%;">
-                                <mat-form-field class="w-100 noCompteSize">
-                                    <input type="text" maxlength="6" [placeholder]="placeholderNoCompteDebit" aria-label="Number" matInput formControlName="noCompteDebit" [matAutocomplete]="autoDebit">
-                                    <mat-autocomplete #autoDebit="matAutocomplete" class="noCompteAutoComplete">
-                                        <mat-option *ngFor="let option of filteredOptionsDebit | async" [value]="option">
-                                        {{ option }}
-                                        </mat-option>
-                                    </mat-autocomplete>
-                                    <mat-icon class="noCompteMatIcon" (click)="selectionPlanComptableDebit()" matPrefix>zoom_in</mat-icon>
-                                    <mat-error *ngIf="form.controls.noCompteDebit.errors?.noCompteInvalide">{{ matErrorNoCompteDebit }}</mat-error>
-                                    <mat-error *ngIf="form.controls.noCompteDebit.errors?.required">N° nécessaire</mat-error>
-                                    <mat-error *ngIf="form.controls.noCompteDebit.hasError('minlength')">N° à 6 chiffres</mat-error>
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput maxlength="30" [placeholder]="placeholderCompteDebit" formControlName="compteDebit" value="">
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>-->
                     <input-no-compte-form-field 
                         [formGroup]="form.get('compteDebit')" 
                         fbNoCompte="noCompteDebit"

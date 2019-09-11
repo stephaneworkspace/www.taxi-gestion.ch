@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { FormControl, FormGroupDirective, FormGroup, Validators } from "@angular/forms";
-import { compteValidator } from "src/app/_validator/function/compteValide.validator";
+import { FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
 import { DtoTGZ001OutDC10CompteForList as DtoDC10 } from "src/app/_dto/TGZ/DtoTGZ001OutDC10CompteForList";
@@ -18,13 +17,10 @@ export class InputNoCompteFormField implements OnInit {
     @Input() planComptable: DtoDC10[];
     private _touch: Boolean;
     get touch(): Boolean {
-        // transform value for display
         return this._touch;
       }
     @Input()
     set touch(touch: Boolean) {
-        // console.log('prev value: ', this._touch);
-        // console.log('got name: ', touch);
         this._touch = touch;
         if (touch)
             this.formGroup.get(this.fbNoCompte).markAsTouched();
@@ -48,14 +44,14 @@ export class InputNoCompteFormField implements OnInit {
     ngOnInit() {
         this.planComptableString = this.serviceTGZ001.computeArrayStringPlanComptable(this.planComptable);
         this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
-        this.formGroup.get(this.fbNoCompte).setValidators(Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)]));
-        this.formGroup.get(this.fbCompte).disable();
+        
         // Autocomplète
         this.filteredOptions = this.formGroup.get(this.fbNoCompte).valueChanges
         .pipe(
             startWith(''),
             map(val => this.filter(val))
         );
+        
         // OnChange n°
         this.formGroup.get(this.fbNoCompte).valueChanges.subscribe(val => {
             // Sécurité à 6 charactères
@@ -95,6 +91,6 @@ export class InputNoCompteFormField implements OnInit {
     }
 
     selectionPlanComptable(): void {
-        alert('À faire');
+        alert('À faire un joli modal');
     }
 }

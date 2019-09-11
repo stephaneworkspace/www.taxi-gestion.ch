@@ -45,11 +45,6 @@ export class SimpleComponent implements OnInit {
   public placeholderCompteCredit: string = "Compte";
   public matErrorNoCompteCredit: string;
 
-  dataCompteDebit = {
-    noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-    compteDebit: ''
-  };
-
   constructor(
         public appSettings:AppSettings,
         private route: ActivatedRoute,
@@ -74,9 +69,12 @@ export class SimpleComponent implements OnInit {
             'montant': [null, Validators.compose([Validators.required, montantValidator()])],
             'noPiece': [null],
             'datePiece': [null],
-            'compteDebit': this.fb.group(this.dataCompteDebit),
+            'compteDebit': this.fb.group({
+              noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+              compteDebit: [{value: '', disabled: true}],
+            }),
             //'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-            //'compteDebit': [{value: '', disabled: true}],
+            //'compteDebit': 
             'libelle1Debit' : [null],
             'libelle2Debit' : [null],
             'noCompteCredit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
