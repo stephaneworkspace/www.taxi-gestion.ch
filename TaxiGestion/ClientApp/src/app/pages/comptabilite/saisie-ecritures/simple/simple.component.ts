@@ -1,4 +1,4 @@
-import { Component, SimpleChanges, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppSettings } from '../../../../app.settings';
 import { Settings } from '../../../../app.settings.model';
@@ -36,15 +36,6 @@ export class SimpleComponent implements OnInit {
   public planComptableString: string[];
   public planComptable6String: string[];
 
-  public filteredOptionsDebit: Observable<string[]>;
-  public placeholderNoCompteDebit: string = "N°";
-  public placeholderCompteDebit: string = "Compte";
-  public matErrorNoCompteDebit: string;
-  public filteredOptionsCredit: Observable<string[]>;
-  public placeholderNoCompteCredit: string = "N°";
-  public placeholderCompteCredit: string = "Compte";
-  public matErrorNoCompteCredit: string;
-
   constructor(
         public appSettings:AppSettings,
         private route: ActivatedRoute,
@@ -54,123 +45,33 @@ export class SimpleComponent implements OnInit {
         private serviceTGZ001: ServiceTGZ001,
         private serviceTGC003: ServiceTGC003,
         private currencyPipe: CurrencyPipe ) {
-        //private compteValidator: CompteValideValidator) {
     this.settings = this.appSettings.settings; 
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-        this.planComptable = data['planComptable'];
-        this.planComptableString = this.serviceTGZ001.computeArrayStringPlanComptable(this.planComptable);
-        this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
-        // Je set la form après le retour du service
-        this.form  = this.fb.group({
-            'dateEcriture': [null, Validators.compose([Validators.required])],
-            'montant': [null, Validators.compose([Validators.required, montantValidator()])],
-            'noPiece': [null],
-            'datePiece': [null],
-            'compteDebit': this.fb.group({
-              noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-              compteDebit: [{value: '', disabled: true}],
-            }),
-            //'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-            //'compteDebit': 
-            'libelle1Debit' : [null],
-            'libelle2Debit' : [null],
-            'noCompteCredit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-            'compteCredit': [{value: '', disabled: true}],
-            'libelle1Credit' : [null],
-            'libelle2Credit' : [null],
-            
-        });
-        /*
-        this.filteredOptionsDebit = this.form.get('noCompteDebit').valueChanges
-        .pipe(
-            startWith(''),
-            map(val => this.filter(val))
-        );*/
-        this.filteredOptionsCredit = this.form.get('noCompteCredit').valueChanges
-        .pipe(
-            startWith(''),
-            map(val => this.filter(val))
-        );
+      this.planComptable = data['planComptable'];
+      this.planComptableString = this.serviceTGZ001.computeArrayStringPlanComptable(this.planComptable);
+      this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
+      // Je set la form après le retour du service
+      this.form  = this.fb.group({
+        'dateEcriture': [null, Validators.compose([Validators.required])],
+        'montant': [null, Validators.compose([Validators.required, montantValidator()])],
+        'noPiece': [null],
+        'datePiece': [null],
+        'compteDebit': this.fb.group({
+          noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+          compteDebit: [{value: '', disabled: true}],
+        }),
+        'libelle1Debit' : [null],
+        'libelle2Debit' : [null],
+        'compteCredit': this.fb.group({
+          noCompteCredit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+          compteCredit: [{value: '', disabled: true}],
+        }),
+        'libelle1Credit' : [null],
+        'libelle2Credit' : [null],
       });
-    //this.onChangeNoCompteDebit();
-    this.onChangeNoCompteCredit();
-  }
-
-  /**
-   * Au moment d'un changement dans le n° de compte - débit
-   */
-  /*
-  onChangeNoCompteDebit() {
-    this.form.get('noCompteDebit').valueChanges.subscribe(val => {
-      // Sécurité à 6 charactères
-      let swOk = false;
-      if (val.length > 6) {
-          this.form.get('noCompteDebit').setValue(val.slice(0, 6));
-          swOk = true;
-      }
-      // Texte d'erreur si le validator en décide ainsi
-      this.matErrorNoCompteDebit = "« " + val + " » faux";
-      // Trouver le compte et changer le placeholder
-      if (val.length == 6 || swOk) {
-        let swChange = false;
-        this.planComptable.forEach(element => {
-          if (element.noCompte.toString() == val.slice(0, 6)) {
-            swChange = true;
-            this.placeholderNoCompteDebit = "N° compte";
-            this.placeholderCompteDebit = "Désignation";
-            this.form.get('compteDebit').setValue(element.texte);
-          }
-        });
-        if (swChange == false) {
-          this.placeholderNoCompteDebit = "N°";
-          this.placeholderCompteDebit = "Compte";
-          this.form.get('compteDebit').setValue('');
-        }
-      } else {
-        this.placeholderNoCompteDebit = "N°";
-        this.placeholderCompteDebit = "Compte";
-        this.form.get('compteDebit').setValue('');
-      }
-    });
-  }*/
-
-  /**
-   * Au moment d'un changement dans le n° de compte - crédit
-   */
-  onChangeNoCompteCredit() {
-    this.form.get('noCompteCredit').valueChanges.subscribe(val => {
-      // Sécurité à 6 charactères
-      let swOk = false;
-      if (val.length > 6) {
-          this.form.get('noCompteCredit').setValue(val.slice(0, 6));
-          swOk = true;
-      }
-      // Texte d'erreur si le validator en décide ainsi
-      this.matErrorNoCompteCredit = "« " + val + " » faux";
-      // Trouver le compte et changer le placeholder
-      if (val.length == 6 || swOk) {
-        let swChange = false;
-        this.planComptable.forEach(element => {
-          if (element.noCompte.toString() == val.slice(0, 6)) {
-            swChange = true;
-            this.placeholderNoCompteCredit = "N° compte";
-            this.placeholderCompteCredit = "Désignation";
-            this.form.get('compteCredit').setValue(element.texte);
-          }
-        });
-        if (swChange == false) {
-          this.placeholderNoCompteCredit = "N°";
-          this.placeholderCompteCredit = "Compte";
-          this.form.get('compteCredit').setValue('');
-        }
-      } else {
-        this.placeholderNoCompteCredit = "N°";
-        this.placeholderCompteCredit = "Compte";
-        this.form.get('compteCredit').setValue('');
-      }
     });
   }
 
@@ -211,11 +112,6 @@ export class SimpleComponent implements OnInit {
       this.form.get('libelle2Debit').setValue(this.form.controls.libelle2Credit.value)
   }
 
-
-  filter(val): string[] {
-    return this.planComptableString.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
-  }
-
   //Datepicker start date
   startDate = new Date(1990, 0, 1);
 
@@ -242,10 +138,10 @@ export class SimpleComponent implements OnInit {
   onSubmit() {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
-    if (this.form.valid && this.form.controls.compteDebit.get('noCompteDebit').valid) {
+    if (this.form.valid && this.form.controls.compteDebit.valid && this.form.controls.compteCredit.valid) {
       let dto: DtoDC31 = {
         noCompteDebit: +this.form.controls.compteDebit.get('noCompteDebit').value,
-        noCompteCredit: +this.form.controls.noCompteCredit.value,
+        noCompteCredit: +this.form.controls.compteCredit.get('noCompteCredit').value,
         dateEcriture: new Date(this.form.controls.dateEcriture.value),
         noPiece: +this.form.controls.noPiece.value,
         datePiece: this.form.controls.datePiece.value == null || this.form.controls.datePiece.value == '' ? null : new Date(this.form.controls.datePiece.value),
