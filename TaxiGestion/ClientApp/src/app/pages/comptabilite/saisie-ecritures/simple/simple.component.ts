@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges, OnInit, OnChanges } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppSettings } from '../../../../app.settings';
 import { Settings } from '../../../../app.settings.model';
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { CurrencyPipe, DecimalPipe  } from '@angular/common';
+import { CurrencyPipe  } from '@angular/common';
 import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
 import { TGC003SaisieEcrituresService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
 import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
@@ -27,7 +27,7 @@ import { MatSnackBar } from '@angular/material';
     CurrencyPipe,
   ]
 })
-export class SimpleComponent {  
+export class SimpleComponent implements OnInit {  
   public settings: Settings;
   public form: FormGroup;
   
@@ -43,6 +43,14 @@ export class SimpleComponent {
   public placeholderNoCompteCredit: string = "N°";
   public placeholderCompteCredit: string = "Compte";
   public matErrorNoCompteCredit: string;
+
+  dataNoCompteDebit = {
+    noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+  };
+
+  dataCompteDebit = {
+    compteDebit: ''
+  };
   
   constructor(
         public appSettings:AppSettings,
@@ -68,8 +76,10 @@ export class SimpleComponent {
             'montant': [null, Validators.compose([Validators.required, montantValidator()])],
             'noPiece': [null],
             'datePiece': [null],
-            'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
-            'compteDebit': [{value: '', disabled: true}],
+            'noCompteDebit': this.fb.group(this.dataNoCompteDebit),
+            'compteDebit': this.fb.group(this.dataCompteDebit),
+            //'noCompteDebit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
+            //'compteDebit': [{value: '', disabled: true}],
             'libelle1Debit' : [null],
             'libelle2Debit' : [null],
             'noCompteCredit': [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
@@ -78,24 +88,39 @@ export class SimpleComponent {
             'libelle2Credit' : [null],
             
         });
+        /*
         this.filteredOptionsDebit = this.form.get('noCompteDebit').valueChanges
         .pipe(
             startWith(''),
             map(val => this.filter(val))
-        );
+        );*/
         this.filteredOptionsCredit = this.form.get('noCompteCredit').valueChanges
         .pipe(
             startWith(''),
             map(val => this.filter(val))
         );
       });
-    this.onChangeNoCompteDebit();
+    //this.onChangeNoCompteDebit();
     this.onChangeNoCompteCredit();
+  }
+
+  noCompteChange(event: FormGroup, type: string): void {
+    switch (type) {
+      case 'debit':
+        console.log(event.controls.noCompteDebit.value)
+        // this.form.get('noCompteDebit').setValue(event.controls.noCompteDebit.value);
+        //this.form.get('noCompteDebit').setValue();
+        break;
+      case 'credit':
+        this.form.get('noCompteCredit').setValue(event);
+        break;
+    }
   }
 
   /**
    * Au moment d'un changement dans le n° de compte - débit
    */
+  /*
   onChangeNoCompteDebit() {
     this.form.get('noCompteDebit').valueChanges.subscribe(val => {
       // Sécurité à 6 charactères
@@ -128,7 +153,7 @@ export class SimpleComponent {
         this.form.get('compteDebit').setValue('');
       }
     });
-  }
+  }*/
 
   /**
    * Au moment d'un changement dans le n° de compte - crédit

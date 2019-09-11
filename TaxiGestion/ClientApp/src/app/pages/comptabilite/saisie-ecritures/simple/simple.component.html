@@ -65,7 +65,7 @@
                     <mat-card-subtitle><h2>Débit</h2></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content fxLayoutAlign="center" class="flexbox">
-                    <table cellspacing="0" cellpadding="0" class="w-100">
+                    <!--<table cellspacing="0" cellpadding="0" class="w-100">
                         <tr>
                             <td style="width: 15%;">
                                 <mat-form-field class="w-100 noCompteSize">
@@ -87,7 +87,16 @@
                                 </mat-form-field>
                             </td>
                         </tr>
-                    </table>
+                    </table>-->
+                    <input-no-compte-form-field 
+                        [groupNoCompte]="form.get('noCompteDebit')" 
+                        fbNoCompte="noCompteDebit"
+                        [groupCompte]="form.get('compteDebit')" 
+                        fbCompte="compteDebit"
+                        [planComptable]="planComptable"
+                        (output)="noCompteChange($event, 'debit')"
+                        class="w-100"
+                    ></input-no-compte-form-field>
                     <div class="new-row"></div>
                     <table cellspacing="0" cellpadding="0" class="w-100">
                         <tr>

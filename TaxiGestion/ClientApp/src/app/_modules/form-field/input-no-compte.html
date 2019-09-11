@@ -1,0 +1,24 @@
+<table cellspacing="0" cellpadding="0" class="w-100">
+    <tr>
+        <td style="width: 15%;" [formGroup]="groupNoCompte">
+            <mat-form-field class="w-100 noCompteSize">
+                <input type="text" maxlength="6" [placeholder]="placeholderNoCompte" aria-label="Number" matInput [formControlName]="fbNoCompte" [matAutocomplete]="auto">
+                <!--<input type="text" maxlength="6" [placeholder]="placeholderNoCompteDebit" aria-label="Number" matInput formControlName="noCompte" [matAutocomplete]="autoDebit">-->
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{ option }}
+                    </mat-option>
+                </mat-autocomplete>
+                <mat-icon class="noCompteMatIcon" (click)="selectionPlanComptable()" matPrefix>zoom_in</mat-icon>
+                <mat-error *ngIf="groupNoCompte.get(this.fbNoCompte).errors?.noCompteInvalide">{{ matErrorNoCompte }}</mat-error>
+                <mat-error *ngIf="groupNoCompte.get(this.fbNoCompte).errors?.required">N° nécessaire</mat-error>
+                <mat-error *ngIf="groupNoCompte.get(this.fbNoCompte).hasError('minlength')">N° à 6 chiffres</mat-error>
+            </mat-form-field>
+        </td>
+        <td [formGroup]="groupCompte">
+            <mat-form-field class="w-100">
+                <input matInput maxlength="30" [formControlName]="fbCompte" [placeholder]="placeholderCompte" value="">
+            </mat-form-field>
+        </td>
+    </tr>
+</table>
