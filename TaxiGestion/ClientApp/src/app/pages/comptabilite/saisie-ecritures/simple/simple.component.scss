@@ -53,3 +53,14 @@
     /* Do you changes here */
     min-width: 350px;
 }
+
+.flexbox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.new-row {
+    display: block;
+    width: 100%;
+    height: 0px;
+}
