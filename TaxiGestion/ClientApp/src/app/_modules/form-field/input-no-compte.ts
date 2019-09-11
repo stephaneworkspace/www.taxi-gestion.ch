@@ -17,6 +17,20 @@ export class InputNoCompteFormField implements OnInit {
     @Input() groupCompte: FormGroup;
     @Input() fbCompte: string;
     @Input() planComptable: DtoDC10[];
+    private _touch: Boolean;
+    get touch(): Boolean {
+        // transform value for display
+        return this._touch;
+      }
+    @Input()
+    set touch(touch: Boolean) {
+        // console.log('prev value: ', this._touch);
+        // console.log('got name: ', touch);
+        this._touch = touch;
+        if (touch)
+            this.groupNoCompte.get(this.fbNoCompte).markAsTouched();
+
+    }
     @Output() output: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
     public planComptableString: string[];

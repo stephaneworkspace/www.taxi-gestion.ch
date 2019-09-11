@@ -30,6 +30,7 @@ import { MatSnackBar } from '@angular/material';
 export class SimpleComponent implements OnInit {  
   public settings: Settings;
   public form: FormGroup;
+  public swTouch = false;
   
   public planComptable: DtoDC10[];
   public planComptableString: string[];
@@ -51,7 +52,7 @@ export class SimpleComponent implements OnInit {
   dataCompteDebit = {
     compteDebit: ''
   };
-  
+
   constructor(
         public appSettings:AppSettings,
         private route: ActivatedRoute,
@@ -258,9 +259,11 @@ export class SimpleComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
+    // touch les fb à l'interieur de fb
+    this.swTouch = true;
+    if (this.form.valid && this.form.controls.noCompteDebit.get('noCompteDebit').valid) {
       let dto: DtoDC31 = {
-        noCompteDebit: +this.form.controls.noCompteDebit.value,
+        noCompteDebit: +this.form.controls.noCompteDebit.get('noCompteDebit').value,
         noCompteCredit: +this.form.controls.noCompteCredit.value,
         dateEcriture: new Date(this.form.controls.dateEcriture.value),
         noPiece: +this.form.controls.noPiece.value,
