@@ -34,3 +34,11 @@ $material-icons-font-path: '~material-icons/iconfont/';
         color: black !important;
     }
 }
+
+.warning-snackbar {
+    background: rgb(226, 255, 120) !important;
+    color: black !important;
+    .mat-simple-snackbar-action {
+        color: black !important;
+    }
+}

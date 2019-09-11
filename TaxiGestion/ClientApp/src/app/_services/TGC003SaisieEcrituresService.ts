@@ -33,6 +33,15 @@ try {
 // moment
 moment.locale('fr-ch')
 
+export interface EcrituresTotal {
+    debitTotal: number;
+    creditTotal: number;
+    soldeTotal: number;
+    debitTotalString: string;
+    creditTotalString: string;
+    soldeTotalString: string;
+}
+
 @Injectable(({
     providedIn: 'root',
 }))
@@ -79,14 +88,40 @@ export class TGC003SaisieEcrituresService {
                 libelle2: element.libelle2,
                 montant: element.montant,
                 montantString: numeral(element.montant).format('0,0.00 $'),
+                debit: element.montant > 0 ? element.montant : 0,
+                debitString: numeral(element.montant > 0 ? element.montant : 0).format('0,0.00 $'),
+                credit: element.montant < 0 ? element.montant * - 1 : 0,
+                creditString: numeral(element.montant < 0 ? element.montant * - 1 : 0).format('0,0.00 $'),
                 swAutomatique: element.swAutomatique
             } as DtoTGC003OutDC30EcritureJournalForListMod)
         });
         return array;
     }
 
+    computeTotalEcritures(dto: DtoTGC003OutDC30EcritureJournalForListMod[]): EcrituresTotal
+    {
+        let debitTotal: number = 0.0;
+        let creditTotal: number = 0.0;
+        let soldeTotal: number = 0.0;
+        dto.forEach(e => {
+            debitTotal += e.debit;
+            creditTotal += e.credit;
+            soldeTotal += e.montant;
+        });
+        let item = {
+            debitTotal: debitTotal,
+            creditTotal: creditTotal,
+            soldeTotal: soldeTotal,
+            debitTotalString: numeral(debitTotal).format('0,0.00 $'),
+            creditTotalString: numeral(creditTotal).format('0,0.00 $'),
+            soldeTotalString: numeral(soldeTotal).format('0,0.00 $'),
+        } as EcrituresTotal;
+        console.log(item);
+        return item;
+    }
+
     // changer pour un nom plus parlant quand j'avancerai
-    inscription(dto: DtoDC31ForWriteEcritureSimple) {
+    nouvelleEcritureSimple(dto: DtoDC31ForWriteEcritureSimple) {
         this.setHeaders();
         return this.http.post<DtoDC31ForWriteEcritureSimple>(this.baseUrl + 'TGC003SaisieEcritures/saisie-ecriture-simple/', dto, this.httpOptions);
     }

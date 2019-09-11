@@ -21,7 +21,7 @@ export const routes = [
   { path: 'bilan-ecran', component: BilanEcranComponent, data: { breadcrumb: 'Bilan situation à l\'écran' }, resolve: { items: ComptabiliteBilanEcranResolver } },
   { path: 'saisie-ecritures', component: SaisieEcrituresComponent, data: { breadcrumb: 'Saisie d\'écritures'}, resolve: { ecritures : ComptabiliteListeEcrituresResolver } },
   { path: 'saisie-ecriture-simple', component: SimpleComponent, data: { breadcrumb: 'Saisie d\'écriture simple'}, resolve: { planComptable: ComptabilitePlanComptableResolver } },
-  { path: 'journaliser-ecritures', component: JournaliserComponent, data: { breadcrumb: 'Journaliser écritures'} }
+  { path: 'journaliser-ecritures', component: JournaliserComponent, data: { breadcrumb: 'Journaliser écritures'}, resolve: { ecritures : ComptabiliteListeEcrituresResolver } }
 ];
 
 @NgModule({

@@ -6,7 +6,9 @@ import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { DtoTGC003OutDC30EcritureJournalForListMod as Dto } from 'src/app/_dto/TGC/DtoTGC003OutDC30EcritureJournalForList';
 import { TGC002JournalisationService as Service } from 'src/app/_services/TGC002JournalisationService';
+
 import { MatSnackBar } from '@angular/material';
+import { TGC003SaisieEcrituresService, EcrituresTotal } from 'src/app/_services/TGC003SaisieEcrituresService';
 
 @Component({
   selector: 'app-journaliser',
@@ -14,9 +16,8 @@ import { MatSnackBar } from '@angular/material';
  // styleUrls: ['./journaliser.component.scss']
 })
 export class JournaliserComponent implements OnInit {
-
   public ecritures: Dto[];
-  public soldeTotalString: string;
+  public ecrituresTotal: EcrituresTotal;
   public gridView: GridDataResult;
   public gridViewEcrituresCollective: GridDataResult;
   public sort: SortDescriptor[] = [{
@@ -32,6 +33,7 @@ export class JournaliserComponent implements OnInit {
     private route: ActivatedRoute,
     public router: Router,
     private service: Service,
+    private serviceEcritures: TGC003SaisieEcrituresService,
     private snackBar: MatSnackBar,
   ) {
     //this.settings = this.appSettings.settings; 
@@ -49,14 +51,15 @@ export class JournaliserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*this.route.data.subscribe(data => {
-      this.ecritures = this.service.computeListeDesEcritures(data['ecritures']);
-      this.ecritures.reverse();
+    this.route.data.subscribe(data => {
+      this.ecritures = this.serviceEcritures.computeListeDesEcritures(data['ecritures']);
+      // this.ecritures.reverse(); // pour la saisie d'écriture reserve pour ne pas naviguer entre les pages
+      this.ecrituresTotal = this.serviceEcritures.computeTotalEcritures(this.ecritures);
       this.gridView = {
           data: orderBy(this.ecritures, this.sort),
           total: this.ecritures.length
       };
-    });*/
+    });
   }
 
   btnAFaire(): void {
@@ -64,7 +67,13 @@ export class JournaliserComponent implements OnInit {
   }
 
   btnSubmit(): void {
-    this.service.journaliser().subscribe(next => {
+    if (this.ecritures === undefined || this.ecritures.length == 0) {
+      this.snackBar.open('Rien à journaliser', 'Comptabilité', {
+        duration: 7000,
+        panelClass: ['warning-snackbar']
+      });
+    } else {
+      this.service.journaliser().subscribe(next => {
         this.snackBar.open('Journalisation avec succès', 'Message', {
           duration: 2000,
           panelClass: ['success-snackbar']
@@ -77,5 +86,6 @@ export class JournaliserComponent implements OnInit {
           panelClass: ['error-snackbar']
         });
       });
+    }
   }
 }

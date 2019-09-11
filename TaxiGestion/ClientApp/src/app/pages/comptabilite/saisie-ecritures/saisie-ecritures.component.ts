@@ -5,7 +5,7 @@ import { GridDataResult } from '@progress/kendo-angular-grid';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { DtoTGC003OutDC30EcritureJournalForListMod as Dto } from 'src/app/_dto/TGC/DtoTGC003OutDC30EcritureJournalForList';
-import { TGC003SaisieEcrituresService as Service } from 'src/app/_services/TGC003SaisieEcrituresService';
+import { TGC003SaisieEcrituresService as Service, EcrituresTotal } from 'src/app/_services/TGC003SaisieEcrituresService';
 
 @Component({
   selector: 'app-saisie-ecritures',
@@ -15,7 +15,7 @@ import { TGC003SaisieEcrituresService as Service } from 'src/app/_services/TGC00
 export class SaisieEcrituresComponent implements OnInit {
 
   public ecritures: Dto[];
-  public soldeTotalString: string;
+  public ecrituresTotal: EcrituresTotal;
   public gridView: GridDataResult;
   public gridViewEcrituresCollective: GridDataResult;
   public sort: SortDescriptor[] = [{
@@ -49,6 +49,7 @@ export class SaisieEcrituresComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.ecritures = this.service.computeListeDesEcritures(data['ecritures']);
+      this.ecrituresTotal = this.service.computeTotalEcritures(this.ecritures);
       this.ecritures.reverse();
       this.gridView = {
           data: orderBy(this.ecritures, this.sort),

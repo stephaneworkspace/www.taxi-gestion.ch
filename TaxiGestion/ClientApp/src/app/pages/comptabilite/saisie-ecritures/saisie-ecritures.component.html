@@ -18,7 +18,7 @@
                 <ng-template kendoGridFooterTemplate let-column="column">Total</ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="montantString" title="Montant" [headerStyle]="{'text-align': 'right'}" [style]="{'text-align': 'right'}" width="140"> 
-                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.soldeTotalString }}</div></ng-template>  
+                <ng-template kendoGridFooterTemplate let-column="column"><div style="text-align:right">{{ this.ecrituresTotal.soldeTotalString }}</div></ng-template>  
             </kendo-grid-column>
             <kendo-grid-column field="noCompteDebit" title="Débit" width="100"> 
             </kendo-grid-column>

@@ -32,5 +32,9 @@ export interface DtoTGC003OutDC30EcritureJournalForListMod {
     // a faire libellé débit/crédit
     montant: number,
     montantString: number,
+    debit: number,
+    debitString: string,
+    credit: number,
+    creditString: string,
     swAutomatique: boolean
 }

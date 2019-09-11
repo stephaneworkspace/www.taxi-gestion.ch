@@ -246,8 +246,8 @@ export class SimpleComponent {
         libelle1Credit: this.form.controls.libelle1Credit.value,
         libelle2Credit: this.form.controls.libelle2Credit.value,
       };
-      this.serviceTGC003.inscription(dto).subscribe(next => {
-        this.snackBar.open('Login avec succès', 'Message', {
+      this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
+        this.snackBar.open('Écriture crée (à journaliser)', 'Message', {
           duration: 2000,
           panelClass: ['success-snackbar']
         });
