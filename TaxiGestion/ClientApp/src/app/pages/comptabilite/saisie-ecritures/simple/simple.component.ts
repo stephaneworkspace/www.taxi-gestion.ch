@@ -169,26 +169,19 @@ export class SimpleComponent implements OnInit {
         libelle1Credit: this.form.controls.libelleCredit.get('libelle1Credit').value,
         libelle2Credit: this.form.controls.libelleCredit.get('libelle2Credit').value,
       };
-      if (dto.noCompteDebit == dto.noCompteCredit) {
-        this.snackBar.open('Votre compte débit est le même que le crédit', 'Comptabilité', {
+      this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
+        this.snackBar.open('Écriture crée (à journaliser)', 'Message', {
+          duration: 2000,
+          panelClass: ['success-snackbar']
+        });
+        this.router.navigate(['/index/comptabilite/saisie-ecritures']);
+      }, error => {
+        console.log(error);
+        this.snackBar.open('Erreur pendant l\'envoi de l\'écriture', 'Erreur Http', {
           duration: 7000,
-          panelClass: ['warning-snackbar']
+          panelClass: ['error-snackbar']
         });
-      } else {
-        this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
-          this.snackBar.open('Écriture crée (à journaliser)', 'Message', {
-            duration: 2000,
-            panelClass: ['success-snackbar']
-          });
-          this.router.navigate(['/index/comptabilite/saisie-ecritures']);
-        }, error => {
-          console.log(error);
-          this.snackBar.open('Erreur pendant l\'envoi de l\'écriture', 'Erreur Http', {
-            duration: 7000,
-            panelClass: ['error-snackbar']
-          });
-        });
-      }
+      });
     }
   }
 }

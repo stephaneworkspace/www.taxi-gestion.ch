@@ -46,8 +46,11 @@ namespace TaxiGestion.Controllers
         [HttpPost("saisie-ecriture-simple")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Impossible de créer l'écriture dans le journal")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Compte identique interdit")]
         public async Task<IActionResult> PostSaisieEcritureSimple(DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple dto)
         {
+            if (dto.NoCompteDebit == dto.NoCompteCredit)
+                return BadRequest("Compte identique interdit");
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var noClient = await _authRepo.NoClient(noUser);
             var item = await _repo.SaisieEcritureSimple(noClient, noUser, dto);
