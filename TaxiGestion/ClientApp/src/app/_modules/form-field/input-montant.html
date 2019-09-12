@@ -1,0 +1,6 @@
+<mat-form-field class="w-100" [formGroup]="formGroup">
+    <input matInput type="text" class="montantInput" value="" (blur)="blurMontant()" [formControlName]="fbMontant"/>
+    <mat-icon class="montantMatIcon" matSuffix>money</mat-icon>
+    <mat-error *ngIf="formGroup.get(this.fbMontant).errors?.required">Le montant est nécessaire</mat-error>
+    <mat-error *ngIf="formGroup.get(this.fbMontant).errors?.montantInvalide">Veuillez insérer un montant en positif ou négatif</mat-error>
+</mat-form-field>

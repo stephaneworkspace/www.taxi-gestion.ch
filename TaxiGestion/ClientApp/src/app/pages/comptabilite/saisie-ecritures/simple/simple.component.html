@@ -23,12 +23,18 @@
                     <mat-card-subtitle><h2>Montant CHF</h2></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content fxLayoutAlign="center">
-                    <mat-form-field class="w-100">
+                    <!--<mat-form-field class="w-100">
                         <input matInput type="text" class="montantInput" value="" (blur)="blurMontant()" formControlName="montant"/>
                         <mat-icon class="montantMatIcon" matSuffix>money</mat-icon>
                         <mat-error *ngIf="form.controls.montant.errors?.required">Le montant est nécessaire</mat-error>
                         <mat-error *ngIf="form.controls.montant.errors?.montantInvalide">Veuillez insérer un montant en positif ou négatif</mat-error>
-                    </mat-form-field>
+                    </mat-form-field>-->
+                    <input-montant-form-field 
+                        [formGroup]="form.get('montant')" 
+                        fbMontant="montant"
+                        [touch]="swTouch"
+                        class="w-100"
+                    ></input-montant-form-field>
                 </mat-card-content>
             </mat-card>
             <br />

@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComptabiliteListeEcrituresResolver } from 'src/app/_resolver/comptabilite/liste-ecritures-journal.resolver';
 import { JournaliserComponent } from './journaliser/journaliser.component';
 import { InputNoCompteFormField } from 'src/app/_modules/form-field/input-no-compte';
+import { InputMontantFormField } from 'src/app/_modules/form-field/input-montant';
 
 export const routes = [
   { path: '', redirectTo: 'bilan-ecran', pathMatch: 'full'},
@@ -41,7 +42,8 @@ export const routes = [
     SaisieEcrituresComponent,
     SimpleComponent,
     JournaliserComponent,
-    InputNoCompteFormField
+    InputNoCompteFormField,
+    InputMontantFormField
   ],
 })
 export class ComptabiliteModule { }

@@ -2,14 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { AppSettings } from '../../../../app.settings';
 import { Settings } from '../../../../app.settings.model';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { CurrencyPipe  } from '@angular/common';
 import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
 import { TGC003SaisieEcrituresService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
 import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
@@ -24,7 +21,6 @@ import { MatSnackBar } from '@angular/material';
   providers: [
     {provide: DateAdapter, useClass: AppDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-    CurrencyPipe,
   ]
 })
 export class SimpleComponent implements OnInit {  
@@ -43,8 +39,7 @@ export class SimpleComponent implements OnInit {
         private snackBar: MatSnackBar,
         private router: Router,
         private serviceTGZ001: ServiceTGZ001,
-        private serviceTGC003: ServiceTGC003,
-        private currencyPipe: CurrencyPipe ) {
+        private serviceTGC003: ServiceTGC003) {
     this.settings = this.appSettings.settings; 
   }
 
@@ -56,7 +51,9 @@ export class SimpleComponent implements OnInit {
       // Je set la form après le retour du service
       this.form  = this.fb.group({
         'dateEcriture': [null, Validators.compose([Validators.required])],
-        'montant': [null, Validators.compose([Validators.required, montantValidator()])],
+        'montant': this.fb.group({
+          montant: [null, Validators.compose([Validators.required, montantValidator()])]
+        }),
         'noPiece': [null],
         'datePiece': [null],
         'compteDebit': this.fb.group({
@@ -99,14 +96,6 @@ export class SimpleComponent implements OnInit {
         }
       }
     }
-  }
-
-  blurMontant() {
-    let base = this.form.controls.montant.value.toString().replace(/[^\d.-]/g, '');
-    let re = /,/gi; 
-    let str = this.currencyPipe.transform(base, 'CHF', '', '1.2-2');
-    let newStr = str.replace(re, '\''); 
-    this.form.get('montant').setValue(newStr);
   }
 
   blueNoPiece() {
@@ -164,14 +153,17 @@ export class SimpleComponent implements OnInit {
   onSubmit() {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
-    if (this.form.valid && this.form.controls.compteDebit.valid && this.form.controls.compteCredit.valid) {
+    if (this.form.valid 
+      && this.form.controls.montant.valid
+      && this.form.controls.compteDebit.valid 
+      && this.form.controls.compteCredit.valid) {
       let dto: DtoDC31 = {
         noCompteDebit: +this.form.controls.compteDebit.get('noCompteDebit').value,
         noCompteCredit: +this.form.controls.compteCredit.get('noCompteCredit').value,
         dateEcriture: new Date(this.form.controls.dateEcriture.value),
         noPiece: +this.form.controls.noPiece.value,
         datePiece: this.form.controls.datePiece.value == null || this.form.controls.datePiece.value == '' ? null : new Date(this.form.controls.datePiece.value),
-        montant: +(this.form.controls.montant.value.toString().replace(/[^\d.-]/g, '')),
+        montant: +(this.form.controls.montant.get('montant').value.toString().replace(/[^\d.-]/g, '')),
         libelle1Debit: this.form.controls.libelle1Debit.value,
         libelle2Debit: this.form.controls.libelle2Debit.value,
         libelle1Credit: this.form.controls.libelle1Credit.value,
