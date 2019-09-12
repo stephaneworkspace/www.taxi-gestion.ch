@@ -4,7 +4,7 @@ import { AppSettings } from '../../../../app.settings';
 import { Settings } from '../../../../app.settings.model';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
@@ -71,8 +71,34 @@ export class SimpleComponent implements OnInit {
         }),
         'libelle1Credit' : [null],
         'libelle2Credit' : [null],
+      }, {validator: this.compteIdentitiqueValidator()
       });
     });
+  }
+   
+  /**
+   * Validateur entre le n° de compte débit et crédit
+   * https://stackoverflow.com/questions/43445315/angular2-reactive-forms-delete-error/51820420#51820420
+   */
+  compteIdentitiqueValidator() {
+    return (group: FormGroup) => {
+      let noDebit = group.controls.compteDebit.get('noCompteDebit');
+      let noCredit = group.controls.compteCredit.get('noCompteCredit');
+      if (noDebit.value === noCredit.value) {
+        if (+noCredit.value > 0) {
+          return group.controls.compteCredit.get('noCompteCredit').setErrors({compteIdentique: true});
+        }
+      }
+      const err = group.controls.compteCredit.get('noCompteCredit').errors;
+      if (err) {
+        delete err['compteIdentique']; // delete your own error
+        if (!Object.keys(err).length) { // if no errors left
+          return group.controls.compteCredit.get('noCompteCredit').setErrors(null); // set control errors to null making it VALID
+        } else {
+          return group.controls.compteCredit.get('noCompteCredit').setErrors(err); // controls got other errors so set them back
+        }
+      }
+    }
   }
 
   blurMontant() {
@@ -151,19 +177,26 @@ export class SimpleComponent implements OnInit {
         libelle1Credit: this.form.controls.libelle1Credit.value,
         libelle2Credit: this.form.controls.libelle2Credit.value,
       };
-      this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
-        this.snackBar.open('Écriture crée (à journaliser)', 'Message', {
-          duration: 2000,
-          panelClass: ['success-snackbar']
-        });
-        this.router.navigate(['/index/comptabilite/saisie-ecritures']);
-      }, error => {
-        console.log(error);
-        this.snackBar.open('Erreur pendant l\'envoi de l\'écriture', 'Erreur Http', {
+      if (dto.noCompteDebit == dto.noCompteCredit) {
+        this.snackBar.open('Votre compte débit est le même que le crédit', 'Comptabilité', {
           duration: 7000,
-          panelClass: ['error-snackbar']
+          panelClass: ['warning-snackbar']
         });
-      });
+      } else {
+        this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
+          this.snackBar.open('Écriture crée (à journaliser)', 'Message', {
+            duration: 2000,
+            panelClass: ['success-snackbar']
+          });
+          this.router.navigate(['/index/comptabilite/saisie-ecritures']);
+        }, error => {
+          console.log(error);
+          this.snackBar.open('Erreur pendant l\'envoi de l\'écriture', 'Erreur Http', {
+            duration: 7000,
+            panelClass: ['error-snackbar']
+          });
+        });
+      }
     }
   }
 }

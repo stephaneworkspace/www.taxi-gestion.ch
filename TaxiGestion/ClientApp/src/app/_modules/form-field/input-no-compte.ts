@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { startWith, map } from "rxjs/operators";
@@ -60,8 +60,7 @@ export class InputNoCompteFormField implements OnInit {
                 this.formGroup.get(this.fbNoCompte).setValue(val.slice(0, 6));
                 swOk = true;
             }
-            // Texte d'erreur si le validator en décide ainsi
-            this.matErrorNoCompte = "« " + val + " » faux";
+
             // Trouver le compte et changer le placeholder
             if (val.length == 6 || swOk) {
                 let swChange = false;

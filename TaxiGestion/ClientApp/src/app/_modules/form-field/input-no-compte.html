@@ -9,9 +9,10 @@
                     </mat-option>
                 </mat-autocomplete>
                 <mat-icon class="noCompteMatIcon" (click)="selectionPlanComptable()" matPrefix>zoom_in</mat-icon>
-                <mat-error *ngIf="formGroup.get(this.fbNoCompte).errors?.noCompteInvalide">{{ matErrorNoCompte }}</mat-error>
+                <mat-error *ngIf="formGroup.get(this.fbNoCompte).errors?.noCompteInvalide">N° inconnu</mat-error>
                 <mat-error *ngIf="formGroup.get(this.fbNoCompte).errors?.required">N° nécessaire</mat-error>
                 <mat-error *ngIf="formGroup.get(this.fbNoCompte).hasError('minlength')">N° à 6 chiffres</mat-error>
+                <mat-error *ngIf="formGroup.get(this.fbNoCompte).hasError('compteIdentique')">Identique</mat-error>
             </mat-form-field>
         </td>
         <td>
