@@ -15,8 +15,9 @@ import { ComptabilitePlanComptableResolver } from 'src/app/_resolver/comptabilit
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComptabiliteListeEcrituresResolver } from 'src/app/_resolver/comptabilite/liste-ecritures-journal.resolver';
 import { JournaliserComponent } from './journaliser/journaliser.component';
-import { InputNoCompteFormField } from 'src/app/_modules/form-field/input-no-compte';
-import { InputMontantFormField } from 'src/app/_modules/form-field/input-montant';
+import { InputNoCompteFormField } from 'src/app/_modules/form-field/input/no-compte/input-no-compte.component';
+import { InputMontantFormField } from 'src/app/_modules/form-field/input/montant/input-montant.component';
+import { InputLibelleFormField } from 'src/app/_modules/form-field/input/libelle/input-libelle.component';
 
 export const routes = [
   { path: '', redirectTo: 'bilan-ecran', pathMatch: 'full'},
@@ -43,7 +44,8 @@ export const routes = [
     SimpleComponent,
     JournaliserComponent,
     InputNoCompteFormField,
-    InputMontantFormField
+    InputMontantFormField,
+    InputLibelleFormField
   ],
 })
 export class ComptabiliteModule { }

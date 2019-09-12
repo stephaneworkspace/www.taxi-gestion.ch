@@ -1,0 +1,11 @@
+<div [formGroup]="formGroup">
+    <mat-form-field class="w-100">
+        <mat-icon class="libelleMatIcon" (click)="selectionListeLibelle()" matPrefix>zoom_in</mat-icon>
+        <input matInput type="text" class="libelleMatIcon" placeholder="Libellé 1" value="" (blur)="blurLibelle1()" [formControlName]="fbLibelle1"/>
+    </mat-form-field>
+    <div class="new-row"></div>
+    <mat-form-field class="w-100">
+        <mat-icon class="libelleMatIcon" (click)="selectionListeLibelle()" matPrefix>zoom_in</mat-icon>
+        <input matInput type="text" class="libelleMatIcon" placeholder="Libellé 2" value="" (blur)="blurLibelle2()" [formControlName]="fbLibelle2"/>
+    </mat-form-field>
+</div>

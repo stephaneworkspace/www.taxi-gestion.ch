@@ -60,14 +60,18 @@ export class SimpleComponent implements OnInit {
           noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
           compteDebit: [{value: '', disabled: true}],
         }),
-        'libelle1Debit' : [null],
-        'libelle2Debit' : [null],
+        'libelleDebit': this.fb.group({
+          'libelle1Debit': [null],
+          'libelle2Debit': [null]
+        }),
         'compteCredit': this.fb.group({
           noCompteCredit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
           compteCredit: [{value: '', disabled: true}],
         }),
-        'libelle1Credit' : [null],
-        'libelle2Credit' : [null],
+        'libelleCredit': this.fb.group({
+          'libelle1Credit': [null],
+          'libelle2Credit': [null]
+        }),
       }, {validator: this.compteIdentitiqueValidator()
       });
     });
@@ -107,24 +111,18 @@ export class SimpleComponent implements OnInit {
     this.form.get('noPiece').setValue(newStr);
   }
 
-  blurLibelle1Debit() {
-    if (!this.form.controls.libelle1Credit.touched)
-      this.form.get('libelle1Credit').setValue(this.form.controls.libelle1Debit.value)
+  libelleDebitBlur(event: string[]): void {
+    if (event[0] != '' && !this.form.controls.libelleCredit.get('libelle1Credit').touched)
+      this.form.controls.libelleCredit.get('libelle1Credit').setValue(event[0])
+    if (event[1] != '' && !this.form.controls.libelleCredit.get('libelle2Credit').touched)
+      this.form.controls.libelleCredit.get('libelle2Credit').setValue(event[1])
   }
 
-  blurLibelle2Debit() {
-    if (!this.form.controls.libelle2Credit.touched)
-      this.form.get('libelle2Credit').setValue(this.form.controls.libelle2Debit.value)
-  }
-
-  blurLibelle1Credit() {
-    if (!this.form.controls.libelle1Debit.touched)
-      this.form.get('libelle1Debit').setValue(this.form.controls.libelle1Credit.value)
-  }
-
-  blurLibelle2Credit() {
-    if (!this.form.controls.libelle2Debit.touched)
-      this.form.get('libelle2Debit').setValue(this.form.controls.libelle2Credit.value)
+  libelleCreditBlur(event: string[]): void {
+    if (event[0] != '' && !this.form.controls.libelleDebit.get('libelle1Debit').touched)
+      this.form.controls.libelleDebit.get('libelle1Debit').setValue(event[0])
+    if (event[1] != '' && !this.form.controls.libelleDebit.get('libelle2Debit').touched)
+      this.form.controls.libelleDebit.get('libelle2Debit').setValue(event[1])
   }
 
   //Datepicker start date
@@ -156,7 +154,9 @@ export class SimpleComponent implements OnInit {
     if (this.form.valid 
       && this.form.controls.montant.valid
       && this.form.controls.compteDebit.valid 
-      && this.form.controls.compteCredit.valid) {
+      && this.form.controls.libelleDebit.valid
+      && this.form.controls.compteCredit.valid
+      && this.form.controls.libelleCredit.valid) {
       let dto: DtoDC31 = {
         noCompteDebit: +this.form.controls.compteDebit.get('noCompteDebit').value,
         noCompteCredit: +this.form.controls.compteCredit.get('noCompteCredit').value,
@@ -164,10 +164,10 @@ export class SimpleComponent implements OnInit {
         noPiece: +this.form.controls.noPiece.value,
         datePiece: this.form.controls.datePiece.value == null || this.form.controls.datePiece.value == '' ? null : new Date(this.form.controls.datePiece.value),
         montant: +(this.form.controls.montant.get('montant').value.toString().replace(/[^\d.-]/g, '')),
-        libelle1Debit: this.form.controls.libelle1Debit.value,
-        libelle2Debit: this.form.controls.libelle2Debit.value,
-        libelle1Credit: this.form.controls.libelle1Credit.value,
-        libelle2Credit: this.form.controls.libelle2Credit.value,
+        libelle1Debit: this.form.controls.libelleDebit.get('libelle1Debit').value,
+        libelle2Debit: this.form.controls.libelleDebit.get('libelle2Debit').value,
+        libelle1Credit: this.form.controls.libelleCredit.get('libelle1Credit').value,
+        libelle2Credit: this.form.controls.libelleCredit.get('libelle2Credit').value,
       };
       if (dto.noCompteDebit == dto.noCompteCredit) {
         this.snackBar.open('Votre compte débit est le même que le crédit', 'Comptabilité', {

@@ -4,8 +4,8 @@ import { CurrencyPipe } from "@angular/common";
 
 @Component({
     selector: 'input-montant-form-field',
-    templateUrl: './input-montant.html',
-    styleUrls: ['./input-montant.scss'],
+    templateUrl: './input-montant.component.html',
+    styleUrls: ['./input-montant.component.scss'],
     providers: [
         CurrencyPipe,
     ]
@@ -32,5 +32,5 @@ export class InputMontantFormField {
         let str = this.currencyPipe.transform(base, 'CHF', '', '1.2-2');
         let newStr = str.replace(re, '\''); 
         this.formGroup.get(this.fbMontant).setValue(newStr);
-      }
+    }
 }

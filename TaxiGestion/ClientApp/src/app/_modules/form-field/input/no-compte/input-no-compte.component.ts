@@ -7,8 +7,8 @@ import { TGZ001AffichageService } from "src/app/_services/TGZ001AffichageService
 
 @Component({
     selector: 'input-no-compte-form-field',
-    templateUrl: './input-no-compte.html',
-    styleUrls: ['./input-no-compte.scss'],
+    templateUrl: './input-no-compte.component.html',
+    styleUrls: ['./input-no-compte.component.scss'],
 })
 export class InputNoCompteFormField implements OnInit {
     @Input() formGroup: FormGroup;
