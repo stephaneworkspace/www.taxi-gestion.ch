@@ -77,7 +77,7 @@ namespace TaxiGestion.Data.Repository.Comptabilite
         public async Task<bool> SwJournalisation(int noClient, int noUtilisateur)
         {
             return await _context.DC31EcritureCollectiveJournal
-                .CountAsync(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur)) > 1 ? true : false;
+                .CountAsync(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur)) >= 1 ? true : false;
         }
 
         /// <summary>

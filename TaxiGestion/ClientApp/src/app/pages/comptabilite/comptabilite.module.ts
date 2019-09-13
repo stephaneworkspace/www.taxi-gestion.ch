@@ -18,6 +18,8 @@ import { JournaliserComponent } from './journaliser/journaliser.component';
 import { InputNoCompteFormField } from 'src/app/_modules/form-field/input/no-compte/input-no-compte.component';
 import { InputMontantFormField } from 'src/app/_modules/form-field/input/montant/input-montant.component';
 import { InputLibelleFormField } from 'src/app/_modules/form-field/input/libelle/input-libelle.component';
+import { InputDateEcritureFormField } from 'src/app/_modules/form-field/input/date-ecriture/input-date-ecriture.component';
+import { InputPieceFormField } from 'src/app/_modules/form-field/input/piece/input-piece.component';
 
 export const routes = [
   { path: '', redirectTo: 'bilan-ecran', pathMatch: 'full'},
@@ -45,7 +47,9 @@ export const routes = [
     JournaliserComponent,
     InputNoCompteFormField,
     InputMontantFormField,
-    InputLibelleFormField
+    InputLibelleFormField,
+    InputDateEcritureFormField,
+    InputPieceFormField
   ],
 })
 export class ComptabiliteModule { }

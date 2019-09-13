@@ -5,8 +5,6 @@ import { Settings } from '../../../../app.settings.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { compteValidator } from 'src/app/_validator/function/compteValide.validator';
-import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/_helper/format-datepicker';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { montantValidator } from 'src/app/_validator/function/montantValide.validator';
 import { TGC003SaisieEcrituresService as ServiceTGC003 } from 'src/app/_services/TGC003SaisieEcrituresService';
 import { TGZ001AffichageService as ServiceTGZ001 } from 'src/app/_services/TGZ001AffichageService';
@@ -17,11 +15,7 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-saisie-ecritures-simple',
   templateUrl: './simple.component.html',
-  styleUrls: ['./simple.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: AppDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
-  ]
+  styleUrls: ['./simple.component.scss']
 })
 export class SimpleComponent implements OnInit {  
   public settings: Settings;
@@ -50,12 +44,16 @@ export class SimpleComponent implements OnInit {
       this.planComptable6String = this.serviceTGZ001.computeArrayString6PlanComptable(this.planComptable);
       // Je set la form après le retour du service
       this.form  = this.fb.group({
-        'dateEcriture': [null, Validators.compose([Validators.required])],
+        'dateEcriture': this.fb.group({
+          'dateEcriture': [null, Validators.compose([Validators.required])],
+        }),
         'montant': this.fb.group({
           montant: [null, Validators.compose([Validators.required, montantValidator()])]
         }),
-        'noPiece': [null],
-        'datePiece': [null],
+        'piece': this.fb.group({
+          'noPiece': [null],
+          'datePiece': [null],
+        }),
         'compteDebit': this.fb.group({
           noCompteDebit: [null, Validators.compose([Validators.required, Validators.minLength(6), compteValidator(this.planComptable6String)])],
           compteDebit: [{value: '', disabled: true}],
@@ -102,15 +100,10 @@ export class SimpleComponent implements OnInit {
     }
   }
 
-  blueNoPiece() {
-    let re = /[^0-9]/g;
-    let str = this.form.controls.noPiece.value;
-    if (str == null)
-      str = '';
-    let newStr = str.toString().replace(re, '');
-    this.form.get('noPiece').setValue(newStr);
-  }
-
+  /**
+   * Reprise de la valeur entre le libellé débit et crédit
+   * @param event table de string de 2 occurs
+   */
   libelleDebitBlur(event: string[]): void {
     if (event[0] != '' && !this.form.controls.libelleCredit.get('libelle1Credit').touched)
       this.form.controls.libelleCredit.get('libelle1Credit').setValue(event[0])
@@ -118,6 +111,10 @@ export class SimpleComponent implements OnInit {
       this.form.controls.libelleCredit.get('libelle2Credit').setValue(event[1])
   }
 
+    /**
+   * Reprise de la valeur entre le libellé crédit et débit
+   * @param event table de string de 2 occurs
+   */
   libelleCreditBlur(event: string[]): void {
     if (event[0] != '' && !this.form.controls.libelleDebit.get('libelle1Debit').touched)
       this.form.controls.libelleDebit.get('libelle1Debit').setValue(event[0])
@@ -125,34 +122,16 @@ export class SimpleComponent implements OnInit {
       this.form.controls.libelleDebit.get('libelle2Debit').setValue(event[1])
   }
 
-  //Datepicker start date
-  startDate = new Date(1990, 0, 1);
-
-  //Datepicker with min & max validation
-  minDate = new Date(2010, 0, 1);
-  maxDate = new Date(2020, 0, 1);
-
-  //Datepicker with filter validation
-  myFilter = (d: Date): boolean => {
-    const day = d.getDay();
-    return day !== 0 && day !== 6;
-  }
-
-  //Datepicker input and change events
-  events: string[] = [];
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.events.push(`${type}: ${event.value}`);
-  }
-
-  selectionPlanComptableDebit() {
-      alert('à faire');
-  }
-
+  /**
+   * Envoi du formulaire
+   */
   onSubmit() {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
     if (this.form.valid 
+      && this.form.controls.dateEcriture.valid
       && this.form.controls.montant.valid
+      && this.form.controls.piece.valid
       && this.form.controls.compteDebit.valid 
       && this.form.controls.libelleDebit.valid
       && this.form.controls.compteCredit.valid
@@ -160,14 +139,14 @@ export class SimpleComponent implements OnInit {
       let dto: DtoDC31 = {
         noCompteDebit: +this.form.controls.compteDebit.get('noCompteDebit').value,
         noCompteCredit: +this.form.controls.compteCredit.get('noCompteCredit').value,
-        dateEcriture: new Date(this.form.controls.dateEcriture.value),
-        noPiece: +this.form.controls.noPiece.value,
-        datePiece: this.form.controls.datePiece.value == null || this.form.controls.datePiece.value == '' ? null : new Date(this.form.controls.datePiece.value),
+        dateEcriture: new Date(this.form.controls.dateEcriture.get('dateEcriture').value),
+        noPiece: +this.form.controls.piece.get('noPiece').value,
+        datePiece: this.form.controls.piece.get('datePiece').value == null || this.form.controls.piece.get('datePiece').value == '' ? null : new Date(this.form.controls.piece.get('datePiece').value),
         montant: +(this.form.controls.montant.get('montant').value.toString().replace(/[^\d.-]/g, '')),
-        libelle1Debit: this.form.controls.libelleDebit.get('libelle1Debit').value,
-        libelle2Debit: this.form.controls.libelleDebit.get('libelle2Debit').value,
-        libelle1Credit: this.form.controls.libelleCredit.get('libelle1Credit').value,
-        libelle2Credit: this.form.controls.libelleCredit.get('libelle2Credit').value,
+        libelle1Debit: this.form.controls.libelleDebit.get('libelle1Debit').value == null ? '' : this.form.controls.libelleDebit.get('libelle1Debit').value,
+        libelle2Debit: this.form.controls.libelleDebit.get('libelle2Debit').value == null ? '' : this.form.controls.libelleDebit.get('libelle2Debit').value,
+        libelle1Credit: this.form.controls.libelleCredit.get('libelle1Credit').value == null ? '' : this.form.controls.libelleCredit.get('libelle1Credit').value,
+        libelle2Credit: this.form.controls.libelleCredit.get('libelle2Credit').value == null ? '' : this.form.controls.libelleCredit.get('libelle2Credit').value,
       };
       this.serviceTGC003.nouvelleEcritureSimple(dto).subscribe(next => {
         this.snackBar.open('Écriture crée (à journaliser)', 'Message', {

@@ -1,0 +1,19 @@
+<table cellspacing="0" cellpadding="0" class="w-100" [formGroup]="formGroup">
+    <tr>
+        <td style="width: 15%;">
+            <mat-form-field class="w-100 noPieceSize">
+                <mat-icon class="noPieceMatIcon" (click)="aFaire()" matPrefix>add</mat-icon>
+                <input matInput maxlength="12" type="number" [placeholder]="placeholderNoPiece" formControlName="noPiece" value="" (blur)="blueNoPiece()">
+            </mat-form-field>
+        </td>
+        <td>
+            <mat-form-field class="w-100">
+                <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerPiece" placeholder="Date de la pièce">
+                <mat-datepicker-toggle matSuffix [for]="pickerPiece">
+                    <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #pickerPiece></mat-datepicker>
+            </mat-form-field>
+        </td>
+    </tr>
+</table>

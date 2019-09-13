@@ -1,0 +1,8 @@
+<mat-form-field [formGroup]="formGroup" class="w-100">
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerDate" placeholder="Date de l'écriture" formControlName="dateEcriture">
+    <mat-datepicker-toggle matSuffix [for]="pickerDate">
+        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #pickerDate></mat-datepicker>
+    <mat-error *ngIf="formGroup.get(this.fbDateEcriture).errors?.required">La date de l'écriture est nécessaire</mat-error>
+</mat-form-field>
