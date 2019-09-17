@@ -167,7 +167,8 @@ namespace TaxiGestion
 
             app.UseRouting();
 
-            /* a faire
+            /*
+            // Asp.net core 3 preview 9
             app.Use(next => context =>
             {
                 if (context.WebSockets.IsWebSocketRequest)
