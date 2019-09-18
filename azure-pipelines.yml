@@ -20,7 +20,7 @@ steps:
   displayName: 'Install .net core 3.0 (preview)'
   inputs:
     packageType: 'sdk'
-    version: '3.0.100-preview8-013656'
+    version: '3.0.100-rc1-014190'
 
 - task: CmdLine@2
   inputs:
