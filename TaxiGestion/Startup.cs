@@ -39,7 +39,7 @@ namespace TaxiGestion
 
         public IConfiguration Configuration { get; }
 
-        public string _env = "prod";
+        public string _env = "dev";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -127,9 +127,9 @@ namespace TaxiGestion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-#pragma warning disable IDE0060 // Supprimer le param�tre inutilis�
+#pragma warning disable IDE0060 // Supprimer le paramètre inutilisé
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
-#pragma warning restore IDE0060 // Supprimer le param�tre inutilis�
+#pragma warning restore IDE0060 // Supprimer le paramètre inutilisé�
         {
             if (env.IsDevelopment())
             {

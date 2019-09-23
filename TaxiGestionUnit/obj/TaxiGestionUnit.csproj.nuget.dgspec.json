@@ -19,6 +19,7 @@
         ],
         "configFilePaths": [
           "C:\\Users\\sbres\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\MicroFocus.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -26,6 +27,7 @@
           "netcoreapp3.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Micro Focus\\Visual COBOL\\NuGetPackages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -49,19 +51,21 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[16.3.0-preview-20190828-03, )"
+              "version": "[16.3.0, )"
             },
             "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[1.0.1, )"
+              "version": "[1.1.0, )"
             },
             "xunit": {
               "target": "Package",
@@ -92,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-rc1-014190\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -111,6 +115,7 @@
         ],
         "configFilePaths": [
           "C:\\Users\\sbres\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\MicroFocus.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -118,6 +123,7 @@
           "netcoreapp3.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Micro Focus\\Visual COBOL\\NuGetPackages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -149,51 +155,51 @@
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19457.4, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19457.4, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.AspNetCore.SpaServices": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19457.4, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19457.4, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.14, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[3.0.0-rc1.19456.10, )"
+              "version": "[3.0.0, )"
             },
             "Microsoft.TypeScript.MSBuild": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -207,7 +213,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.0.0-rc1-19462-10, )"
+              "version": "[3.0.0, )"
             },
             "NSwag.AspNetCore": {
               "target": "Package",
@@ -236,7 +242,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100-rc1-014190\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
