@@ -16,10 +16,9 @@ variables:
 
 steps:
     
-- task: UseDotNet@2
+- task: DotNetCoreInstaller@2
   inputs:
-    packageType: 'sdk'
-    useGlobalJson: true
+    version: '3.0.100'
 
 - task: CmdLine@2
   inputs:
