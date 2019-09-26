@@ -11,6 +11,7 @@ pool:
 
 variables:
   solution: './*.sln' # **/*.sln
+  project: "**/*.csproj"
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -70,11 +71,26 @@ steps:
     workingDir: './TaxiGestion/ClientApp/'
 
 #ubuntu
-- script: dotnet restore
-  displayName: 'dotnet restore'
+#- script: dotnet restore
+#  displayName: 'dotnet restore'
 
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+  displayName: Restore
+
+#- script: dotnet build --configuration $(buildConfiguration)
+#  displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(BuildConfiguration)
+    projects: '$(project)'
+  displayName: Build
+
 
 #windows only
 #- task: VSBuild@1
@@ -99,7 +115,18 @@ steps:
 
 # ici probleme angular
 # do this after your tests have run
+
+
+
 - script: dotnet test TaxiGestionUnit --logger trx
+
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'test TaxiGestionUnit'
+#    arguments: '--logger trx'
+#    projects: '$(project)'
+#  displayName: Test
+
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()
