@@ -87,7 +87,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    arguments: '--configuration $(BuildConfiguration)
+    arguments: '--configuration $(BuildConfiguration)'
     projects: '$(project)'
   displayName: Build
 
