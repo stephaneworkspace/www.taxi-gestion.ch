@@ -61,9 +61,16 @@ steps:
 
 - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
+#- task: NuGetCommand@2
+#  inputs:
+#    restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+  displayName: Restore
 
 - task: Npm@1
   inputs:
@@ -73,13 +80,6 @@ steps:
 #ubuntu
 #- script: dotnet restore
 #  displayName: 'dotnet restore'
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'restore'
-    projects: '$(solution)'
-    feedsToUse: 'select'
-  displayName: Restore
 
 #- script: dotnet build --configuration $(buildConfiguration)
 #  displayName: 'dotnet build $(buildConfiguration)'
