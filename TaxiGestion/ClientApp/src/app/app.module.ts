@@ -49,13 +49,13 @@ import { DecimalPipe } from '@angular/common';
 @NgModule({
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,     
-    FormsModule, 
+    BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAAYi6itRZ0rPgI76O3I83BhhzZHIgMwPg'
-    }), 
-    PerfectScrollbarModule, 
+    }),
+    PerfectScrollbarModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -87,7 +87,7 @@ import { DecimalPipe } from '@angular/common';
   entryComponents:[
     VerticalMenuComponent
   ],
-  providers: [ 
+  providers: [
     AppSettings,
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer },

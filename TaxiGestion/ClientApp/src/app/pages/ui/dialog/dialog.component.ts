@@ -11,7 +11,7 @@ export class DialogComponent {
   public animal: string;
   public name: string;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public dialog: MatDialog) {
+  constructor(public appSettings: AppSettings, public dialog: MatDialog) {
     this.settings = this.appSettings.settings; 
   }
 

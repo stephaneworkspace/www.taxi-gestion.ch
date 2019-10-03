@@ -1,0 +1,8 @@
+<mat-form-field [formGroup]="formGroup" class="w-100">
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="pickerDate" [placeholder]="type == 0 ? 'Date de début' : 'Date de fin'" [formControlName]="fbDate">
+    <mat-datepicker-toggle matSuffix [for]="pickerDate">
+        <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #pickerDate></mat-datepicker>
+    <mat-error *ngIf="formGroup.get(this.fbDate).errors?.required">La date de {{ type == 0 ? 'début' : 'fin' }} est nécessaire</mat-error>
+</mat-form-field>

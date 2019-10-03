@@ -17,24 +17,24 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './simple.component.html',
   styleUrls: ['./simple.component.scss']
 })
-export class SimpleComponent implements OnInit {  
+export class SimpleComponent implements OnInit {
   public settings: Settings;
   public form: FormGroup;
   public swTouch = false;
-  
+
   public planComptable: DtoDC10[];
   public planComptableString: string[];
   public planComptable6String: string[];
 
   constructor(
-        public appSettings:AppSettings,
+        public appSettings: AppSettings,
         private route: ActivatedRoute,
         public fb: FormBuilder,
         private snackBar: MatSnackBar,
         private router: Router,
         private serviceTGZ001: ServiceTGZ001,
         private serviceTGC003: ServiceTGC003) {
-    this.settings = this.appSettings.settings; 
+    this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
