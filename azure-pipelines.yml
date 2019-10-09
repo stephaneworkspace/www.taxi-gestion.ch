@@ -82,6 +82,10 @@ steps:
     command: 'install'
     workingDir: './TaxiGestion/ClientApp/'
 
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.6'
+
 #ubuntu
 #- script: dotnet restore
 #  displayName: 'dotnet restore'
