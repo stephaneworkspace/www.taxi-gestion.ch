@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class DialogPeriodeComptaDialog implements OnInit {
 
     public form: FormGroup;
+    public swTouch = false;
 
     constructor(
         public dialogRef: MatDialogRef<DialogPeriodeComptaDialog>,
@@ -33,6 +34,6 @@ export class DialogPeriodeComptaDialog implements OnInit {
     }
 
     onSubmit() {
-
+        this.swTouch = true;
     }
 }
