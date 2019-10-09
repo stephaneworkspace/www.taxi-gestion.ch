@@ -79,7 +79,7 @@
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng build --prod --configuration=staging --build-optimizer" /> <!-- node ./node_modules/@angular/cli/bin/ng build /-/-max-old-space-size=4096 -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="node --max-old-space-size=4096 ./node_modules/@angular/cli/bin/ng build --prod" /> <!-- node ./node_modules/@angular/cli/bin/ng build /-/-max-old-space-size=4096 -->
     <!-- voir original ici ca change -->
     
     <!-- Include the newly-built files in the publish output -->
