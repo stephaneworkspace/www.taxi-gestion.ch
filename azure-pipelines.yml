@@ -32,7 +32,7 @@ steps:
 
 - task: CmdLine@2
   inputs:
-    script: export NODE_OPTIONS=--max_old_space_size=4096
+    script: 'export NODE_OPTIONS=--max_old_space_size=4096'
 
 - task: CmdLine@2
   inputs:
@@ -77,14 +77,19 @@ steps:
     feedsToUse: 'select'
   displayName: Restore
 
+- task: NodeTool@0 
+  inputs:
+    versionSpec: '12.6'
+
 - task: Npm@1
   inputs:
     command: 'install'
     workingDir: './TaxiGestion/ClientApp/'
 
-- task: NodeTool@0 
+- task: CmdLine@2
   inputs:
-    versionSpec: '12.6'
+    script:
+      'npm install @angular/cli -g'
 
 #ubuntu
 #- script: dotnet restore
