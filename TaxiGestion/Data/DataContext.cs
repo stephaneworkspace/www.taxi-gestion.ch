@@ -36,6 +36,10 @@ namespace TaxiGestion.Data
             /* Authentification */
             modelBuilder.ApplyConfiguration(new DA01UtilisateurConfiguration());
 
+
+            /* Config */
+            modelBuilder.ApplyConfiguration(new DA20ConfigConfiguration());
+
             /* Comptabilité */
             modelBuilder.ApplyConfiguration(new DC01ClasseConfiguration());
             modelBuilder.ApplyConfiguration(new DC02GroupeConfiguration());
