@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.openDialog();
+    //this.openDialog();
   }
 
   openDialog(): void {
