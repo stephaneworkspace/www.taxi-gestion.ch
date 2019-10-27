@@ -17,6 +17,9 @@ namespace TaxiGestion.Data
         public DbSet<DA01Utilisateur> DA01Utilisateur { get; set; }
         public DbSet<DA10Client> DA10Client { get; set; }
 
+        /* Config */
+        public DbSet<DA20Config> DA20Config { get; set; }
+
         /* Comptabilité */
         public DbSet<DC01Classe> DC01Classe { get; set; }
         public DbSet<DC02Groupe> DC02Groupe { get; set; }
