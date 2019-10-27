@@ -27,6 +27,7 @@ using TaxiGestion.Data.Repository.Affichage;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using TaxiGestion.Data.Repository.Config;
 
 namespace TaxiGestion
 {
@@ -95,6 +96,7 @@ namespace TaxiGestion
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddScoped<IAuthentificationRepository, AuthentificationRepository>();
+            services.AddScoped<IConfigRepository, ConfigRepository>();
             services.AddScoped<IJournalisationRepository, JournalisationRepostiory>();
             services.AddScoped<IBilanRepository, BilanRepository>();
             services.AddScoped<IGestionEcritureJournalRepository, GestionEcritureJournalRepository>();

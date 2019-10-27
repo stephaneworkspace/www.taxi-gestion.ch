@@ -23,6 +23,9 @@ namespace TaxiGestion.Mappings
                 .AfterMap((a, b) => {
                     b.PrenomNom = a.Client.Prenom + " " + a.Client.NomDeFamille;
             });
+            
+            // TGA002 Config
+            CreateMap<DA20Config, DtoTGA002OutDA20ConfigForSelect>();
 
             // TGC001 Bilan
             // BIlan écran
