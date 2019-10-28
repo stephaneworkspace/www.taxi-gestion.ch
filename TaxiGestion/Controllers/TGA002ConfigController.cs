@@ -41,5 +41,19 @@ namespace TaxiGestion.Controllers
             var itemDto = _mapper.Map<DtoTGA002OutDA20ConfigForSelect>(item);
             return Ok(itemDto);
         }
+
+        [HttpPost("config")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "Ok")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Impossible de configuer les données de base")]
+        public async Task<IActionResult> PostConfig(DtoTGA002InpDA20ConfigForWrite dto)
+        {
+            var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var noClient = await _authRepo.NoClient(noUser);
+            var newRecord = await _repo.WritePeriodeComptaEncours(noClient, dto);
+            if (newRecord == null)
+                return BadRequest("Impossible de configuer les données de base");
+            else
+                return Ok();
+        }
     }
 }
