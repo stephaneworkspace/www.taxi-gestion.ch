@@ -13,9 +13,10 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { DialogPeriodeComptaDialog } from './dialog/dialog-periode-compta';
 import { InputDateExerciceComptFormFieldComponent } from 'src/app/_modules/form-field/input/date-exercice-compta/input-date-exercice-compta.component';
 import { MatInputModule, MatFormFieldModule } from '@angular/material';
+import { ConfigResolver } from 'src/app/_resolver/config/config.resolver';
 
 export const routes = [
-  { path: '', component: DashboardComponent, pathMatch: 'full' }
+  { path: '', component: DashboardComponent, pathMatch: 'full', resolve: { items: ConfigResolver } }
 ];
 
 @NgModule({

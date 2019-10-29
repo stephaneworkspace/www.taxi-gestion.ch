@@ -41,7 +41,7 @@ export const routes = [
     ReactiveFormsModule
   ],
   declarations: [
-    BilanEcranComponent, 
+    BilanEcranComponent,
     SaisieEcrituresComponent,
     SimpleComponent,
     JournaliserComponent,

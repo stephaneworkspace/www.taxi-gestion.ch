@@ -45,6 +45,7 @@ import { ComptabilitePlanComptableResolver } from './_resolver/comptabilite/plan
 import { ComptabiliteListeEcrituresResolver } from './_resolver/comptabilite/liste-ecritures-journal.resolver';
 import { TGC003SaisieEcrituresService } from './_services/TGC003SaisieEcrituresService';
 import { DecimalPipe } from '@angular/common';
+import { ConfigResolver } from './_resolver/config/config.resolver';
 
 @NgModule({
   imports: [
@@ -95,6 +96,7 @@ import { DecimalPipe } from '@angular/common';
     ComptabiliteBilanEcranResolver,
     ComptabilitePlanComptableResolver,
     ComptabiliteListeEcrituresResolver,
+    ConfigResolver
   ],
   bootstrap: [AppComponent]
 })
