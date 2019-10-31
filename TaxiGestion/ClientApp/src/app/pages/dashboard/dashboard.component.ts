@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
       this.dA21Config = data['config'];
       // undefined === no record DA21Config
       console.log(data);
-      if (this.dA21Config === undefined) {
+      if (this.dA21Config === undefined || this.dA21Config === null) {
         this.openDialog();
       }
     });
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    if (this.dA21Config === undefined) {
+    if (this.dA21Config === undefined || this.dA21Config === null) {
       const year: number = new Date().getFullYear();
       dialogConfig.data = {
         periodeComptaDateDebut: new Date(year, 1 - 1, 1), // range month = 0-11
