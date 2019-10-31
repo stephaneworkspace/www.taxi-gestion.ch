@@ -18,7 +18,7 @@ namespace TaxiGestion.Data
         public DbSet<DA10Client> DA10Client { get; set; }
 
         /* Config */
-        public DbSet<DA20Config> DA20Config { get; set; }
+        public DbSet<DA21Config> DA21Config { get; set; }
 
         /* Comptabilité */
         public DbSet<DC01Classe> DC01Classe { get; set; }
@@ -38,7 +38,7 @@ namespace TaxiGestion.Data
 
 
             /* Config */
-            modelBuilder.ApplyConfiguration(new DA20ConfigConfiguration());
+            modelBuilder.ApplyConfiguration(new DA21ConfigConfiguration());
 
             /* Comptabilité */
             modelBuilder.ApplyConfiguration(new DC01ClasseConfiguration());

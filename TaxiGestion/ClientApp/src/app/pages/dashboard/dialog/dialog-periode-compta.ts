@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, AfterContentChecked, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormFieldControl, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DtoTGA002InpDA20ConfigForWrite as DtoDA20 } from 'src/app/_dto/TGA/DtoTGA002InpDA20ConfigForWrite';
+import { DtoTGA002InpDA21ConfigForWrite as DtoDA21 } from 'src/app/_dto/TGA/DtoTGA002InpDA21ConfigForWrite';
 import { TGA002ConfigService } from 'src/app/_services/TGA002ConfigService';
 
 @Component({
@@ -11,7 +11,7 @@ import { TGA002ConfigService } from 'src/app/_services/TGA002ConfigService';
 // tslint:disable-next-line: component-class-suffix
 export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
 
-    public dataFromDb: DtoDA20;
+    public dataFromDb: DtoDA21;
     public form: FormGroup;
     public swTouch = false;
     public swLoaded = false;
@@ -62,7 +62,7 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
         // Envoi du formulaire
         if (this.form.valid
         && this.form.controls.dateExerciceCompta.valid) {
-            const dto: DtoDA20 = {
+            const dto: DtoDA21 = {
                 periodeComptaDateDebut: this.form.controls.dateExerciceCompta.get('dateExerciceComptaDebut').value,
                 periodeComptaDateFin: this.form.controls.dateExerciceCompta.get('dateExerciceComptaFin').value,
             };

@@ -3,9 +3,6 @@
 <div mat-dialog-content>
     <p>Veuillez définir la date de début et de fin clôture</p>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="swLoaded">
-        <!--<mat-form-field>
-            <input matInput tabindex="1" [(ngModel)]="data.animal">
-        </mat-form-field>-->
         <app-input-date-exercice-compta-form-field
             [type]="0" 
             [formGroup]="form.get('dateExerciceCompta')" 
@@ -24,6 +21,6 @@
     </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="data.animal" tabindex="2">Ok</button>
-  <button mat-button (click)="onNoClick()" tabindex="-1">Plus tard</button>
+    <button mat-button [disabled]="!this.form.valid" (click)="onSubmit()" tabindex="2">Ok</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Plus tard</button>
 </div>

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TaxiGestion.Models
+namespace TaxiGestion.Dto.TGA
 {
-    public class DA20Config
+    public class DtoTGA002InpDA21ConfigForWrite
     {
-        public int NoClient { get; set; }
         public DateTime PeriodeComptaDateDebut { get; set; }
         public DateTime PeriodeComptaDateFin { get; set; }
     }

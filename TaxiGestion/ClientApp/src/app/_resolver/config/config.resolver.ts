@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
-import { DtoTGA002OutDA20ConfigForSelect as Dto } from '../../_dto/TGA/DtoTGA002OutDA20ConfigForSelect';
+import { DtoTGA002OutDA21ConfigForSelect as Dto } from '../../_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
 
 import { TGA002ConfigService as Service } from '../../_services/TGA002ConfigService';
 

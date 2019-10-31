@@ -4,7 +4,7 @@ import { Settings } from '../../app.settings.model';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { DialogPeriodeComptaDialog } from './dialog/dialog-periode-compta';
 import { ActivatedRoute } from '@angular/router';
-import { DtoTGA002OutDA20ConfigForSelect as Dto } from 'src/app/_dto/TGA/DtoTGA002OutDA20ConfigForSelect';
+import { DtoTGA002OutDA21ConfigForSelect as Dto } from 'src/app/_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ import { DtoTGA002OutDA20ConfigForSelect as Dto } from 'src/app/_dto/TGA/DtoTGA0
 })
 export class DashboardComponent implements OnInit {
 
-  private dA20Config: Dto;
+  private dA21Config: Dto;
 
   public settings: Settings;
   constructor(public appSettings: AppSettings,
@@ -24,14 +24,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.dA20Config = data['config'];
-      // undefined, no record DA20COnfig
-      if (this.dA20Config === undefined) {
-        this.openDialog(); // => dialogRef.afterClosed().subscribe(result => {
+      this.dA21Config = data['config'];
+      // undefined === no record DA21Config
+      console.log(data);
+      if (this.dA21Config === undefined) {
+        this.openDialog();
       }
-      // if (this.dA20Congig.periodeComptaDateDebut < 20180101)
-      // if (this.dA20Congig.periodeComptaDateFin < 20180101)
-      //console.log(this.dA020Config);
     });
   }
 
@@ -42,16 +40,17 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    if (this.dA20Config === undefined) {
+    if (this.dA21Config === undefined) {
       const year: number = new Date().getFullYear();
       dialogConfig.data = {
-        periodeComptaDateDebut: new Date(year, 1, 1),
-        periodeComptaDateFin: new Date(year, 12, 31),
+        periodeComptaDateDebut: new Date(year, 1 - 1, 1), // range month = 0-11
+        periodeComptaDateFin: new Date(year, 12 - 1, 31), // range month = 0-11
       }
     } else {
+      // not used in dashboard
       dialogConfig.data = {
-        periodeComptaDateDebut: this.dA20Config.periodeComptaDateDebut,
-        periodeComptaDateFin: this.dA20Config.periodeComptaDateFin
+        periodeComptaDateDebut: this.dA21Config.periodeComptaDateDebut,
+        periodeComptaDateFin: this.dA21Config.periodeComptaDateFin
       };
     }
 
@@ -61,7 +60,7 @@ export class DashboardComponent implements OnInit {
     });*/
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // this.animal = result;
     });
   }

@@ -1,4 +1,4 @@
-export interface DtoTGA002OutDA20ConfigForSelect {
+export interface DtoTGA002InpDA21ConfigForWrite {
     periodeComptaDateDebut: Date;
     periodeComptaDateFin: Date;
 }

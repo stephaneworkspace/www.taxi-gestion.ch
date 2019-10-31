@@ -32,20 +32,20 @@ namespace TaxiGestion.Controllers
         }
 
         [HttpGet("config")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(DtoTGA002OutDA20ConfigForSelect), Description = "Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, typeof(DtoTGA002OutDA21ConfigForSelect), Description = "Ok")]
         public async Task<IActionResult> GetConfig()
         {
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var noClient = await _authRepo.NoClient(noUser);
             var item = await _repo.PeriodeComptaEnCours(noClient);
-            var itemDto = _mapper.Map<DtoTGA002OutDA20ConfigForSelect>(item);
+            var itemDto = _mapper.Map<DtoTGA002OutDA21ConfigForSelect>(item);
             return Ok(itemDto);
         }
 
         [HttpPost("config")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Impossible de configuer les données de base")]
-        public async Task<IActionResult> PostConfig(DtoTGA002InpDA20ConfigForWrite dto)
+        public async Task<IActionResult> PostConfig(DtoTGA002InpDA21ConfigForWrite dto)
         {
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var noClient = await _authRepo.NoClient(noUser);

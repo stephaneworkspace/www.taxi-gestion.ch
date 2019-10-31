@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TaxiGestion.Data;
 
 namespace TaxiGestion.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191031221023_FixDA20Rollback")]
+    partial class FixDA20Rollback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,10 +97,12 @@ namespace TaxiGestion.Migrations
                     b.ToTable("DA10Client");
                 });
 
-            modelBuilder.Entity("TaxiGestion.Models.DA21Config", b =>
+            modelBuilder.Entity("TaxiGestion.Models.DA20Config", b =>
                 {
                     b.Property<int>("NoClient")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("PeriodeComptaDateDebut")
                         .HasColumnType("datetime2");
@@ -108,7 +112,7 @@ namespace TaxiGestion.Migrations
 
                     b.HasKey("NoClient");
 
-                    b.ToTable("DA21Config");
+                    b.ToTable("DA20Config");
                 });
 
             modelBuilder.Entity("TaxiGestion.Models.DC01Classe", b =>

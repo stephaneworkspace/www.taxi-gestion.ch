@@ -42,28 +42,32 @@ namespace TaxiGestion.Data.Repository.Config
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<DA20Config> PeriodeComptaEnCours(int noClient)
+        public async Task<DA21Config> PeriodeComptaEnCours(int noClient)
         {
-            return await _context.DA20Config.FirstOrDefaultAsync(x => (x.NoClient == noClient));
+            return await _context.DA21Config.FirstOrDefaultAsync(x => (x.NoClient == noClient));
         }
 
-        public async Task<DA20Config> WritePeriodeComptaEncours(int noClient, DtoTGA002InpDA20ConfigForWrite dto)
+        public async Task<DA21Config> WritePeriodeComptaEncours(int noClient, DtoTGA002InpDA21ConfigForWrite dto)
         {
-            DA20Config item = await _context.DA20Config.FirstOrDefaultAsync(x => (x.NoClient == noClient));
-            var recordDA20 = new DA20Config()
+            DA21Config item = await _context.DA21Config.FirstOrDefaultAsync(x => (x.NoClient == noClient));
+            var recordDA21 = new DA21Config()
             {
                 NoClient = noClient,
                 PeriodeComptaDateDebut = dto.PeriodeComptaDateDebut,
                 PeriodeComptaDateFin = dto.PeriodeComptaDateFin
             };
             if (item == null)
-                Add<DA20Config>(recordDA20);
+                Add<DA21Config>(recordDA21);
             else
-                Update<DA20Config>(recordDA20);
+            {
+                item.PeriodeComptaDateDebut = recordDA21.PeriodeComptaDateDebut;
+                item.PeriodeComptaDateFin = recordDA21.PeriodeComptaDateFin;
+                Update<DA21Config>(item);
+            }
             if (!await SaveAll())
                 return null;
             else
-                return recordDA20;
+                return recordDA21;
         }
     }
 }

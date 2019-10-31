@@ -14,7 +14,7 @@ namespace TaxiGestion.Data.Repository.Config
     /// </summary>
     public interface IConfigRepository
     {
-        Task<DA20Config> PeriodeComptaEnCours(int noClient);
-        Task<DA20Config> WritePeriodeComptaEncours(int noClient, DtoTGA002InpDA20ConfigForWrite dto);
+        Task<DA21Config> PeriodeComptaEnCours(int noClient);
+        Task<DA21Config> WritePeriodeComptaEncours(int noClient, DtoTGA002InpDA21ConfigForWrite dto);
     }
 }

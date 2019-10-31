@@ -25,7 +25,7 @@ namespace TaxiGestion.Mappings
             });
             
             // TGA002 Config
-            CreateMap<DA20Config, DtoTGA002OutDA20ConfigForSelect>();
+            CreateMap<DA21Config, DtoTGA002OutDA21ConfigForSelect>();
 
             // TGC001 Bilan
             // BIlan écran

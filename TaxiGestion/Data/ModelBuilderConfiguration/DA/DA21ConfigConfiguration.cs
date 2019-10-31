@@ -8,11 +8,12 @@ using TaxiGestion.Models;
 
 namespace TaxiGestion.Data.ModelBuilderConfiguration.DA
 {
-    internal class DA20ConfigConfiguration : IEntityTypeConfiguration<DA20Config>
+    internal class DA21ConfigConfiguration : IEntityTypeConfiguration<DA21Config>
     {
-        public void Configure(EntityTypeBuilder<DA20Config> builder)
+        public void Configure(EntityTypeBuilder<DA21Config> builder)
         {
             builder.HasKey(x => new { x.NoClient });
+            builder.Property(x => x.NoClient).ValueGeneratedNever();
         }
     }
 }

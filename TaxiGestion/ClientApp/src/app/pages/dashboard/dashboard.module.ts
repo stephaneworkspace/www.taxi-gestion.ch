@@ -16,7 +16,7 @@ import { MatInputModule, MatFormFieldModule } from '@angular/material';
 import { ConfigResolver } from 'src/app/_resolver/config/config.resolver';
 
 export const routes = [
-  { path: '', component: DashboardComponent, pathMatch: 'full', resolve: { items: ConfigResolver } }
+  { path: '', component: DashboardComponent, pathMatch: 'full', resolve: { config: ConfigResolver } }
 ];
 
 @NgModule({
