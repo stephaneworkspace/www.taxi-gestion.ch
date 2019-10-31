@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.dA21Config = data['config'];
       // undefined === no record DA21Config
-      //console.log(data);
+      // console.log(data);
       if (this.dA21Config === undefined || this.dA21Config === null) {
         this.openDialog();
       }
