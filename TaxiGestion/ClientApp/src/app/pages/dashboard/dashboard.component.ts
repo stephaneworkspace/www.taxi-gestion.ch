@@ -26,9 +26,9 @@ export class DashboardComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.dA20Config = data['config'];
       // undefined, no record DA20COnfig
-      /*if (this.dA20Config === undefined) {
-        this.openDialog(); => dialogRef.afterClosed().subscribe(result => {
-      }*/
+      if (this.dA20Config === undefined) {
+        this.openDialog(); // => dialogRef.afterClosed().subscribe(result => {
+      }
       // if (this.dA20Congig.periodeComptaDateDebut < 20180101)
       // if (this.dA20Congig.periodeComptaDateFin < 20180101)
       //console.log(this.dA020Config);
@@ -42,10 +42,18 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
-    dialogConfig.data = {
-        id: 1,
-        title: 'Angular For Beginners'
-    };
+    if (this.dA20Config === undefined) {
+      const year: number = new Date().getFullYear();
+      dialogConfig.data = {
+        periodeComptaDateDebut: new Date(year, 1, 1),
+        periodeComptaDateFin: new Date(year, 12, 31),
+      }
+    } else {
+      dialogConfig.data = {
+        periodeComptaDateDebut: this.dA20Config.periodeComptaDateDebut,
+        periodeComptaDateFin: this.dA20Config.periodeComptaDateFin
+      };
+    }
 
     // let
     const dialogRef = this.dialog.open(DialogPeriodeComptaDialog, dialogConfig); /* {

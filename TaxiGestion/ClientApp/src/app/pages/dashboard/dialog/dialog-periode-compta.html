@@ -2,7 +2,7 @@
 <h1 mat-dialog-title>Veuillez définir la période de l'exercice comptable</h1>
 <div mat-dialog-content>
     <p>Veuillez définir la date de début et de fin clôture</p>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="swLoaded">
         <!--<mat-form-field>
             <input matInput tabindex="1" [(ngModel)]="data.animal">
         </mat-form-field>-->

@@ -65,7 +65,7 @@ export class InputPieceFormField implements OnInit {
     alert('À faire')
   }
 
-  blueNoPiece() {
+  blurNoPiece() {
     let re = /[^0-9]/g;
     let str = this.formGroup.get(this.fbNoPiece).value;
     if (str == null)

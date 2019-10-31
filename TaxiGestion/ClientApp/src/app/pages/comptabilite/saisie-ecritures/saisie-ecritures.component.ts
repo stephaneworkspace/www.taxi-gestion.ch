@@ -27,7 +27,7 @@ export class SaisieEcrituresComponent implements OnInit {
   public settings: Settings;
 
   constructor(
-    public appSettings:AppSettings, 
+    public appSettings: AppSettings,
     private route: ActivatedRoute,
     public router: Router,
     private service: Service

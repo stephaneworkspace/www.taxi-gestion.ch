@@ -21,6 +21,7 @@ export enum TypeExericeCompta {
 export class InputDateExerciceComptFormFieldComponent {
   @Input() type: TypeExericeCompta;
   @Input() formGroup: FormGroup;
+  localGroup: FormGroup;
   @Input() fbDate: string;
   // tslint:disable-next-line: variable-name
   private _touch: boolean;
@@ -36,7 +37,7 @@ export class InputDateExerciceComptFormFieldComponent {
   }
 
   // Datepicker start date
-  startDate = new Date((new Date()).getFullYear(), this.type ? 1 : 12, this.type ? 1 : 31);
+  // startDate = new Date((new Date()).getFullYear(), this.type ? 1 : 12, this.type ? 1 : 31);
 
   // Datepicker with min & max validation
   minDate = new Date(2010, 0, 1);
@@ -46,10 +47,11 @@ export class InputDateExerciceComptFormFieldComponent {
   events: string[] = [];
 
   // Datepicker with filter validation
+  /*
   myFilter = (d: Date): boolean => {
     const day = d.getDay();
     return day !== 0 && day !== 6;
-  }
+  }*/
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
