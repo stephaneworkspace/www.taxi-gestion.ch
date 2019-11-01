@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit, AfterContentChecked, ChangeDetectorRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatFormFieldControl, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldControl, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DtoTGA002InpDA21ConfigForWrite as DtoDA21 } from 'src/app/_dto/TGA/DtoTGA002InpDA21ConfigForWrite';
 import { TGA002ConfigService } from 'src/app/_services/TGA002ConfigService';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dialog-period-compta',
@@ -16,24 +17,43 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
     public swTouch = false;
     public swLoaded = false;
 
+  /**
+   * Constructor
+   * @param dialogRef MatDialogRef de type DialogPeriodeComptaDialog
+   * @param fb Injection form builder reactif
+   * @param router Injection router
+   * @param serviceTGA002 Injection TGA002ConfigService service
+   * @param snackBar Injection Mat snack bar
+   * @param cdref Injection ChangeDetectorRef, voir methode this.ngAfterContentChecked()
+   * @returns void
+   */
     constructor(
         public dialogRef: MatDialogRef<DialogPeriodeComptaDialog>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public fb: FormBuilder,
+        private router: Router,
         private serviceTGA002: TGA002ConfigService,
         private snackBar: MatSnackBar,
-        private cdref: ChangeDetectorRef) { // For remove error, form valid
+        private cdref: ChangeDetectorRef) { 
             this.dataFromDb = {
                 periodeComptaDateDebut: data.periodeComptaDateDebut,
                 periodeComptaDateFin: data.periodeComptaDateFin
             };
         }
 
-    // For remove error, form valid
+    /**
+     * Supprimer une erreur dans la console du navigateur
+     * en relation avec le formulaire en ralation avecpatchValue de ngOnInit
+     * @return void
+     */
     ngAfterContentChecked(): void {
         this.cdref.detectChanges();
     }
 
+    /**
+     * On init
+     * Chargement du form group réactif
+     */
     ngOnInit(): void {
         this.form  = this.fb.group({
             // tslint:disable-next-line: object-literal-key-quotes
@@ -53,10 +73,17 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
         this.swLoaded = true;
     }
 
+    /**
+     * Fermeture du popup avec comme retour à close() -> close(null)
+     * @retunr void
+     */
     onNoClick(): void {
-        this.dialogRef.close();
+        this.dialogRef.close(null);
     }
 
+    /**
+     * Traitement du formulaire
+     */
     onSubmit() {
         this.swTouch = true;
         // Envoi du formulaire
@@ -78,6 +105,7 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
                   duration: 7000,
                   panelClass: ['error-snackbar']
                 });
+                this.router.navigate(['/index']);
             });
         }
     }

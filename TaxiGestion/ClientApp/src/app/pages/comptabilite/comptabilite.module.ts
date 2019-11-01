@@ -20,7 +20,7 @@ import { InputMontantFormField } from 'src/app/_modules/form-field/input/montant
 import { InputLibelleFormField } from 'src/app/_modules/form-field/input/libelle/input-libelle.component';
 import { InputDateEcritureFormField } from 'src/app/_modules/form-field/input/date-ecriture/input-date-ecriture.component';
 import { InputPieceFormField } from 'src/app/_modules/form-field/input/piece/input-piece.component';
-import { DialogPeriodeComptaDialog } from '../dashboard/dialog/dialog-periode-compta';
+import { DialogPeriodeComptaDialog } from './dialog/dialog-periode-compta';
 import { InputDateExerciceComptFormFieldComponent } from 'src/app/_modules/form-field/input/date-exercice-compta/input-date-exercice-compta.component';
 import { ConfigResolver } from 'src/app/_resolver/config/config.resolver';
 

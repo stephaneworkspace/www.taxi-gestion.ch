@@ -16,9 +16,6 @@ export const routes = [
     path: '',
     component: DashboardComponent,
     pathMatch: 'full',
-    /*resolve: {
-      config: ConfigResolver
-    }*/
   }
 ];
 
@@ -38,11 +35,6 @@ export const routes = [
     DiskSpaceComponent,
     TodoComponent,
     AnalyticsComponent,
-    // DialogPeriodeComptaDialog,
-    // InputDateExerciceComptFormFieldComponent
   ],
-  entryComponents: [
-    // DialogPeriodeComptaDialog
-  ]
 })
 export class DashboardModule { }

@@ -11,7 +11,7 @@ import { DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll } from 'src/app/_dto
 
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { DtoTGA002OutDA21ConfigForSelect } from 'src/app/_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
-import { DialogPeriodeComptaDialog } from '../../dashboard/dialog/dialog-periode-compta';
+import { DialogPeriodeComptaDialog } from '../dialog/dialog-periode-compta';
 
 export enum StatusWindows {
   Bilan,
@@ -90,6 +90,8 @@ export class BilanEcranComponent implements OnInit {
 
  /**
   * On init
+  * Chargement DA21Config, sécurité pour la période comptable
+  * Puis ensuite chargement du bilan en commencant par les classes (this.loadClasses())
   * @returns void
   */
   ngOnInit(): void {
@@ -131,6 +133,10 @@ export class BilanEcranComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === null) {
         this.router.navigate(['/index']);
+        this.snackBar.open('Impossible de travailler avec la comptabilité', 'Configuration manquante', {
+          duration: 7000,
+          panelClass: ['error-snackbar']
+        });
       }
     });
   }
@@ -160,11 +166,11 @@ export class BilanEcranComponent implements OnInit {
       this.classes = new Array();
       this.classes = this.service.computeClasse(this.items);
       this.classesBilan = this.classes.filter((x) => {
-        return(x.noClasse == 1 || x.noClasse == 2) 
+        return(x.noClasse === 1 || x.noClasse === 2);
       });
       this.totalBilan = this.service.computeTotalBilan(this.classesBilan);
       this.classesExploitation = this.classes.filter((x) => {
-        return(x.noClasse != 1 && x.noClasse != 2) 
+        return(x.noClasse !== 1 && x.noClasse !== 2);
       });
       this.totalExploitation = this.service.computeTotalBilan(this.classesExploitation);
   }
