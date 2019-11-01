@@ -133,9 +133,9 @@ export class BilanEcranComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === null) {
         this.router.navigate(['/index']);
-        this.snackBar.open('Impossible de travailler avec la comptabilité', 'Configuration manquante', {
+        this.snackBar.open('Les date de période sont obligatoires', 'Configuration comptabilité', {
           duration: 7000,
-          panelClass: ['error-snackbar']
+          panelClass: ['warning-snackbar']
         });
       }
     });

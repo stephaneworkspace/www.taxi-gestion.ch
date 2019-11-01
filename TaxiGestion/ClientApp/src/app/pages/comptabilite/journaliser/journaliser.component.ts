@@ -63,10 +63,20 @@ export class JournaliserComponent implements OnInit {
   public pageSize = 10;
   public skip = 0;
 
+  /**
+   * Kendo grid
+   * @param pageIndex Index de la page
+   * @return void
+   */
   public sliderChange(pageIndex: number): void {
       this.skip = (pageIndex - 1) * this.pageSize;
   }
 
+  /**
+   * Kendo grid
+   * @param state Kendo grid state
+   * @return void
+   */
   public onPageChange(state: any): void {
       this.pageSize = state.take;
   }
@@ -120,9 +130,9 @@ export class JournaliserComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === null) {
         this.router.navigate(['/index']);
-        this.snackBar.open('Impossible de travailler avec la comptabilité', 'Configuration manquante', {
+        this.snackBar.open('Les date de période sont obligatoires', 'Configuration comptabilité', {
           duration: 7000,
-          panelClass: ['error-snackbar']
+          panelClass: ['warning-snackbar']
         });
       }
     });

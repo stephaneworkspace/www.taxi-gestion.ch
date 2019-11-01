@@ -34,7 +34,7 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
         private router: Router,
         private serviceTGA002: TGA002ConfigService,
         private snackBar: MatSnackBar,
-        private cdref: ChangeDetectorRef) { 
+        private cdref: ChangeDetectorRef) {
             this.dataFromDb = {
                 periodeComptaDateDebut: data.periodeComptaDateDebut,
                 periodeComptaDateFin: data.periodeComptaDateFin
