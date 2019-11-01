@@ -138,7 +138,7 @@ export class SimpleComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result === null) {
         this.router.navigate(['/index']);
-        this.snackBar.open('Les date de période sont obligatoires', 'Configuration comptabilité', {
+        this.snackBar.open('Dates de période obligatoires', 'Configuration comptabilité', {
           duration: 7000,
           panelClass: ['warning-snackbar']
         });
