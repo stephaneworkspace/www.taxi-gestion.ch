@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { AppSettings } from '../../../app.settings';
@@ -9,7 +9,9 @@ import { DtoTGC001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGC/DtoTG
 import { DtoTGC001OutDC21EcritureForList as DtoDC21 } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForList';
 import { DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForListColl';
 
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
+import { DtoTGA002OutDA21ConfigForSelect } from 'src/app/_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
+import { DialogPeriodeComptaDialog } from '../../dashboard/dialog/dialog-periode-compta';
 
 export enum StatusWindows {
   Bilan,
@@ -27,7 +29,7 @@ export enum StatusWindows {
 })
 export class BilanEcranComponent implements OnInit {
   public statusWindows: StatusWindows;
-  StatusWindows : typeof StatusWindows = StatusWindows;
+  StatusWindows: typeof StatusWindows = StatusWindows;
 
   public items: DtoDC10[];
   public classes: Classe[];
@@ -59,23 +61,84 @@ export class BilanEcranComponent implements OnInit {
 
   public settings: Settings;
 
+  // DA21Config
+  private dA21Config: DtoTGA002OutDA21ConfigForSelect;
+
+  // Resolver
+  private RESOLVER_DATA_CONFIG = 'config';
+  private RESOLVER_DATA_ITEMS = 'items';
+
+  /**
+   * Constructor
+   * @param appSettings Settings
+   * @param route Injection activated route
+   * @param service Injection TGC001Bilan service
+   * @param snackBar Injection Mat snack bar
+   * @param dialog Injection Mat dialog
+   * @param router Injection router
+   * @returns void
+   */
   constructor(
-    public appSettings:AppSettings, 
+    public appSettings: AppSettings,
     private route: ActivatedRoute,
     private service: TGC001BilanService,
-    public snackBar: MatSnackBar
-  ) {
-    this.settings = this.appSettings.settings; 
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private router: Router) {
+    this.settings = this.appSettings.settings;
  }
 
+ /**
+  * On init
+  * @returns void
+  */
   ngOnInit(): void {
-    this.statusWindows = StatusWindows["Bilan"];
+    this.statusWindows = StatusWindows.Bilan;
     this.route.data.subscribe(data => {
-      this.items = data['items'];
+      this.dA21Config = data[this.RESOLVER_DATA_CONFIG];
+      if (this.dA21Config === undefined || this.dA21Config === null) {
+        this.openDialog();
+      }
+      this.items = data[this.RESOLVER_DATA_ITEMS];
       this.loadClasses();
     });
   }
 
+  /**
+   * Dialog pour configuer les dates de la période comptable du bilan
+   * @param null aucune param
+   * @returns void
+   */
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    if (this.dA21Config === undefined || this.dA21Config === null) {
+      const year: number = new Date().getFullYear();
+      dialogConfig.data = {
+        periodeComptaDateDebut: new Date(year, 1 - 1, 1), // range month = 0-11
+        periodeComptaDateFin: new Date(year, 12 - 1, 31), // range month = 0-11
+      };
+    } else {
+      // technically not possible, is null or is valid, in backend logic
+      dialogConfig.data = {
+        periodeComptaDateDebut: this.dA21Config.periodeComptaDateDebut,
+        periodeComptaDateFin: this.dA21Config.periodeComptaDateFin
+      };
+    }
+    const dialogRef = this.dialog.open(DialogPeriodeComptaDialog, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === null) {
+        this.router.navigate(['/index']);
+      }
+    });
+  }
+
+  /**
+   * Refraichit le plan comptable
+   * @returns void
+   */
   btnClickRafraichir(): void {
     this.service.getPlanComptable().subscribe((res: DtoDC10[]) => {
       this.items = res.slice();
@@ -91,6 +154,7 @@ export class BilanEcranComponent implements OnInit {
   /**
    * Calcul en plusieurs étages du bilan (Classe -> Groupe -> Sous-Groupe -> Comptes)
    * Séparation du bilan et de l'exploitation
+   * @returns void
    */
   private loadClasses(): void {
       this.classes = new Array();
@@ -107,8 +171,9 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom in Bilan -> Classe
-   * @param e 
-   * @param dataItem 
+   * @param e Event
+   * @param dataItem Classe
+   * @return void
    */
   public classeZoomInClick(e: any, dataItem: Classe): void {
     this.classeSelect = dataItem;
@@ -122,6 +187,7 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom out Classe -> Bilan
+   * @returns void
    */
   public classeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Bilan;
@@ -129,8 +195,9 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom in Classe -> Groupe
-   * @param e 
-   * @param dataItem 
+   * @param e Event
+   * @param dataItem Groupe
+   * @return void
    */
   public groupeZoomInClick(e: any, dataItem: Groupe): void {
     this.groupeSelect = dataItem;
@@ -144,6 +211,7 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom out Groupe -> Classe
+   * @returns void
    */
   public groupeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Classe;
@@ -154,10 +222,11 @@ export class BilanEcranComponent implements OnInit {
     this.sortGroupesChange(this.sort);
   }
 
-    /**
+  /**
    * Zoom in Groupe -> Sous-groupe
-   * @param e 
-   * @param dataItem 
+   * @param e Event
+   * @param dataItem Sous groupe
+   * @return void
    */
   public sousGroupeZoomInClick(e: any, dataItem: SousGroupe): void {
     this.sousGroupeSelect = dataItem;
@@ -171,6 +240,7 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom out Sous-groupe -> Groupe
+   * @return void
    */
   public sousGroupeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Groupe;
@@ -181,6 +251,12 @@ export class BilanEcranComponent implements OnInit {
     this.sortSousGroupesChange(this.sort);
   }
 
+  /**
+   * Zoom in Compte
+   * @param e Event
+   * @param dataItem Compte
+   * @return void
+   */
   public compteZoomInClick(e: any, dataItem: Compte): void {
     this.service.getEcritures(dataItem.noCompte).subscribe((res: DtoDC21[]) => {
       this.selectionEcritures = this.service.computeEcriture(res);
@@ -209,6 +285,7 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom out Compte -> Sous-Groupe
+   * @return void
    */
   public compteZoomOutClick(): void {
     this.statusWindows = StatusWindows.SousGroupe;
@@ -222,12 +299,13 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Zoom in Détail du compte
-   * @param e 
-   * @param dataItem 
+   * @param e Event
+   * @param dataItem Ecriture
+   * @return void
    */
   public compteDetailZoomInClick(e: any, dataItem: Ecriture): void {
     this.ecritureSelect = dataItem;
-    if (dataItem.swEcritureCollective == dataItem.swEcritureCollective) {
+    if (dataItem.swEcritureCollective === dataItem.swEcritureCollective) {
       this.service.getEcrituresCollective(dataItem.noEcritureCollective).subscribe((res: DtoDC21Coll[]) => {
         this.selectionEcrituresCollective = this.service.computeEcritureCollective(res);
         this.ecritureCollectiveMontant = this.service.computeEcritureCollectiveMontant(res);
@@ -250,13 +328,12 @@ export class BilanEcranComponent implements OnInit {
         });
       });
     }
- 
-
     this.statusWindows = StatusWindows.DetailCompte;
   }
 
   /**
    * Zoom out Détail compte -> Compte
+   * @return void
    */
   public compteDetailZoomOutClick(): void {
     this.statusWindows = StatusWindows.Compte;
@@ -269,7 +346,8 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Tri - Groupe
-   * @param sort 
+   * @param sort KendoSort SortDescriptor array
+   * @return void
    */
   public sortGroupesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
@@ -281,7 +359,8 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Tri - Sous-groupe
-   * @param sort 
+   * @param sort KendoSort SortDescriptor array
+   * @return void
    */
   public sortSousGroupesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
@@ -293,7 +372,8 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Tri - Compte
-   * @param sort 
+   * @param sort KendoSort SortDescriptor array
+   * @return void
    */
   public sortComptesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
@@ -305,7 +385,8 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Tri - Ecritures
-   * @param sort 
+   * @param sort KendoSort SortDescriptor array
+   * @return void
    */
   public sortEcrituresChange(sort: SortDescriptor[]): void {
     this.sort = sort;
@@ -317,7 +398,8 @@ export class BilanEcranComponent implements OnInit {
 
   /**
    * Tri - Ecritures
-   * @param sort 
+   * @param sort KendoSort SortDescriptor array
+   * @return void
    */
   public sortEcrituresCollectiveChange(sort: SortDescriptor[]): void {
     this.sortEcrituresCollective = sort;
@@ -326,9 +408,7 @@ export class BilanEcranComponent implements OnInit {
         total: this.selectionEcrituresCollective.length
     };
   }
-
   btnAfaire() {
     alert('À faire');
   }
-
 }

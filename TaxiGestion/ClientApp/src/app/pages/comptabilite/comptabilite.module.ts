@@ -20,13 +20,51 @@ import { InputMontantFormField } from 'src/app/_modules/form-field/input/montant
 import { InputLibelleFormField } from 'src/app/_modules/form-field/input/libelle/input-libelle.component';
 import { InputDateEcritureFormField } from 'src/app/_modules/form-field/input/date-ecriture/input-date-ecriture.component';
 import { InputPieceFormField } from 'src/app/_modules/form-field/input/piece/input-piece.component';
+import { DialogPeriodeComptaDialog } from '../dashboard/dialog/dialog-periode-compta';
+import { InputDateExerciceComptFormFieldComponent } from 'src/app/_modules/form-field/input/date-exercice-compta/input-date-exercice-compta.component';
+import { ConfigResolver } from 'src/app/_resolver/config/config.resolver';
 
 export const routes = [
   { path: '', redirectTo: 'bilan-ecran', pathMatch: 'full'},
-  { path: 'bilan-ecran', component: BilanEcranComponent, data: { breadcrumb: 'Bilan situation à l\'écran' }, resolve: { items: ComptabiliteBilanEcranResolver } },
-  { path: 'saisie-ecritures', component: SaisieEcrituresComponent, data: { breadcrumb: 'Saisie d\'écritures'}, resolve: { ecritures : ComptabiliteListeEcrituresResolver } },
-  { path: 'saisie-ecriture-simple', component: SimpleComponent, data: { breadcrumb: 'Saisie d\'écriture simple'}, resolve: { planComptable: ComptabilitePlanComptableResolver } },
-  { path: 'journaliser-ecritures', component: JournaliserComponent, data: { breadcrumb: 'Journaliser écritures'}, resolve: { ecritures : ComptabiliteListeEcrituresResolver } }
+  {
+    path: 'bilan-ecran',
+    component: BilanEcranComponent,
+    data: { breadcrumb: 'Bilan situation à l\'écran' },
+    resolve: {
+      config: ConfigResolver,
+      items: ComptabiliteBilanEcranResolver
+    }
+  },
+  {
+    path: 'saisie-ecritures',
+    component: SaisieEcrituresComponent,
+    data: { breadcrumb: 'Saisie d\'écritures'},
+    resolve: {
+      config: ConfigResolver,
+      ecritures : ComptabiliteListeEcrituresResolver
+    }
+  },
+  {
+    path: 'saisie-ecriture-simple',
+    component: SimpleComponent,
+    data: {
+      breadcrumb: 'Saisie d\'écriture simple'
+    },
+    resolve: {
+      config: ConfigResolver,
+      planComptable: ComptabilitePlanComptableResolver
+    }
+  },
+  {
+    path: 'journaliser-ecritures',
+    component: JournaliserComponent, data: {
+      breadcrumb: 'Journaliser écritures'
+    },
+    resolve: {
+      config: ConfigResolver,
+      ecritures : ComptabiliteListeEcrituresResolver
+    }
+  }
 ];
 
 @NgModule({
@@ -49,7 +87,12 @@ export const routes = [
     InputMontantFormField,
     InputLibelleFormField,
     InputDateEcritureFormField,
-    InputPieceFormField
+    InputPieceFormField,
+    DialogPeriodeComptaDialog,
+    InputDateExerciceComptFormFieldComponent
   ],
+  entryComponents: [
+    DialogPeriodeComptaDialog
+  ]
 })
 export class ComptabiliteModule { }

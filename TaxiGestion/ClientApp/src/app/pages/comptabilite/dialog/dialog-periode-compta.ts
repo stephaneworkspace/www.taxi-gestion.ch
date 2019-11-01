@@ -54,7 +54,7 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked  {
     }
 
     onNoClick(): void {
-        this.dialogRef.close(null);
+        this.dialogRef.close();
     }
 
     onSubmit() {

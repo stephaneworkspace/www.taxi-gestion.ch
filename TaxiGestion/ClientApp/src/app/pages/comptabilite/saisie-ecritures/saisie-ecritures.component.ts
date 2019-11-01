@@ -59,7 +59,7 @@ export class SaisieEcrituresComponent implements OnInit {
   }
 
   btnClickNouvelleEcritureSimple(): void {
-    this.router.navigate(['/index/comptabilite/saisie-ecriture-simple'])
+    this.router.navigate(['/index/comptabilite/saisie-ecriture-simple']);
   }
 
   btnClickNouvelleEcritureCollective(): void {

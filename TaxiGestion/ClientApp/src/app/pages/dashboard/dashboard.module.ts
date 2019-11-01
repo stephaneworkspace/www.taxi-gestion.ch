@@ -10,13 +10,16 @@ import { InfoCardsComponent } from './info-cards/info-cards.component';
 import { DiskSpaceComponent } from './disk-space/disk-space.component';
 import { TodoComponent } from './todo/todo.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { DialogPeriodeComptaDialog } from './dialog/dialog-periode-compta';
-import { InputDateExerciceComptFormFieldComponent } from 'src/app/_modules/form-field/input/date-exercice-compta/input-date-exercice-compta.component';
-import { MatInputModule, MatFormFieldModule } from '@angular/material';
-import { ConfigResolver } from 'src/app/_resolver/config/config.resolver';
 
 export const routes = [
-  { path: '', component: DashboardComponent, pathMatch: 'full', resolve: { config: ConfigResolver } }
+  {
+    path: '',
+    component: DashboardComponent,
+    pathMatch: 'full',
+    /*resolve: {
+      config: ConfigResolver
+    }*/
+  }
 ];
 
 @NgModule({
@@ -35,11 +38,11 @@ export const routes = [
     DiskSpaceComponent,
     TodoComponent,
     AnalyticsComponent,
-    DialogPeriodeComptaDialog,
-    InputDateExerciceComptFormFieldComponent
+    // DialogPeriodeComptaDialog,
+    // InputDateExerciceComptFormFieldComponent
   ],
   entryComponents: [
-    DialogPeriodeComptaDialog
+    // DialogPeriodeComptaDialog
   ]
 })
 export class DashboardModule { }
