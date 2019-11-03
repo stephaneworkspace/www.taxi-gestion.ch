@@ -4,3 +4,6 @@
 
 /.vs/TaxiGestion
 /TaxiGestion/bin/Debug/netcoreapp3.0
+/TaxiGestion/ClientApp/dist/*
+/TaxiGestion/obj/*
+/TaxiGestionUnit/obj/*
