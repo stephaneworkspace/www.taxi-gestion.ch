@@ -7,9 +7,9 @@ trigger:
   branches:
     include:
       - master
-      - releases/*
+      - release/*
     exclude:
-      - releases/old*
+      - release/old*
      
 pool:
   vmImage: 'ubuntu-latest'
