@@ -7,3 +7,5 @@
 /TaxiGestion/ClientApp/dist/*
 /TaxiGestion/obj/*
 /TaxiGestionUnit/obj/*
+/.vs/*
+/.vscode/*
