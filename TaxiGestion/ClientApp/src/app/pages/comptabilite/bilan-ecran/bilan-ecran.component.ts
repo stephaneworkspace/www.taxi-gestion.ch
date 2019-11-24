@@ -1,13 +1,41 @@
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
 import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
-import { TGC001BilanService, Bilan, Classe, Groupe, SousGroupe, Compte, Ecriture, EcritureCollective, EcritureCollectiveMontant } from '../../../_services/TGC001BilanService'
-import { DtoTGC001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGC/DtoTGC001OutDC10CompteForList';
-import { DtoTGC001OutDC21EcritureForList as DtoDC21 } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForList';
-import { DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForListColl';
+import { TGC001BilanService, Bilan, Classe, Groupe, SousGroupe, Compte, Ecriture, EcritureCollective, EcritureCollectiveMontant } from '../../../_services/TGC001BilanService';
+import { DtoTGC001OutDC10CompteForList as DtoDC10 } from '../../../../app/_dto/TGC/DtoTGC001OutDC10CompteForList';
+import { DtoTGC001OutDC21EcritureForList as DtoDC21 } from '../../../../app/_dto/TGC/DtoTGC001OutDC21EcritureForList';
+import { DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll } from '../../../../app/_dto/TGC/DtoTGC001OutDC21EcritureForListColl';
 
 import { MatSnackBar, MatDialog, MatDialogConfig } from '@angular/material';
 import { DtoTGA002OutDA21ConfigForSelect } from 'src/app/_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
@@ -30,7 +58,6 @@ export enum StatusWindows {
 export class BilanEcranComponent implements OnInit {
   public statusWindows: StatusWindows;
   StatusWindows: typeof StatusWindows = StatusWindows;
-
   public items: DtoDC10[];
   public classes: Classe[];
   public totalBilan: Bilan;
@@ -211,7 +238,7 @@ export class BilanEcranComponent implements OnInit {
       field: 'noSousGroupe',
       dir: 'asc'
     }];
-    this.sortSousGroupesChange(this.sort)
+    this.sortSousGroupesChange(this.sort);
     this.statusWindows = StatusWindows.Groupe;
   }
 
@@ -240,7 +267,7 @@ export class BilanEcranComponent implements OnInit {
       field: 'noCompte',
       dir: 'asc'
     }];
-    this.sortComptesChange(this.sort)
+    this.sortComptesChange(this.sort);
     this.statusWindows = StatusWindows.SousGroupe;
   }
 
@@ -274,7 +301,7 @@ export class BilanEcranComponent implements OnInit {
       this.sortEcrituresChange(this.sort);
       this.statusWindows = StatusWindows.Compte;
     }, error => {
-      this.selectionEcritures = this.service.computeEcriture(new Array())
+      this.selectionEcritures = this.service.computeEcriture(new Array());
       this.compteSelect = dataItem;
       this.sort = [{
         field: 'dateEcriture',
@@ -321,7 +348,7 @@ export class BilanEcranComponent implements OnInit {
         }];
         this.sortEcrituresCollectiveChange(this.sort);
       }, error => {
-        this.selectionEcrituresCollective = this.service.computeEcritureCollective(new Array())
+        this.selectionEcrituresCollective = this.service.computeEcritureCollective(new Array());
         this.ecritureCollectiveMontant = this.service.computeEcritureCollectiveMontant(new Array());
         this.sort = [{
           field: 'noEcriture',

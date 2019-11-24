@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DtoTGA002OutDA21ConfigForSelect } from '../_dto/TGA/DtoTGA002OutDA21ConfigForSelect';
 import { Observable } from 'rxjs';
