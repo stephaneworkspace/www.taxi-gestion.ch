@@ -65,9 +65,9 @@ steps:
           "LetsEncrypt": {
             "AcceptTermsOfService": true,
             "DomainNames": [ "www.taxi-gestion.ch", "taxi-gestion.ch" ],
-            "EmailAddress": $(email-letsencrypt)"
+            "EmailAddress": "$(email-letsencrypt)"
           }
-        }' >> ./TaxiGestion/appsettings.json
+      }' >> ./TaxiGestion/appsettings.json
 
 - task: NuGetToolInstaller@1
 
