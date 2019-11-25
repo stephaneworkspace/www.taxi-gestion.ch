@@ -65,7 +65,7 @@ steps:
           "LetsEncrypt": {
             "AcceptTermsOfService": true,
             "DomainNames": [ "www.taxi-gestion.ch", "taxi-gestion.ch" ],
-            "EmailAddress": "'$EMAIL-LETSENCRYPT'"
+            "EmailAddress": $(email-letsencrypt)"
           }
         }' >> ./TaxiGestion/appsettings.json
 
