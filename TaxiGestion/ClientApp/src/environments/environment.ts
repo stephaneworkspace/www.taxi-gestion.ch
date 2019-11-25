@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://localhost:44351/api/'
 };
+// https://localhost:44351/api/
 
 /*
  * For easier debugging in development mode, you can import the following file
