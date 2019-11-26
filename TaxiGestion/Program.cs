@@ -26,22 +26,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace TaxiGestion
 {
     static class Constants
     {
         // Définit si je travail en local en http avec debian notebook
-		// ou sur le web avec mon serveur https ou IIS sur windows 10
+        // ou sur le web avec mon serveur https ou IIS sur windows 10
         public const bool PROD = true;
     }
 
@@ -55,8 +49,8 @@ namespace TaxiGestion
 #pragma warning disable CS0162
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls(Constants.PROD 
-                        ? "http://0.0.0.0:80;https://0.0.0.0:443" 
+                .UseUrls(Constants.PROD
+                        ? "http://0.0.0.0:80;https://0.0.0.0:443"
                         : "http://0.0.0.0:80")
                 .UseStartup<Startup>();
 #pragma warning restore CS0162

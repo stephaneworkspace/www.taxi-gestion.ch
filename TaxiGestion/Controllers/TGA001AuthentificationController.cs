@@ -27,17 +27,14 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -172,10 +169,8 @@ namespace TaxiGestion.Controllers
                         + userCreate.Id + "/" + userCreate.MotDePasseEMailConfirmation);
                 message.IsBodyHtml = true;
                 message.Body = body;
-                using var client = new SmtpClient(_config.GetSection("Email:Smtp").Value)
-                {
-                    Port = Int32.Parse(_config.GetSection("Email:Port").Value)
-                };
+                var client = new SmtpClient(_config.GetSection("Email:Smtp").Value);
+                client.Port = Int32.Parse(_config.GetSection("Email:Port").Value);
                 client.Send(message);
             }
             return Ok();

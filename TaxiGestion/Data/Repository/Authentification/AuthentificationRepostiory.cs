@@ -35,7 +35,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using TaxiGestion.Dto.TGA;
 using TaxiGestion.Models;
 
 namespace TaxiGestion.Data.Repository.Authentification
@@ -128,7 +127,7 @@ namespace TaxiGestion.Data.Repository.Authentification
                                          out byte[] motDePasseHash, 
                                          out byte[] motDePasseSalt)
         {
-            using var hmac = new HMACSHA512();
+            var hmac = new HMACSHA512();
             motDePasseSalt = hmac.Key;
             motDePasseHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(motDePasse));
         }

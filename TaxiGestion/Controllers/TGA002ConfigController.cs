@@ -30,9 +30,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Security.Claims;
@@ -62,7 +59,9 @@ namespace TaxiGestion.Controllers
         }
 
         [HttpGet("config")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(DtoTGA002OutDA21ConfigForSelect), Description = "Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, 
+                         typeof(DtoTGA002OutDA21ConfigForSelect), 
+                         Description = "Ok")]
         public async Task<IActionResult> GetConfig()
         {
             var noUser = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

@@ -27,10 +27,6 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TaxiGestion.Data.ModelBuilderConfiguration.DA;
 using TaxiGestion.Data.ModelBuilderConfiguration.DC;
 using TaxiGestion.Models;

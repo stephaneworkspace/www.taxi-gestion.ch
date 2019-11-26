@@ -145,7 +145,7 @@ namespace TaxiGestion.Data
                     out byte[] motDePasseSalt
                 )
         {
-            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            var hmac = new System.Security.Cryptography.HMACSHA512();
             motDePasseSalt = hmac.Key;
             motDePasseHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(motDePasse));
         }

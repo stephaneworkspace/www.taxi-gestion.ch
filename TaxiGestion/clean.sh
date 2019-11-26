@@ -1,3 +1,4 @@
 #!/bin/bash
-cd obj/Debug/netcoreapp3.0/
-rm -rf Razor
+rm -rf .vs
+rm -rf obj
+rm -rf bin

@@ -26,20 +26,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using TaxiGestion.Data;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -51,7 +45,6 @@ using TaxiGestion.Mappings;
 using TaxiGestion.Data.Repository.Authentification;
 using TaxiGestion.Data.Repository.Comptabilite;
 using TaxiGestion.Data.Repository.Affichage;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using TaxiGestion.Data.Repository.Config;
@@ -123,8 +116,8 @@ namespace TaxiGestion
             .UseSqlServer(Configuration.
             GetConnectionString("DefaultConnection")));
             */
-            services.
-                AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, ServiceLifetime.Transient);
+            services
+                .AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, ServiceLifetime.Transient);
 
             services.AddOpenApiDocument(document => {
                 document.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
@@ -142,9 +135,8 @@ namespace TaxiGestion
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
-                                Configuration.GetSection("JWTSettings:Token").Value)
-                            ),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding
+                            .ASCII.GetBytes(Configuration.GetSection("JWTSettings:Token").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -235,7 +227,7 @@ namespace TaxiGestion
             });
 
             app.UseSpaStaticFiles();
-
+            
             app.UseRouting();
 
             /*

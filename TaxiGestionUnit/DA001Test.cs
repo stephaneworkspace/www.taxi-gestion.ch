@@ -75,7 +75,7 @@ namespace TaxiGestionUnit
                 CodePostal = "1224",
                 Lieu = "Chêne-Bougeries"
             };
-            using var context = new DataContext(this.DA001TestDbContext().Options);
+            var context = new DataContext(this.DA001TestDbContext().Options);
             // Connection au repository
             var repo = new AuthentificationRepository(context);
             context.Database.EnsureCreated();

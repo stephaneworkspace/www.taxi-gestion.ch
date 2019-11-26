@@ -27,20 +27,16 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NSwag.Annotations;
 using TaxiGestion.Data.Repository.Authentification;
 using TaxiGestion.Data.Repository.Comptabilite;
 using TaxiGestion.Dto.TGC;
-using TaxiGestion.Models;
 
 namespace TaxiGestion.Controllers
 {

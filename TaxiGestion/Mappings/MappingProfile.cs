@@ -27,10 +27,7 @@
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 using AutoMapper;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TaxiGestion.Dto.TGA;
 using TaxiGestion.Dto.TGC;
 using TaxiGestion.Dto.TGZ;
