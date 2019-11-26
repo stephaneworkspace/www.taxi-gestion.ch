@@ -1,4 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +65,8 @@ namespace TaxiGestion.Data.Repository.Comptabilite
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<DC30EcritureJournal>> ListeEnAttenteDeJournalisation(int noClient, int noUtilisateur)
+        public async Task<List<DC30EcritureJournal>> ListeEnAttenteDeJournalisation(int noClient, 
+                                                                                    int noUtilisateur)
         {
             return await _context.DC30EcritureJournal
                 .Where(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur))
@@ -46,7 +75,8 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                 .ToListAsync();
         }
 
-        public async Task<DC31EcritureCollectiveJournal> SaisieEcritureSimple(int noClient, int noUtilisateur, DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple dto)
+        public async Task<DC31EcritureCollectiveJournal> SaisieEcritureSimple(int noClient, 
+                int noUtilisateur, DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcritureSimple dto)
         {
             var recordDC31 = new DC31EcritureCollectiveJournal()
             {
@@ -94,7 +124,11 @@ namespace TaxiGestion.Data.Repository.Comptabilite
             if (!await SaveAll())
                 return null;
             return await _context.DC31EcritureCollectiveJournal
-                .FirstOrDefaultAsync(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur) && (x.NoEcritureCollectiveJournal == nextDC31));
+                .FirstOrDefaultAsync(x => 
+                        (x.NoClient == noClient) 
+                        && (x.NoUtilisateur == noUtilisateur) 
+                        && (x.NoEcritureCollectiveJournal == nextDC31)
+                    );
         }
     }
 }

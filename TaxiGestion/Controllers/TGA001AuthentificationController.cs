@@ -1,4 +1,32 @@
-﻿using System;
+﻿/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
@@ -79,7 +107,9 @@ namespace TaxiGestion.Controllers
             "1258"
         };
 
-        public TGA001AuthentificationController(IAuthentificationRepository repo, IMapper mapper, IConfiguration config)
+        public TGA001AuthentificationController(IAuthentificationRepository repo, 
+                                                IMapper mapper, 
+                                                IConfiguration config)
         {
             _repo = repo;
             _mapper = mapper;
@@ -96,17 +126,23 @@ namespace TaxiGestion.Controllers
         /// <returns></returns>
         [HttpPost("inscription")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(void), Description = "Ok")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "L'utilisateur « Nom » existe déjà")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "L'e-mail « E-Mail » existe déjà")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, 
+                         typeof(string), 
+                         Description = "L'utilisateur « Nom » existe déjà")]
+        [SwaggerResponse(HttpStatusCode.BadRequest, 
+                         typeof(string), 
+                         Description = "L'e-mail « E-Mail » existe déjà")]
         public async Task<IActionResult> Inscription(DtoTGA001InpDA01UtilisateurPourInscription dto)
         {
             dto.NomUtilisateur = dto.NomUtilisateur.ToLower();
             if (await _repo.UtilisateurExiste(dto.NomUtilisateur))
-                return BadRequest($"L'utilisateur « { tinfo.ToTitleCase(dto.NomUtilisateur) } » existe déjà");
+                return BadRequest
+                    ($"L'utilisateur « { tinfo.ToTitleCase(dto.NomUtilisateur) } » existe déjà");
             if (await _repo.EmailExiste(dto.Email))
                 return BadRequest($"L'e-mail « { dto.Email } » existe déjà");
             if (!Array.Exists(this._npa4Array, x => x == dto.CodePostal))
-                return BadRequest($"Le code postal « { dto.CodePostal } » n'est pas supporté par cette application");
+                return BadRequest
+                    ($"Le code postal « { dto.CodePostal } » n'est pas supporté par cette application");
             var userToCreate = new DA01Utilisateur
             {
                 NomUtilisateur = dto.NomUtilisateur,
@@ -123,13 +159,17 @@ namespace TaxiGestion.Controllers
 
             using (var message = new MailMessage())
             {
-                message.To.Add(new MailAddress(userCreate.EMail, userCreate.Client.Prenom + " " + userCreate.Client.NomDeFamille));
+                message.To.Add(new MailAddress(userCreate.EMail, 
+                                    userCreate.Client.Prenom + " " + userCreate.Client.NomDeFamille));
                 message.From = new MailAddress("info@taxi-gestion.ch", "Taxi Gestion");
-                message.Subject = "TaxiGestion - Veuillez confirmer votre e-mail pour activer votre compte";
+                message.Subject = 
+                    "TaxiGestion - Veuillez confirmer votre e-mail pour activer votre compte";
                 string body = System.IO.File.ReadAllText("EMail/confirmation-email-client.html");
                 body = body.Replace("#Prenom#", userCreate.Client.Prenom);
                 body = body.Replace("#Nom#", userCreate.Client.NomDeFamille);
-                body = body.Replace("#Url#", "https://www.taxi-gestion.ch/e-mail/confirmation-inscription/" + userCreate.Id + "/" + userCreate.MotDePasseEMailConfirmation);
+                body = body.Replace("#Url#", 
+                        "https://www.taxi-gestion.ch/e-mail/confirmation-inscription/" 
+                        + userCreate.Id + "/" + userCreate.MotDePasseEMailConfirmation);
                 message.IsBodyHtml = true;
                 message.Body = body;
                 using var client = new SmtpClient(_config.GetSection("Email:Smtp").Value)
@@ -148,8 +188,12 @@ namespace TaxiGestion.Controllers
         /// <returns></returns>
         [HttpPost("login")]
         [SwaggerResponse(HttpStatusCode.OK, typeof(DtoDA01UserOutputForLoginReturn), Description = "Ok")]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "Pas autorisé à se connecter")]
-        [SwaggerResponse(HttpStatusCode.Unauthorized, typeof(string), Description = "L'e-mail n'a pas été validé")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, 
+                         typeof(string), 
+                         Description = "Pas autorisé à se connecter")]
+        [SwaggerResponse(HttpStatusCode.Unauthorized, 
+                         typeof(string), 
+                         Description = "L'e-mail n'a pas été validé")]
         public async Task<IActionResult> Login(DtoTGA001InpDA01UserForLogin dto)
         {
             var userFromRepo = await _repo.Login(dto.NomUtilisateur, dto.MotDePasse);
@@ -162,7 +206,9 @@ namespace TaxiGestion.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.NomUtilisateur)
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("JWTSettings:Token").Value));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                        _config.GetSection("JWTSettings:Token").Value)
+                    );
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -194,7 +240,8 @@ namespace TaxiGestion.Controllers
         }
 
         /// <summary>
-        /// Vérification si l'e-mail (unique virtuelement, je laisse la possibilliter de bricoler) est disponible
+        /// Vérification si l'e-mail 
+        /// (unique virtuelement, je laisse la possibilliter de bricoler) est disponible
         /// </summary>
         /// <param name="dto">Dto</param>
         /// <returns></returns>
@@ -212,7 +259,9 @@ namespace TaxiGestion.Controllers
         /// <param name="code"></param>
         /// <returns></returns>
         [HttpPost("email-confirmation-inscription/{idUtilisateur}/{code}")]
-        [SwaggerResponse(HttpStatusCode.OK, typeof(DtoTGA001OutDA01UtilisateurForEmailConfirmationInscription), Description = "Ok")]
+        [SwaggerResponse(HttpStatusCode.OK, 
+                         typeof(DtoTGA001OutDA01UtilisateurForEmailConfirmationInscription), 
+                         Description = "Ok")]
         [SwaggerResponse(HttpStatusCode.BadRequest, typeof(string), Description = "Code faux")]
         public async Task<IActionResult> EMailConfirmationInscription(int idUtilisateur, string code)
         {

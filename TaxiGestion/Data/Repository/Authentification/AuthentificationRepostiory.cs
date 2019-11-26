@@ -1,4 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,7 +51,9 @@ namespace TaxiGestion.Data.Repository.Authentification
 
         public async Task<DA01Utilisateur> Login(string nomUtilisateur, string password)
         {
-            var user = await _context.DA01Utilisateur.FirstOrDefaultAsync(x => x.NomUtilisateur == nomUtilisateur);
+            var user = await _context.DA01Utilisateur.FirstOrDefaultAsync(x => 
+                    x.NomUtilisateur == nomUtilisateur
+                );
             if (user == null)
             {
                 return null;
@@ -35,7 +65,9 @@ namespace TaxiGestion.Data.Repository.Authentification
             return user;
         }
 
-        private bool VerificationMotDePasseHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        private bool VerificationMotDePasseHash(string password, 
+                                                byte[] passwordHash, 
+                                                byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512(passwordSalt))
             {
@@ -55,7 +87,9 @@ namespace TaxiGestion.Data.Repository.Authentification
         /// <param name="record">Donnée nom d'utilisateur</param>
         /// <param name="motDePasse">Mot de passe</param>
         /// <returns></returns>
-        public async Task<DA01Utilisateur> Inscription(DA01Utilisateur record, DA10Client recordClient, string motDePasse)
+        public async Task<DA01Utilisateur> Inscription(DA01Utilisateur record, 
+                                                       DA10Client recordClient, 
+                                                       string motDePasse)
         {
             var recordDA10 = new DA10Client()
             {
@@ -79,7 +113,8 @@ namespace TaxiGestion.Data.Repository.Authentification
             {
                 byte[] sourceBytes = Encoding.UTF8.GetBytes(record.DateCreation.ToString());
                 byte[] hashBytes = sha512Hash.ComputeHash(sourceBytes);
-                record.MotDePasseEMailConfirmation = BitConverter.ToString(hashBytes).Replace("-", String.Empty);
+                record.MotDePasseEMailConfirmation = BitConverter
+                    .ToString(hashBytes).Replace("-", String.Empty);
             }
             await _context.DA01Utilisateur.AddAsync(record);
             await _context.SaveChangesAsync();
@@ -89,7 +124,9 @@ namespace TaxiGestion.Data.Repository.Authentification
             return await _context.DA01Utilisateur.FirstOrDefaultAsync(x => x.Id == record.Id);
         }
 
-        private void CreerMotDePasseHash(string motDePasse, out byte[] motDePasseHash, out byte[] motDePasseSalt)
+        private void CreerMotDePasseHash(string motDePasse, 
+                                         out byte[] motDePasseHash, 
+                                         out byte[] motDePasseSalt)
         {
             using var hmac = new HMACSHA512();
             motDePasseSalt = hmac.Key;
@@ -127,11 +164,14 @@ namespace TaxiGestion.Data.Repository.Authentification
                     await _context.SaveChangesAsync();
                     // Compta
                     // Classes
-                    var dataDC01 = File.ReadAllText("Data/Repository/Json/DC01Classe.json", Encoding.GetEncoding("iso-8859-1"));
+                    var dataDC01 = File.ReadAllText("Data/Repository/Json/DC01Classe.json", 
+                                                    Encoding.GetEncoding("iso-8859-1"));
                     var itemsDC01 = JsonConvert.DeserializeObject<List<DC01Classe>>(dataDC01);
                     foreach (var itemDC01 in itemsDC01)
                     {
-                        if (!_context.DC01Classe.Any(x => (x.NoClient == item.IdClient) && (x.NoClasse == itemDC01.NoClasse)))
+                        if (!_context.DC01Classe.Any(x => 
+                                    (x.NoClient == item.IdClient) && (x.NoClasse == itemDC01.NoClasse))
+                                )
                         {
                             itemDC01.NoClient = item.IdClient;
                             await _context.DC01Classe.AddAsync(itemDC01);
@@ -139,11 +179,14 @@ namespace TaxiGestion.Data.Repository.Authentification
                     }
                     await _context.SaveChangesAsync();
                     // Groupe
-                    var dataDC02 = File.ReadAllText("Data/Repository/Json/DC02Groupe.json", Encoding.GetEncoding("iso-8859-1"));
+                    var dataDC02 = File.ReadAllText("Data/Repository/Json/DC02Groupe.json", 
+                                                    Encoding.GetEncoding("iso-8859-1"));
                     var itemsDC02 = JsonConvert.DeserializeObject<List<DC02Groupe>>(dataDC02);
                     foreach (var itemDC02 in itemsDC02)
                     {
-                        if (!_context.DC02Groupe.Any(x => (x.NoClient == item.IdClient) && (x.NoGroupe == itemDC02.NoGroupe)))
+                        if (!_context.DC02Groupe.Any(x => 
+                                    (x.NoClient == item.IdClient) && (x.NoGroupe == itemDC02.NoGroupe))
+                                )
                         {
                             itemDC02.NoClient = item.IdClient;
                             await _context.DC02Groupe.AddAsync(itemDC02);
@@ -151,11 +194,14 @@ namespace TaxiGestion.Data.Repository.Authentification
                     }
                     await _context.SaveChangesAsync();
                     // Sous-groupe
-                    var dataDC03 = File.ReadAllText("Data/Repository/Json/DC03SousGroupe.json", Encoding.GetEncoding("iso-8859-1"));
+                    var dataDC03 = File.ReadAllText("Data/Repository/Json/DC03SousGroupe.json", 
+                                                    Encoding.GetEncoding("iso-8859-1"));
                     var itemsDC03 = JsonConvert.DeserializeObject<List<DC03SousGroupe>>(dataDC03);
                     foreach (var itemDC03 in itemsDC03)
                     {
-                        if (!_context.DC03SousGroupe.Any(x => (x.NoClient == item.IdClient) && (x.NoSousGroupe == itemDC03.NoSousGroupe)))
+                        if (!_context.DC03SousGroupe.Any(x => 
+                                    (x.NoClient == item.IdClient) 
+                                    && (x.NoSousGroupe == itemDC03.NoSousGroupe)))
                         {
                             itemDC03.NoClient = item.IdClient;
                             await _context.DC03SousGroupe.AddAsync(itemDC03);
@@ -163,11 +209,13 @@ namespace TaxiGestion.Data.Repository.Authentification
                     }
                     await _context.SaveChangesAsync();
                     // Compte
-                    var dataDC10 = File.ReadAllText("Data/Repository/Json/DC10Compte.json", Encoding.GetEncoding("iso-8859-1"));
+                    var dataDC10 = File.ReadAllText("Data/Repository/Json/DC10Compte.json", 
+                                                    Encoding.GetEncoding("iso-8859-1"));
                     var itemsDC10 = JsonConvert.DeserializeObject<List<DC10Compte>>(dataDC10);
                     foreach (var itemDC10 in itemsDC10)
                     {
-                        if (!_context.DC10Compte.Any(x => (x.NoClient == item.IdClient) && (x.NoCompte == itemDC10.NoCompte)))
+                        if (!_context.DC10Compte.Any(x => 
+                                    (x.NoClient == item.IdClient) && (x.NoCompte == itemDC10.NoCompte)))
                         {
                             itemDC10.NoClient = item.IdClient;
                             await _context.DC10Compte.AddAsync(itemDC10);
