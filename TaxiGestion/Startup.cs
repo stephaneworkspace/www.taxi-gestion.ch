@@ -124,13 +124,10 @@ namespace TaxiGestion
             GetConnectionString("DefaultConnection")));
             */
             services.
-                AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, 
-                                          ServiceLifetime.Transient);
+                AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, ServiceLifetime.Transient);
 
             services.AddOpenApiDocument(document => {
-                document.AddSecurity("JWT", 
-                                     Enumerable.Empty<string>(), 
-                                     new OpenApiSecurityScheme
+                document.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
                     Name = "Authorization",
@@ -140,17 +137,14 @@ namespace TaxiGestion
                 document.OperationProcessors.Add(
                     new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding
-                            .ASCII
-                            .GetBytes(Configuration
-                                      .GetSection("JWTSettings:Token").Value)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
+                                Configuration.GetSection("JWTSettings:Token").Value)
+                            ),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -162,23 +156,16 @@ namespace TaxiGestion
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddScoped<IAuthentificationRepository, 
-                               AuthentificationRepository>();
-            services.AddScoped<IConfigRepository, 
-                               ConfigRepository>();
-            services.AddScoped<IJournalisationRepository, 
-                               JournalisationRepostiory>();
-            services.AddScoped<IBilanRepository, 
-                               BilanRepository>();
-            services.AddScoped<IGestionEcritureJournalRepository, 
-                               GestionEcritureJournalRepository>();
-            services.AddScoped<IAffichageRepository, 
-                               AffichageRepository>();
+            services.AddScoped<IAuthentificationRepository, AuthentificationRepository>();
+            services.AddScoped<IConfigRepository, ConfigRepository>();
+            services.AddScoped<IJournalisationRepository, JournalisationRepostiory>();
+            services.AddScoped<IBilanRepository, BilanRepository>();
+            services.AddScoped<IGestionEcritureJournalRepository, GestionEcritureJournalRepository>();
+            services.AddScoped<IAffichageRepository, AffichageRepository>();
             services.AddTransient<Seed>();
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", 
-                            options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
         }
 
@@ -186,19 +173,16 @@ namespace TaxiGestion
         /// Méthode de séparation pour ef
         /// </summary>
         /// <param name="options"></param>
-        private void SetDbContextOptionsForEnvironment(DbContextOptionsBuilder 
-                                                       options)
+        private void SetDbContextOptionsForEnvironment(DbContextOptionsBuilder options)
         {
             options.UseLazyLoadingProxies();
             if (_env == "prod")
             {
-                options.UseSqlServer(Configuration.
-                                     GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }
             else
             {
-                options.UseSqlServer(Configuration.
-                                     GetConnectionString("DevConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
             }
         }
 
@@ -244,7 +228,8 @@ namespace TaxiGestion
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                        Path.Combine(Directory.GetCurrentDirectory(), "EMail")
+                        Path.Combine(Directory.GetCurrentDirectory(), "EMail"
+                    )
                 ),
                 RequestPath = "/EMail"
             });
@@ -283,24 +268,18 @@ namespace TaxiGestion
             var swSeed = false;
             if (swSeed)
             {
-                seeder.SeedDA01UtilisateurStephane(out int userStephane, 
-                                                   out int userClientStephane);
+                seeder.SeedDA01UtilisateurStephane(out int userStephane, out int userClientStephane);
                 seeder.SeedDC01Classe(userClientStephane);
                 seeder.SeedDC02Groupe(userClientStephane);
                 seeder.SeedDC03SousGroupe(userClientStephane);
                 seeder.SeedDC10Compte(userClientStephane);
-                seeder.SeedDC31EcritureCollectiveJournal(userClientStephane, 
-                                                         userStephane, 
-                                                         "Stephane");
-                seeder.SeedDA01UtilisateurPedro(out int userPedro, 
-                                                out int userClientPedro);
+                seeder.SeedDC31EcritureCollectiveJournal(userClientStephane, userStephane, "Stephane");
+                seeder.SeedDA01UtilisateurPedro(out int userPedro, out int userClientPedro);
                 seeder.SeedDC01Classe(userClientPedro);
                 seeder.SeedDC02Groupe(userClientPedro);
                 seeder.SeedDC03SousGroupe(userClientPedro);
                 seeder.SeedDC10Compte(userClientPedro);
-                seeder.SeedDC31EcritureCollectiveJournal(userClientPedro, 
-                                                         userPedro, 
-                                                         "Pedro");
+                seeder.SeedDC31EcritureCollectiveJournal(userClientPedro, userPedro, "Pedro");
             }
 
             app.UseEndpoints(endpoints =>

@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <!-- https://stackoverflow.com/questions/45851229/entity-framework-core-2-0-add-migration-doesnt-create-any-migration-files 
+        
+    <!-- https://stackoverflow.com/questions/45851229/entity-framework-core-2-0-add-migration-doesnt-create-any-migration-files -->
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles> 
     <RuntimeFrameworkVersion>3.0.0</RuntimeFrameworkVersion>
-    -->
+
+    <!-- end -->
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
