@@ -10,20 +10,20 @@ COPY ["TaxiGestion/TaxiGestion.csproj", "TaxiGestion/"]
 RUN dotnet restore "TaxiGestion/TaxiGestion.csproj"
 
 # Setup NodeJs
-RUN apt-get update && \
-    apt-get install -y wget && \
-    apt-get install -y gnupg2 && \
-    wget -qO- https://deb.nodesource.com/setup_10.x | bash - && \
-    apt-get install -y build-essential nodejs
+# RUN apt-get update && \
+#    apt-get install -y wget && \
+#    apt-get install -y gnupg2 && \
+#    wget -qO- https://deb.nodesource.com/setup_10.x | bash - && \
+#    apt-get install -y build-essential nodejs
 
 COPY . .
 
 #RUN dotnet dev-certs https --clean
 #RUN dotnet dev-certs https -ep /src/TaxiGestion/dev_cert.pfx -p 123456
 
-WORKDIR "/src/TaxiGestion/ClientApp"
-RUN npm cache clean --force
-RUN npm install -g @angular/cli
+# WORKDIR "/src/TaxiGestion/ClientApp"
+# RUN npm cache clean --force
+# RUN npm install -g @angular/cli
 
 WORKDIR "/src/TaxiGestion"
 #RUN dotnet build "TaxiGestion.csproj" -c Release -o /app/build

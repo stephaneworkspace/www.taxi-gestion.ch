@@ -1,65 +1,104 @@
-import {Component, ViewEncapsulation, ViewChild, HostListener, ElementRef} from '@angular/core';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
-  selector: 'app-fullscreen',
-  encapsulation: ViewEncapsulation.None,
-  template: `
+  selector : 'app-fullscreen',
+  encapsulation : ViewEncapsulation.None,
+  template : `
     <button mat-icon-button class="full-screen">
         <mat-icon *ngIf="!toggle" #expand>fullscreen</mat-icon>
         <mat-icon *ngIf="toggle" #compress>fullscreen_exit</mat-icon>
-    </button> 
+    </button>
   `
 })
-export class FullScreenComponent { 
-    toggle:boolean = false;
-    @ViewChild('expand', { static: false }) private expand:ElementRef;
-    @ViewChild('compress', { static: false }) private compress:ElementRef; 
-   
-    requestFullscreen(elem) {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            elem.webkitRequestFullscreen();
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
-        } else {
-            console.log('Fullscreen API is not supported.');
-        }
-    };
+export class FullScreenComponent implements OnInit {
+  private toggle: boolean;
+  @ViewChild('expand', {static : false}) private expand: ElementRef;
+  @ViewChild('compress', {static : false}) private compress: ElementRef;
 
-    exitFullscreen() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        } else {
-            console.log('Fullscreen API is not supported.');
-        }
-    };
+  public ngOnInit() { this.toggle = false; }
 
-    @HostListener('click') getFullscreen(){
-        if(this.expand){
-            this.requestFullscreen(document.documentElement);
-        }
-        if(this.compress){
-            this.exitFullscreen();
-        }
+  public requestFullscreen(elem) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else {
+      console.log('Fullscreen API is not supported.');
     }
+  }
 
-    @HostListener('window:resize') onFullScreenChange(){
-        let fullscreenElement = document.fullscreenElement || document.mozFullScreenElement ||
-                                document.webkitFullscreenElement || document.msFullscreenElement;
-        if (fullscreenElement != null) {
-            this.toggle = true;
-        } else {
-            this.toggle = false;          
-        }
-    }   
+  public exitFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else {
+      console.log('Fullscreen API is not supported.');
+    }
+  }
 
+  @HostListener('click')
+  public getFullscreen() {
+    if (this.expand) {
+      this.requestFullscreen(document.documentElement);
+    }
+    if (this.compress) {
+      this.exitFullscreen();
+    }
+  }
+
+  @HostListener('window:resize')
+  public onFullScreenChange() {
+    const fullscreenElement =
+        document.fullscreenElement || document.mozFullScreenElement ||
+        document.webkitFullscreenElement || document.msFullscreenElement;
+    if (fullscreenElement != null) {
+      this.toggle = true;
+    } else {
+      this.toggle = false;
+    }
+  }
 }

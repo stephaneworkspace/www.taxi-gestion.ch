@@ -1,71 +1,97 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-import { environment } from '../../../../environments/environment'
-
-import { Menu } from './menu.model';
-import { verticalMenuItems, verticalMenuItemsSmall, horizontalMenuItems } from './menu';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {Location} from '@angular/common';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
+import {
+  horizontalMenuItems,
+  verticalMenuItems,
+  verticalMenuItemsSmall
+} from './menu';
+import {Menu} from './menu.model';
 
 @Injectable()
 export class MenuService {
 
-  constructor(private location:Location,
-              private router:Router){ } 
-    
-  public getVerticalMenuItems():Array<Menu> {
+  public constructor(private location: Location, private router: Router) {}
+
+  public getVerticalMenuItems(): Array<Menu> {
     return environment.production ? verticalMenuItemsSmall : verticalMenuItems;
   }
 
-  public getHorizontalMenuItems():Array<Menu> {
-    return horizontalMenuItems;
-  }
+  public getHorizontalMenuItems(): Array<Menu> { return horizontalMenuItems; }
 
-  public expandActiveSubMenu(menu:Array<Menu>){
-      let url = this.location.path();
-      let routerLink = url; // url.substring(1, url.length);
-      let activeMenuItem = menu.filter(item => item.routerLink === routerLink);
-      if(activeMenuItem[0]){
-        let menuItem = activeMenuItem[0];
-        while (menuItem.parentId != 0){  
-          let parentMenuItem = menu.filter(item => item.id == menuItem.parentId)[0];
-          menuItem = parentMenuItem;
-          this.toggleMenuItem(menuItem.id);
-        }
+  public expandActiveSubMenu(menu: Array<Menu>) {
+    const url = this.location.path();
+    const routerLink = url; // url.substring(1, url.length);
+    const activeMenuItem = menu.filter(item => item.routerLink === routerLink);
+    if (activeMenuItem[0]) {
+      let menuItem = activeMenuItem[0];
+      while (menuItem.parentId !== 0) {
+        const parentMenuItem =
+            menu.filter(item => item.id === menuItem.parentId)[0];
+        menuItem = parentMenuItem;
+        this.toggleMenuItem(menuItem.id);
       }
-  }
-
-  public toggleMenuItem(menuId){
-    let menuItem = document.getElementById('menu-item-'+menuId);
-    let subMenu = document.getElementById('sub-menu-'+menuId);  
-    if(subMenu){
-      if(subMenu.classList.contains('show')){
-        subMenu.classList.remove('show');
-        menuItem.classList.remove('expanded');
-      }
-      else{
-        subMenu.classList.add('show');
-        menuItem.classList.add('expanded');
-      }      
     }
   }
 
-  public closeOtherSubMenus(menu:Array<Menu>, menuId){
-    let currentMenuItem = menu.filter(item => item.id == menuId)[0]; 
-    if(currentMenuItem.parentId == 0 && !currentMenuItem.target){
+  public toggleMenuItem(menuId) {
+    const menuItem = document.getElementById('menu-item-' + menuId);
+    const subMenu = document.getElementById('sub-menu-' + menuId);
+    if (subMenu) {
+      if (subMenu.classList.contains('show')) {
+        subMenu.classList.remove('show');
+        menuItem.classList.remove('expanded');
+      } else {
+        subMenu.classList.add('show');
+        menuItem.classList.add('expanded');
+      }
+    }
+  }
+
+  public closeOtherSubMenus(menu: Array<Menu>, menuId) {
+    const currentMenuItem = menu.filter(item => item.id === menuId)[0];
+    if (currentMenuItem.parentId === 0 && !currentMenuItem.target) {
       menu.forEach(item => {
-        if(item.id != menuId){
-          let subMenu = document.getElementById('sub-menu-'+item.id);
-          let menuItem = document.getElementById('menu-item-'+item.id);
-          if(subMenu){
-            if(subMenu.classList.contains('show')){
+        if (item.id !== menuId) {
+          const subMenu = document.getElementById('sub-menu-' + item.id);
+          const menuItem = document.getElementById('menu-item-' + item.id);
+          if (subMenu) {
+            if (subMenu.classList.contains('show')) {
               subMenu.classList.remove('show');
               menuItem.classList.remove('expanded');
-            }              
-          } 
+            }
+          }
         }
       });
     }
   }
-  
-
 }

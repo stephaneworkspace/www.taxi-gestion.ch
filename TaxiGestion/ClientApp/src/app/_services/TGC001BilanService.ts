@@ -1,41 +1,63 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment'
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { DtoTGC001OutDC10CompteForList as DtoDC10 } from 'src/app/_dto/TGC/DtoTGC001OutDC10CompteForList';
-import { DtoTGC001OutDC21EcritureForList as DtoDC21 } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForList';
-import { DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll } from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForListColl';
-
-import { Observable } from 'rxjs';
-// import { map } from 'rxjs/operators';
-import numeral from 'numeral';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {SortDescriptor} from '@progress/kendo-data-query';
 import * as moment from 'moment';
-import { SortDescriptor } from '@progress/kendo-data-query';
+import numeral from 'numeral';
+import {Observable} from 'rxjs';
+import {
+  DtoTGC001OutDC10CompteForList as DtoDC10
+} from 'src/app/_dto/TGC/DtoTGC001OutDC10CompteForList';
+import {
+  DtoTGC001OutDC21EcritureForList as DtoDC21
+} from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForList';
+import {
+  DtoTGC001OutDC21EcritureForListColl as DtoDC21Coll
+} from 'src/app/_dto/TGC/DtoTGC001OutDC21EcritureForListColl';
+import {environment} from '../../environments/environment';
 
 try {
   numeral.register('locale', 'fr-ch', {
-    delimiters: {
-        thousands: '\'',
-        decimal: ','
-    },
-    abbreviations: {
-        thousand: 'k',
-        million: 'm',
-        billion: 'b',
-        trillion: 't'
-    },
-    ordinal : function (number) {
-        return number === 1 ? 'er' : 'ème';
-    },
-    currency: {
-        symbol: 'CHF'
-    }
+    delimiters : {thousands : '\'', decimal : ','},
+    abbreviations :
+        {thousand : 'k', million : 'm', billion : 'b', trillion : 't'},
+    ordinal(nr) { return nr === 1 ? 'er' : 'ème'; },
+    currency : {symbol : 'CHF'}
   });
   // switch between locales
   numeral.locale('fr-ch'); // http://numeraljs.com/#custom-formats fr-ch
-} catch (e) {}
+} catch (e) {
+}
 
 // moment
-moment.locale('fr-ch')
+moment.locale('fr-ch');
 
 export interface Bilan {
   debit: number;
@@ -146,50 +168,62 @@ export interface EcritureCollectiveMontant {
   soldeString: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({providedIn : 'root'})
 export class TGC001BilanService {
-  baseUrl = environment.apiUrl;
-  httpOptions = {};
+  private baseUrl = environment.apiUrl;
+  private httpOptions = {};
 
-  constructor(private http: HttpClient) {}
+  public constructor(private http: HttpClient) {}
 
-  setHeaders() {
+  private setHeaders() {
     this.httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-      })
+      headers : new HttpHeaders(
+          {Authorization : 'Bearer ' + localStorage.getItem('token')})
     };
   }
 
-  getPlanComptable(): Observable<DtoDC10[]> {
+  public getPlanComptable(): Observable<DtoDC10[]> {
     this.setHeaders();
-    return this.http.get<DtoDC10[]>(this.baseUrl + 'TGC001Bilan/bilan-ecran', this.httpOptions);
+    return this.http.get<DtoDC10[]>(this.baseUrl + 'TGC001Bilan/bilan-ecran',
+                                    this.httpOptions);
   }
 
-  getEcritures(noCompte: number): Observable<DtoDC21[]> {
+  public getEcritures(noCompte: number): Observable<DtoDC21[]> {
     this.setHeaders();
-    return this.http.get<DtoDC21[]>(this.baseUrl + 'TGC001Bilan/ecritures-compte/' + noCompte, this.httpOptions);
+    return this.http.get<DtoDC21[]>(
+        this.baseUrl + 'TGC001Bilan/ecritures-compte/' + noCompte,
+        this.httpOptions);
   }
 
-  getEcrituresCollective(noEcritureCollective: number): Observable<DtoDC21Coll[]> {
+  public getEcrituresCollective(noEcritureCollective: number):
+      Observable<DtoDC21Coll[]> {
     this.setHeaders();
-    return this.http.get<DtoDC21Coll[]>(this.baseUrl + 'TGC001Bilan/ecriture-collective/' + noEcritureCollective, this.httpOptions);
+    return this.http.get<DtoDC21Coll[]>(this.baseUrl +
+                                            'TGC001Bilan/ecriture-collective/' +
+                                            noEcritureCollective,
+                                        this.httpOptions);
   }
 
   /**
    * Compute Bilan / Exploitation
-   * @param classes
+   * @param classes Tableau de classes comptable
    */
-  computeTotalBilan(classes: Classe[]): Bilan {
-    let total =  {
-      debit: 0,
-      credit: 0,
-      solde: 0,
-      debitString: numeral(0).format('0,0.00 $'),
-      creditString: numeral(0).format('0,0.00 $'),
-      soldeString: numeral(0).format('0,0.00 $'),
+  public computeTotalBilan(classes: Classe[]): Bilan {
+    interface Total {
+      debit: number;
+      credit: number;
+      solde: number;
+      debitString: string;
+      creditString: string;
+      soldeString: string;
+    }
+    const total: Total = {
+      debit : 0,
+      credit : 0,
+      solde : 0,
+      debitString : numeral(0).format('0,0.00 $'),
+      creditString : numeral(0).format('0,0.00 $'),
+      soldeString : numeral(0).format('0,0.00 $'),
     } as Bilan;
     classes.forEach(classe => {
       total.debit += classe.debit;
@@ -204,26 +238,26 @@ export class TGC001BilanService {
 
   /**
    * Compute Array SubGroup of "PlanComptable"
-   * @param dto
+   * @param dto Liste des comptes
    */
-  computeClasse(dto: DtoDC10[]): Classe[] {
+  public computeClasse(dto: DtoDC10[]): Classe[] {
     let classesFinal: Classe[];
     classesFinal = new Array();
     let classes: Classe[];
     classes = new Array();
     // Compte Classes without Groupe/SousGroupe/Compte
     dto.forEach(item => {
-      if (classes == null || !classes.find(x => x.noClasse == item.noClasse)) {
-        let newClasse = {
-          noClasse: item.noClasse,
-          texte: item.nomClasse,
-          groupes: [],
-          debit: 0,
-          credit: 0,
-          solde: 0,
-          debitString: '',
-          creditString: '',
-          soldeString: ''
+      if (classes == null || !classes.find(x => x.noClasse === item.noClasse)) {
+        const newClasse = {
+          noClasse : item.noClasse,
+          texte : item.nomClasse,
+          groupes : [],
+          debit : 0,
+          credit : 0,
+          solde : 0,
+          debitString : '',
+          creditString : '',
+          soldeString : ''
         } as Classe;
         classes.push(newClasse);
       }
@@ -232,87 +266,88 @@ export class TGC001BilanService {
       let groupes: Groupe[];
       groupes = new Array();
       dto.forEach(item => {
-        if (classe.noClasse == item.noClasse) {
-          if (!groupes.find(x => x.noGroupe == item.noGroupe)) {
-            let newGroupe = {
-              noGroupe: item.noGroupe,
-              texte: item.nomGroupe,
+        if (classe.noClasse === item.noClasse) {
+          if (!groupes.find(x => x.noGroupe === item.noGroupe)) {
+            const newGroupe = {
+              noGroupe : item.noGroupe,
+              texte : item.nomGroupe,
               sousGroupes : [],
-              debit: 0,
-              credit: 0,
-              solde: 0,
-              debitString: '',
-              creditString: '',
-              soldeString: ''
+              debit : 0,
+              credit : 0,
+              solde : 0,
+              debitString : '',
+              creditString : '',
+              soldeString : ''
             } as Groupe;
             groupes.push(newGroupe);
           }
         }
       });
-      let newClasse = {
-        noClasse: classe.noClasse,
-        texte: classe.texte,
-        groupes: groupes.slice(),
-        debit: classe.debit,
-        credit: classe.credit,
-        solde: classe.solde,
-        debitString: classe.debitString,
-        creditString: classe.creditString,
-        soldeString: classe.soldeString
-      } as Classe
-      classesFinal.push(newClasse)
+      const newClasse = {
+        noClasse : classe.noClasse,
+        texte : classe.texte,
+        groupes : groupes.slice(),
+        debit : classe.debit,
+        credit : classe.credit,
+        solde : classe.solde,
+        debitString : classe.debitString,
+        creditString : classe.creditString,
+        soldeString : classe.soldeString
+      } as Classe;
+      classesFinal.push(newClasse);
     });
     // Il manque sous-groupe
     classes = new Array();
-    classes = classesFinal.slice(); 
+    classes = classesFinal.slice();
     classesFinal = new Array(); // reset
     classes.forEach(classe => {
-      let groupes : Groupe[];
+      let groupes: Groupe[];
       groupes = new Array();
       classe.groupes.forEach(groupe => {
-        let sousGroupes : SousGroupe[];
+        let sousGroupes: SousGroupe[];
         sousGroupes = new Array();
         dto.forEach(item => {
-          if (classe.noClasse == item.noClasse && groupe.noGroupe == item.noGroupe) {
-            if (!sousGroupes.find(x => x.noSousGroupe == item.noSousGroupe)) {
-              let newSousGroupe = {
-                noSousGroupe: item.noSousGroupe,
-                texte: item.nomSousGroupe,
+          if (classe.noClasse === item.noClasse &&
+              groupe.noGroupe === item.noGroupe) {
+            if (!sousGroupes.find(x => x.noSousGroupe === item.noSousGroupe)) {
+              const newSousGroupe = {
+                noSousGroupe : item.noSousGroupe,
+                texte : item.nomSousGroupe,
                 comptes : [],
-                debit: 0,
-                credit: 0,
-                solde: 0,
-                debitString: '',
-                creditString: '',
-                soldeString: ''
+                debit : 0,
+                credit : 0,
+                solde : 0,
+                debitString : '',
+                creditString : '',
+                soldeString : ''
               } as SousGroupe;
               sousGroupes.push(newSousGroupe);
             }
           }
         });
-        let newGroupe = {
-          noGroupe: groupe.noGroupe,
-          texte: groupe.texte,
-          sousGroupes: sousGroupes.slice(),
-          debit: groupe.debit,
-          credit: groupe.credit,
-          solde: groupe.solde,
-          debitString: groupe.debitString,
-          creditString: groupe.creditString,
-          soldeString: groupe.soldeString
+        const newGroupe = {
+          noGroupe : groupe.noGroupe,
+          texte : groupe.texte,
+          sousGroupes : sousGroupes.slice(),
+          debit : groupe.debit,
+          credit : groupe.credit,
+          solde : groupe.solde,
+          debitString : groupe.debitString,
+          creditString : groupe.creditString,
+          soldeString : groupe.soldeString
         } as Groupe;
         groupes.push(newGroupe);
       });
-      let newClasse = {
-        noClasse: classe.noClasse,
-        texte: classe.texte,
-        groupes: groupes.slice(),
-        debit: classe.debit,
-        credit: classe.credit,
-        solde: classe.solde,
-        debitString: classe.debitString,
-        creditString: classe.creditString,
-        soldeString: classe.soldeString
+      const newClasse = {
+        noClasse : classe.noClasse,
+        texte : classe.texte,
+        groupes : groupes.slice(),
+        debit : classe.debit,
+        credit : classe.credit,
+        solde : classe.solde,
+        debitString : classe.debitString,
+        creditString : classe.creditString,
+        soldeString : classe.soldeString
       } as Classe;
       classesFinal.push(newClasse);
     });
@@ -321,133 +356,156 @@ export class TGC001BilanService {
     classes = classesFinal.slice();
     classesFinal = new Array(); // reset
     classes.forEach(classe => {
-      let groupes : Groupe[];
+      let groupes: Groupe[];
       groupes = new Array();
       classe.groupes.forEach(groupe => {
-        let sousGroupes : SousGroupe[];
+        let sousGroupes: SousGroupe[];
         sousGroupes = new Array();
         groupe.sousGroupes.forEach(sousGroupe => {
           let comptes: Compte[];
           comptes = new Array();
           dto.forEach(item => {
-            if (classe.noClasse == item.noClasse && groupe.noGroupe == item.noGroupe && sousGroupe.noSousGroupe == item.noSousGroupe) {
-              if (!comptes.find(x => x.noCompte == item.noCompte)) {
-                let newCompte = {
-                  noCompte: item.noCompte,
-                  texte: item.texte,
-                  debit: item.solde1 >= 0 ? item.solde1 : 0,
-                  credit: item.solde1 >= 0 ? 0 : (item.solde1 * -1),
-                  solde: item.solde1,
-                  debitString: numeral(item.solde1 >= 0 ? item.solde1 : 0).format('0,0.00 $'), // '0,0[.]00 $' pour presenter bien
-                  creditString: numeral(item.solde1 >= 0 ? 0 : (item.solde1 * -1)).format('0,0.00 $'),
-                  soldeString: numeral(item.solde1).format('0,0.00 $'),
+            if (classe.noClasse === item.noClasse &&
+                groupe.noGroupe === item.noGroupe &&
+                sousGroupe.noSousGroupe === item.noSousGroupe) {
+              if (!comptes.find(x => x.noCompte === item.noCompte)) {
+                const newCompte = {
+                  noCompte : item.noCompte,
+                  texte : item.texte,
+                  debit : item.solde1 >= 0 ? item.solde1 : 0,
+                  credit : item.solde1 >= 0 ? 0 : (item.solde1 * -1),
+                  solde : item.solde1,
+                  debitString :
+                      numeral(item.solde1 >= 0 ? item.solde1 : 0)
+                          .format(
+                              '0,0.00 $'), // '0,0[.]00 $' pour presenter bien
+                  creditString :
+                      numeral(item.solde1 >= 0 ? 0 : (item.solde1 * -1))
+                          .format('0,0.00 $'),
+                  soldeString : numeral(item.solde1).format('0,0.00 $'),
                 } as Compte;
                 comptes.push(newCompte);
-              };
+              }
             }
           });
           // foreach monétaire ici
-          let debitComptesTotal: number = 0.0;
-          let creditComptesTotal: number = 0.0;
-          let soldeComptesTotal: number = 0.0;
+          let debitComptesTotal: number;
+          debitComptesTotal = 0.0;
+          let creditComptesTotal: number;
+          creditComptesTotal = 0.0;
+          let soldeComptesTotal: number;
+          soldeComptesTotal = 0.0;
           comptes.forEach(compte => {
             debitComptesTotal += compte.debit;
             creditComptesTotal += compte.credit;
             soldeComptesTotal += compte.solde;
           });
-          let newSousGroupe = {
-            noSousGroupe: sousGroupe.noSousGroupe,
-            texte: sousGroupe.texte,
-            comptes: comptes.slice(),
-            debit: debitComptesTotal, 
-            credit: creditComptesTotal, 
-            solde: soldeComptesTotal, 
-            debitString: numeral(debitComptesTotal).format('0,0.00 $'), 
-            creditString: numeral(creditComptesTotal).format('0,0.00 $'), 
-            soldeString: numeral(soldeComptesTotal).format('0,0.00 $')
+          const newSousGroupe = {
+            noSousGroupe : sousGroupe.noSousGroupe,
+            texte : sousGroupe.texte,
+            comptes : comptes.slice(),
+            debit : debitComptesTotal,
+            credit : creditComptesTotal,
+            solde : soldeComptesTotal,
+            debitString : numeral(debitComptesTotal).format('0,0.00 $'),
+            creditString : numeral(creditComptesTotal).format('0,0.00 $'),
+            soldeString : numeral(soldeComptesTotal).format('0,0.00 $')
           } as SousGroupe;
           sousGroupes.push(newSousGroupe);
         });
         // foreach monétaire ici
-        let debitSousGroupesTotal: number = 0.0;
-        let creditSousGroupesTotal: number = 0.0;
-        let soldeSousGroupesTotal: number = 0.0;
+        let debitSousGroupesTotal: number;
+        debitSousGroupesTotal = 0.0;
+        let creditSousGroupesTotal: number;
+        creditSousGroupesTotal = 0.0;
+        let soldeSousGroupesTotal: number;
+        soldeSousGroupesTotal = 0.0;
         sousGroupes.forEach(sousGroupe => {
           debitSousGroupesTotal += sousGroupe.debit;
           creditSousGroupesTotal += sousGroupe.credit;
           soldeSousGroupesTotal += sousGroupe.solde;
         });
-        let newGroupe = {
-          noGroupe: groupe.noGroupe,
-          texte: groupe.texte,
-          sousGroupes: sousGroupes.slice(),
-          debit: debitSousGroupesTotal,
-          credit: creditSousGroupesTotal,
-          solde: soldeSousGroupesTotal,
-          debitString: numeral(debitSousGroupesTotal).format('0,0.00 $'), // ici changer
-          creditString: numeral(creditSousGroupesTotal).format('0,0.00 $'), // ici changer
-          soldeString: numeral(soldeSousGroupesTotal).format('0,0.00 $') // ici changer
+        const newGroupe = {
+          noGroupe : groupe.noGroupe,
+          texte : groupe.texte,
+          sousGroupes : sousGroupes.slice(),
+          debit : debitSousGroupesTotal,
+          credit : creditSousGroupesTotal,
+          solde : soldeSousGroupesTotal,
+          debitString :
+              numeral(debitSousGroupesTotal).format('0,0.00 $'), // ici changer
+          creditString :
+              numeral(creditSousGroupesTotal).format('0,0.00 $'), // ici changer
+          soldeString :
+              numeral(soldeSousGroupesTotal).format('0,0.00 $') // ici changer
         } as Groupe;
         groupes.push(newGroupe);
-      })
+      });
       // foreach monétaire ici
-      let debitGroupesTotal: number = 0.0;
-      let creditGroupesTotal: number = 0.0;
-      let soldeGroupesTotal: number = 0.0;
+      let debitGroupesTotal: number;
+      debitGroupesTotal = 0.0;
+      let creditGroupesTotal: number;
+      creditGroupesTotal = 0.0;
+      let soldeGroupesTotal: number;
+      soldeGroupesTotal = 0.0;
       groupes.forEach(groupe => {
         debitGroupesTotal += groupe.debit;
         creditGroupesTotal += groupe.credit;
         soldeGroupesTotal += groupe.solde;
       });
-      let newClasse = {
-        noClasse: classe.noClasse,
-        texte: classe.texte,
-        groupes: groupes.slice(),
-        debit: debitGroupesTotal,
-        credit: creditGroupesTotal,
-        solde: soldeGroupesTotal,
-        debitString: numeral(debitGroupesTotal).format('0,0.00 $'), // ici changer
-        creditString: numeral(creditGroupesTotal).format('0,0.00 $'), // ici changer
-        soldeString: numeral(soldeGroupesTotal).format('0,0.00 $') // ici changer
+      const newClasse = {
+        noClasse : classe.noClasse,
+        texte : classe.texte,
+        groupes : groupes.slice(),
+        debit : debitGroupesTotal,
+        credit : creditGroupesTotal,
+        solde : soldeGroupesTotal,
+        debitString :
+            numeral(debitGroupesTotal).format('0,0.00 $'), // ici changer
+        creditString :
+            numeral(creditGroupesTotal).format('0,0.00 $'), // ici changer
+        soldeString :
+            numeral(soldeGroupesTotal).format('0,0.00 $') // ici changer
       } as Classe;
-      classesFinal.push(newClasse)
+      classesFinal.push(newClasse);
     });
     // Set currency from dto
     // numeral(CURRENCY HERE).format('0,0[.]00 $')
-
     return classesFinal;
   }
 
   /**
    * Compute Array Ecriture
-   * @param dto
+   * @param dto Liste des écritures comptabilisées
    */
-  computeEcriture(dto: DtoDC21[]): Ecriture[] {
+  public computeEcriture(dto: DtoDC21[]): Ecriture[] {
     let ecrituresFinal: Ecriture[];
     ecrituresFinal = new Array();
     dto.forEach(item => {
-      let newEcriture = {
-        noEcritureCollective: item.noEcritureCollective,
-        noEcriture: item.noEcriture,
-        noCompte: item.noCompte,
-        desiCompte: item.desiCompte,
-        contrePartie: item.contrePartie,
-        desiContrePartie: item.desiContrePartie,
-        dateEcriture: item.dateEcriture,
-        dateEcritureMoment: moment(item.dateEcriture).format("L"),
-        noPiece: item.noPiece,
-        debit: item.debit,
-        credit: item.credit,
-        solde: item.solde,
-        libelle: item.libelle2 == '' ? item.libelle1 : item.libelle1 + '<br />' + item.libelle2,
-        swImpressionExtourne: item.swImpressionExtourne,
-        noJournal: item.noJournal,
-        dateJournalisation: item.dateJournalisation,
-        dateJournalisationMoment: moment(item.dateJournalisation).format("L"),
-        debitString: numeral(item.debit).format('0,0.00 $'),
-        creditString: numeral(item.credit).format('0,0.00 $'),
-        soldeString: numeral(item.solde).format('0,0.00 $'),
-        swEcritureCollective: item.swEcritureCollective
+      const newEcriture = {
+        noEcritureCollective : item.noEcritureCollective,
+        noEcriture : item.noEcriture,
+        noCompte : item.noCompte,
+        desiCompte : item.desiCompte,
+        contrePartie : item.contrePartie,
+        desiContrePartie : item.desiContrePartie,
+        dateEcriture : item.dateEcriture,
+        dateEcritureMoment : moment(item.dateEcriture).format('L'),
+        noPiece : item.noPiece,
+        debit : item.debit,
+        credit : item.credit,
+        solde : item.solde,
+        libelle : item.libelle2 === ''
+                      ? item.libelle1
+                      : item.libelle1 + '<br />' + item.libelle2,
+        swImpressionExtourne : item.swImpressionExtourne,
+        noJournal : item.noJournal,
+        dateJournalisation : item.dateJournalisation,
+        dateJournalisationMoment : moment(item.dateJournalisation).format('L'),
+        debitString : numeral(item.debit).format('0,0.00 $'),
+        creditString : numeral(item.credit).format('0,0.00 $'),
+        soldeString : numeral(item.solde).format('0,0.00 $'),
+        swEcritureCollective : item.swEcritureCollective
       } as Ecriture;
       ecrituresFinal.push(newEcriture);
     });
@@ -458,49 +516,59 @@ export class TGC001BilanService {
    * Compute Array Ecriture Collective
    * @param dto DtoDB21EcrituresJournalOutputForList
    */
-  computeEcritureCollective(dto: DtoDC21Coll[]): EcritureCollective[] {
+  public computeEcritureCollective(dto: DtoDC21Coll[]): EcritureCollective[] {
     let ecrituresFinal: EcritureCollective[];
     ecrituresFinal = new Array();
     dto.forEach(item => {
-      let newEcriture = {
-        noEcriture: item.noEcriture,
-        noCompteDebit: item.noCompteDebit,
-        desiCompteDebit: item.desiCompteDebit,
-        noCompteCredit: item.noCompteCredit,
-        desiCompteCredit: item.desiCompteCredit,
-        dateEcriture: item.dateEcriture,
-        dateEcritureMoment: moment(item.dateEcriture).format("L"),
-        noPiece: item.noPiece,
-        debit: item.debit,
-        credit: item.credit,
-        solde: item.solde,
-        libelle: item.libelle2 == '' ? item.libelle1 : item.libelle1 + '<br />' + item.libelle2,
-        swImpressionExtourne: item.swImpressionExtourne,
-        debitString: numeral(item.debit).format('0,0.00 $'),
-        creditString: numeral(item.credit).format('0,0.00 $'),
-        soldeString: numeral(item.solde).format('0,0.00 $'),
+      const newEcriture = {
+        noEcriture : item.noEcriture,
+        noCompteDebit : item.noCompteDebit,
+        desiCompteDebit : item.desiCompteDebit,
+        noCompteCredit : item.noCompteCredit,
+        desiCompteCredit : item.desiCompteCredit,
+        dateEcriture : item.dateEcriture,
+        dateEcritureMoment : moment(item.dateEcriture).format('L'),
+        noPiece : item.noPiece,
+        debit : item.debit,
+        credit : item.credit,
+        solde : item.solde,
+        libelle : item.libelle2 === ''
+                      ? item.libelle1
+                      : item.libelle1 + '<br />' + item.libelle2,
+        swImpressionExtourne : item.swImpressionExtourne,
+        debitString : numeral(item.debit).format('0,0.00 $'),
+        creditString : numeral(item.credit).format('0,0.00 $'),
+        soldeString : numeral(item.solde).format('0,0.00 $'),
       } as EcritureCollective;
       ecrituresFinal.push(newEcriture);
     });
     return ecrituresFinal;
   }
 
-  computeEcritureCollectiveMontant(dto: DtoDC21Coll[]): EcritureCollectiveMontant {
-    let debit = 0;
-    let credit = 0;
-    let solde = 0;
+  public computeEcritureCollectiveMontant(dto: DtoDC21Coll[]):
+      EcritureCollectiveMontant {
+    interface Ecr {
+      debit: number;
+      credit: number;
+      solde: number;
+    }
+    const ecr: Ecr = {
+      debit : 0,
+      credit : 0,
+      solde : 0,
+    };
     dto.forEach(item => {
-        debit += item.debit;
-        credit += item.credit;
-        solde += item.solde;
+      ecr.debit += item.debit;
+      ecr.credit += item.credit;
+      ecr.solde += item.solde;
     });
-    let newEcriture = {
-      debit: debit,
-      credit: credit,
-      solde: solde,
-      debitString: numeral(debit).format('0,0.00 $'),
-      creditString: numeral(credit).format('0,0.00 $'),
-      soldeString: numeral(solde).format('0,0.00 $'),
+    const newEcriture = {
+      debit : ecr.debit,
+      credit : ecr.credit,
+      solde : ecr.solde,
+      debitString : numeral(ecr.debit).format('0,0.00 $'),
+      creditString : numeral(ecr.credit).format('0,0.00 $'),
+      soldeString : numeral(ecr.solde).format('0,0.00 $'),
     } as EcritureCollectiveMontant;
     return newEcriture;
   }

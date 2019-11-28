@@ -1,0 +1,15 @@
+.new-row {
+  display: block;
+  width: 100%;
+  height: 0px;
+}
+
+.libelleMatIcon {
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.libelleMatIcon:active {
+  border-radius: 50%;
+  background-color: #e1e1e1 !important;
+}
