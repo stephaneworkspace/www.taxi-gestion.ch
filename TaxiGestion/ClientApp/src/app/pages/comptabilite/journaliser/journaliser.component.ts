@@ -55,14 +55,14 @@ import {DialogPeriodeComptaDialog} from '../dialog/dialog-periode-compta';
   // styleUrls: ['./journaliser.component.scss']
 })
 export class JournaliserComponent implements OnInit {
-  public ecritures: Dto[];
-  public ecrituresTotal: EcrituresTotal;
-  public gridView: GridDataResult;
-  public gridViewEcrituresCollective: GridDataResult;
-  public sort: SortDescriptor[] = [ {field : 'noSort', dir: 'asc'} ];
-  public allowUnsort = true;
+  private ecritures: Dto[];
+  private ecrituresTotal: EcrituresTotal;
+  private gridView: GridDataResult;
+  private gridViewEcrituresCollective: GridDataResult;
+  private sort: SortDescriptor[] = [ {field : 'noSort', dir: 'asc'} ];
+  private allowUnsort = true;
 
-  public settings: Settings;
+  private settings: Settings;
 
   // DA21Config
   private dA21Config: DtoTGA002OutDA21ConfigForSelect;
@@ -71,8 +71,8 @@ export class JournaliserComponent implements OnInit {
   private RESOLVER_DATA_CONFIG = 'config';
   private RESOLVER_DATA_ECRITURES = 'ecritures';
 
-  public pageSize = 10;
-  public skip = 0;
+  private pageSize = 10;
+  private skip = 0;
 
   /**
    * Constructor
@@ -123,7 +123,7 @@ export class JournaliserComponent implements OnInit {
    * @param pageIndex Index de la page
    * @return void
    */
-  public sliderChange(pageIndex: number): void {
+  private sliderChange(pageIndex: number): void {
     this.skip = (pageIndex - 1) * this.pageSize;
   }
 
@@ -132,14 +132,14 @@ export class JournaliserComponent implements OnInit {
    * @param state Kendo grid state
    * @return void
    */
-  public onPageChange(state: any): void { this.pageSize = state.take; }
+  private onPageChange(state: any): void { this.pageSize = state.take; }
 
   /**
    * Dialog pour configuer les dates de la période comptable du bilan
    * @param null aucune param
    * @returns void
    */
-  openDialog(): void {
+  private openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -169,16 +169,10 @@ export class JournaliserComponent implements OnInit {
   }
 
   /**
-   * A faire
-   * @return void
-   */
-  btnAFaire(): void { alert('À faire'); }
-
-  /**
    * Bouton traitement de la journalisation
    * @return void
    */
-  btnSubmit(): void {
+  private btnSubmit(): void {
     if (this.ecritures === undefined || this.ecritures.length === 0) {
       this.snackBar.open(
           'Rien à journaliser', 'Comptabilité',
@@ -199,4 +193,10 @@ export class JournaliserComponent implements OnInit {
           });
     }
   }
+
+  /**
+   * A faire
+   * @return void
+   */
+  private btnAFaire(): void { alert('À faire'); }
 }

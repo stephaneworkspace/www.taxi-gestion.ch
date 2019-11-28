@@ -53,14 +53,14 @@ import {DialogPeriodeComptaDialog} from '../dialog/dialog-periode-compta';
 })
 export class SaisieEcrituresComponent implements OnInit {
 
-  public ecritures: Dto[];
-  public ecrituresTotal: EcrituresTotal;
-  public gridView: GridDataResult;
-  public gridViewEcrituresCollective: GridDataResult;
-  public sort: SortDescriptor[] = [ {field : 'noSort', dir: 'asc'} ];
-  public allowUnsort = true;
+  private ecritures: Dto[];
+  private ecrituresTotal: EcrituresTotal;
+  private gridView: GridDataResult;
+  private gridViewEcrituresCollective: GridDataResult;
+  private sort: SortDescriptor[] = [ {field : 'noSort', dir: 'asc'} ];
+  private allowUnsort = true;
 
-  public settings: Settings;
+  private settings: Settings;
 
   // DA21Config
   private dA21Config: DtoTGA002OutDA21ConfigForSelect;
@@ -68,6 +68,9 @@ export class SaisieEcrituresComponent implements OnInit {
   // Resolver
   private RESOLVER_DATA_CONFIG = 'config';
   private RESOLVER_DATA_ECRITURES = 'ecritures';
+
+  private pageSize = 10;
+  private skip = 0;
 
   /**
    * Constructor
@@ -86,15 +89,12 @@ export class SaisieEcrituresComponent implements OnInit {
     // this.settings = this.appSettings.settings;
   }
 
-  public pageSize = 10;
-  public skip = 0;
-
   /**
    * Kendo grid
    * @param pageIndex Index de la page
    * @return void
    */
-  public sliderChange(pageIndex: number): void {
+  private sliderChange(pageIndex: number): void {
     this.skip = (pageIndex - 1) * this.pageSize;
   }
 
@@ -103,7 +103,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * @param state State du kendo grid
    * @return void
    */
-  public onPageChange(state: any): void { this.pageSize = state.take; }
+  private onPageChange(state: any): void { this.pageSize = state.take; }
 
   /**
    * On init
@@ -111,7 +111,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * Puis chargement des écritures en attente de journalisation
    * @returns void
    */
-  public ngOnInit(): void {
+  private ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.dA21Config = data[this.RESOLVER_DATA_CONFIG];
       if (this.dA21Config === undefined || this.dA21Config === null) {
@@ -133,7 +133,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * @param null aucune param
    * @returns void
    */
-  openDialog(): void {
+  private openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -166,7 +166,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * Création d'une nouvelle écriture simple
    * @return void
    */
-  btnClickNouvelleEcritureSimple(): void {
+  private btnClickNouvelleEcritureSimple(): void {
     this.router.navigate([ '/index/comptabilite/saisie-ecriture-simple' ]);
   }
 
@@ -174,17 +174,17 @@ export class SaisieEcrituresComponent implements OnInit {
    * Création d'une nouvelle écriture collective
    * @return void
    */
-  btnClickNouvelleEcritureCollective(): void { alert('À faire'); }
+  private btnClickNouvelleEcritureCollective(): void { alert('À faire'); }
 
   /**
    * Effacer le journal temporaire de cet utilisateur
    * @return void
    */
-  btnClickEffacerTout(): void { alert('À faire'); }
+  private btnClickEffacerTout(): void { alert('À faire'); }
 
   /**
    * À faire
    * @return void
    */
-  aFaire(): void { alert('À faire'); }
+  private aFaire(): void { alert('À faire'); }
 }

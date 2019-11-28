@@ -63,13 +63,13 @@ import {DialogPeriodeComptaDialog} from '../../dialog/dialog-periode-compta';
   styleUrls : [ './simple.component.scss' ]
 })
 export class SimpleComponent implements OnInit {
-  public settings: Settings;
-  public form: FormGroup;
-  public swTouch = false;
+  private settings: Settings;
+  private form: FormGroup;
+  private swTouch = false;
 
-  public planComptable: DtoDC10[];
-  public planComptableString: string[];
-  public planComptable6String: string[];
+  private planComptable: DtoDC10[];
+  private planComptableString: string[];
+  private planComptable6String: string[];
 
   // DA21Config
   private dA21Config: DtoTGA002OutDA21ConfigForSelect;
@@ -167,7 +167,7 @@ export class SimpleComponent implements OnInit {
    * @param null aucune param
    * @returns void
    */
-  openDialog(): void {
+  private openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -200,7 +200,7 @@ export class SimpleComponent implements OnInit {
    * Validateur entre le n° de compte débit et crédit
    * @return any Validateur
    */
-  compteIdentitiqueValidator(): any {
+  private compteIdentitiqueValidator(): any {
     const ERR_COMPTE_IDENTIQUE = 'compteIdentique';
     return (group: FormGroup) => {
       const noDebit = group.controls.compteDebit.get('noCompteDebit');
@@ -231,7 +231,7 @@ export class SimpleComponent implements OnInit {
    * @param event table de string de 2 occurs
    * @return void
    */
-  libelleDebitBlur(event: string[]): void {
+  private libelleDebitBlur(event: string[]): void {
     if (event[0] !== '' &&
         !this.form.controls.libelleCredit.get('libelle1Credit').touched) {
       this.form.controls.libelleCredit.get('libelle1Credit').setValue(event[0]);
@@ -247,7 +247,7 @@ export class SimpleComponent implements OnInit {
    * @param event table de string de 2 occurs
    * @return void
    */
-  libelleCreditBlur(event: string[]): void {
+  private libelleCreditBlur(event: string[]): void {
     if (event[0] !== '' &&
         !this.form.controls.libelleDebit.get('libelle1Debit').touched) {
       this.form.controls.libelleDebit.get('libelle1Debit').setValue(event[0]);
@@ -262,7 +262,7 @@ export class SimpleComponent implements OnInit {
    * Envoi du formulaire
    * @return void
    */
-  onSubmit(): void {
+  private onSubmit(): void {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
     if (this.form.valid && this.form.controls.dateEcriture.valid &&

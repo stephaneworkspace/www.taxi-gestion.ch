@@ -74,32 +74,32 @@ export enum StatusWindows {
   encapsulation : ViewEncapsulation.None,
 })
 export class BilanEcranComponent implements OnInit {
-  public statusWindows: StatusWindows;
-  StatusWindows: typeof StatusWindows = StatusWindows;
-  public items: DtoDC10[];
-  public classes: Classe[];
-  public totalBilan: Bilan;
-  public classesBilan: Classe[];
-  public totalExploitation: Bilan;
-  public classesExploitation: Classe[];
-  public selectionEcritures: Ecriture[];
-  public selectionEcrituresCollective: EcritureCollective[];
+  private statusWindows: StatusWindows;
+  private StatusWindows: typeof StatusWindows = StatusWindows;
+  private items: DtoDC10[];
+  private classes: Classe[];
+  private totalBilan: Bilan;
+  private classesBilan: Classe[];
+  private totalExploitation: Bilan;
+  private classesExploitation: Classe[];
+  private selectionEcritures: Ecriture[];
+  private selectionEcrituresCollective: EcritureCollective[];
 
   // Groupe / Sous Groupe
-  public classeSelect: Classe;
-  public groupeSelect: Groupe;
-  public sousGroupeSelect: SousGroupe;
-  public compteSelect: Compte;
-  public ecritureSelect: Ecriture;
-  public ecritureCollectiveMontant: EcritureCollectiveMontant;
-  public gridView: GridDataResult;
-  public gridViewEcrituresCollective: GridDataResult;
-  public sort: SortDescriptor[] = [ {field : 'noClasse', dir: 'asc'} ];
-  public sortEcrituresCollective: SortDescriptor[] =
+  private classeSelect: Classe;
+  private groupeSelect: Groupe;
+  private sousGroupeSelect: SousGroupe;
+  private compteSelect: Compte;
+  private ecritureSelect: Ecriture;
+  private ecritureCollectiveMontant: EcritureCollectiveMontant;
+  private gridView: GridDataResult;
+  private gridViewEcrituresCollective: GridDataResult;
+  private sort: SortDescriptor[] = [ {field : 'noClasse', dir: 'asc'} ];
+  private sortEcrituresCollective: SortDescriptor[] =
       [ {field : 'noEcriture', dir: 'asc'} ];
-  public allowUnsort = true;
+  private allowUnsort = true;
 
-  public settings: Settings;
+  private settings: Settings;
 
   // DA21Config
   private dA21Config: DtoTGA002OutDA21ConfigForSelect;
@@ -150,7 +150,7 @@ export class BilanEcranComponent implements OnInit {
    * @param null aucune param
    * @returns void
    */
-  openDialog(): void {
+  private openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -183,7 +183,7 @@ export class BilanEcranComponent implements OnInit {
    * Refraichit le plan comptable
    * @returns void
    */
-  btnClickRafraichir(): void {
+  private btnClickRafraichir(): void {
     this.service.getPlanComptable().subscribe(
         (res: DtoDC10[]) => {
           this.items = res.slice();
@@ -219,7 +219,7 @@ export class BilanEcranComponent implements OnInit {
    * @param dataItem Classe
    * @return void
    */
-  public classeZoomInClick(e: any, dataItem: Classe): void {
+  private classeZoomInClick(e: any, dataItem: Classe): void {
     this.classeSelect = dataItem;
     this.sort = [ {field : 'noGroupe', dir : 'asc'} ];
     this.sortGroupesChange(this.sort);
@@ -230,7 +230,7 @@ export class BilanEcranComponent implements OnInit {
    * Zoom out Classe -> Bilan
    * @returns void
    */
-  public classeZoomOutClick(): void {
+  private classeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Bilan;
   }
 
@@ -240,7 +240,7 @@ export class BilanEcranComponent implements OnInit {
    * @param dataItem Groupe
    * @return void
    */
-  public groupeZoomInClick(e: any, dataItem: Groupe): void {
+  private groupeZoomInClick(e: any, dataItem: Groupe): void {
     this.groupeSelect = dataItem;
     this.sort = [ {field : 'noSousGroupe', dir : 'asc'} ];
     this.sortSousGroupesChange(this.sort);
@@ -251,7 +251,7 @@ export class BilanEcranComponent implements OnInit {
    * Zoom out Groupe -> Classe
    * @returns void
    */
-  public groupeZoomOutClick(): void {
+  private groupeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Classe;
     this.sort = [ {field : 'noGroupe', dir : 'asc'} ];
     this.sortGroupesChange(this.sort);
@@ -263,7 +263,7 @@ export class BilanEcranComponent implements OnInit {
    * @param dataItem Sous groupe
    * @return void
    */
-  public sousGroupeZoomInClick(e: any, dataItem: SousGroupe): void {
+  private sousGroupeZoomInClick(e: any, dataItem: SousGroupe): void {
     this.sousGroupeSelect = dataItem;
     this.sort = [ {field : 'noCompte', dir : 'asc'} ];
     this.sortComptesChange(this.sort);
@@ -274,7 +274,7 @@ export class BilanEcranComponent implements OnInit {
    * Zoom out Sous-groupe -> Groupe
    * @return void
    */
-  public sousGroupeZoomOutClick(): void {
+  private sousGroupeZoomOutClick(): void {
     this.statusWindows = StatusWindows.Groupe;
     this.sort = [ {field : 'noSousGroupe', dir : 'asc'} ];
     this.sortSousGroupesChange(this.sort);
@@ -286,7 +286,7 @@ export class BilanEcranComponent implements OnInit {
    * @param dataItem Compte
    * @return void
    */
-  public compteZoomInClick(e: any, dataItem: Compte): void {
+  private compteZoomInClick(e: any, dataItem: Compte): void {
     this.service.getEcritures(dataItem.noCompte)
         .subscribe(
             (res: DtoDC21[]) => {
@@ -314,7 +314,7 @@ export class BilanEcranComponent implements OnInit {
    * Zoom out Compte -> Sous-Groupe
    * @return void
    */
-  public compteZoomOutClick(): void {
+  private compteZoomOutClick(): void {
     this.statusWindows = StatusWindows.SousGroupe;
     this.sort = [ {field : 'noCompte', dir : 'asc'} ];
     // this.sortEcrituresChange(this.sort);
@@ -327,7 +327,7 @@ export class BilanEcranComponent implements OnInit {
    * @param dataItem Ecriture
    * @return void
    */
-  public compteDetailZoomInClick(e: any, dataItem: Ecriture): void {
+  private compteDetailZoomInClick(e: any, dataItem: Ecriture): void {
     this.ecritureSelect = dataItem;
     if (dataItem.swEcritureCollective === dataItem.swEcritureCollective) {
       this.service.getEcrituresCollective(dataItem.noEcritureCollective)
@@ -361,7 +361,7 @@ export class BilanEcranComponent implements OnInit {
    * Zoom out Détail compte -> Compte
    * @return void
    */
-  public compteDetailZoomOutClick(): void {
+  private compteDetailZoomOutClick(): void {
     this.statusWindows = StatusWindows.Compte;
     this.sort = [ {field : 'dateEcriture', dir : 'asc'} ];
     this.sortEcrituresChange(this.sort);
@@ -372,7 +372,7 @@ export class BilanEcranComponent implements OnInit {
    * @param sort KendoSort SortDescriptor array
    * @return void
    */
-  public sortGroupesChange(sort: SortDescriptor[]): void {
+  private sortGroupesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
     this.gridView = {
       data : orderBy(this.classeSelect.groupes, this.sort),
@@ -385,7 +385,7 @@ export class BilanEcranComponent implements OnInit {
    * @param sort KendoSort SortDescriptor array
    * @return void
    */
-  public sortSousGroupesChange(sort: SortDescriptor[]): void {
+  private sortSousGroupesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
     this.gridView = {
       data : orderBy(this.groupeSelect.sousGroupes, this.sort),
@@ -398,7 +398,7 @@ export class BilanEcranComponent implements OnInit {
    * @param sort KendoSort SortDescriptor array
    * @return void
    */
-  public sortComptesChange(sort: SortDescriptor[]): void {
+  private sortComptesChange(sort: SortDescriptor[]): void {
     this.sort = sort;
     this.gridView = {
       data : orderBy(this.sousGroupeSelect.comptes, this.sort),
@@ -411,7 +411,7 @@ export class BilanEcranComponent implements OnInit {
    * @param sort KendoSort SortDescriptor array
    * @return void
    */
-  public sortEcrituresChange(sort: SortDescriptor[]): void {
+  private sortEcrituresChange(sort: SortDescriptor[]): void {
     this.sort = sort;
     this.gridView = {
       data : orderBy(this.selectionEcritures, this.sort),
@@ -424,7 +424,7 @@ export class BilanEcranComponent implements OnInit {
    * @param sort KendoSort SortDescriptor array
    * @return void
    */
-  public sortEcrituresCollectiveChange(sort: SortDescriptor[]): void {
+  private sortEcrituresCollectiveChange(sort: SortDescriptor[]): void {
     this.sortEcrituresCollective = sort;
     this.gridViewEcrituresCollective = {
       data : orderBy(this.selectionEcrituresCollective,
@@ -432,5 +432,10 @@ export class BilanEcranComponent implements OnInit {
       total : this.selectionEcrituresCollective.length
     };
   }
-  btnAfaire() { alert('À faire'); }
+
+  /**
+   * A faire
+   * @return void
+   */
+  private btnAfaire() { alert('À faire'); }
 }
