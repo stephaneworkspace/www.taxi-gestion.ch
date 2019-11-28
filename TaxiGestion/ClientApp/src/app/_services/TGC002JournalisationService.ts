@@ -67,7 +67,7 @@ export class TGC002JournalisationService {
   }
 
   // Ajouter le dto par la suite
-  private journaliser() {
+  public journaliser() {
     this.setHeaders();
     return this.http.post(this.baseUrl + 'TGC002Journalisation/journaliser/',
                           null, this.httpOptions);

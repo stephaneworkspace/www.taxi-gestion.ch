@@ -69,11 +69,12 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked {
    *     this.ngAfterContentChecked()
    * @returns void
    */
-  constructor(public dialogRef: MatDialogRef<DialogPeriodeComptaDialog>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder,
-              private router: Router,
-              private serviceTGA002: TGA002ConfigService,
-              private snackBar: MatSnackBar, private cdref: ChangeDetectorRef) {
+  public constructor(private dialogRef: MatDialogRef<DialogPeriodeComptaDialog>,
+                     @Inject(MAT_DIALOG_DATA) private data: any,
+                     private fb: FormBuilder, private router: Router,
+                     private serviceTGA002: TGA002ConfigService,
+                     private snackBar: MatSnackBar,
+                     private cdref: ChangeDetectorRef) {
     this.dataFromDb = {
       periodeComptaDateDebut : data.periodeComptaDateDebut,
       periodeComptaDateFin : data.periodeComptaDateFin
@@ -85,13 +86,13 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked {
    * en relation avec le formulaire en ralation avecpatchValue de ngOnInit
    * @return void
    */
-  ngAfterContentChecked(): void { this.cdref.detectChanges(); }
+  public ngAfterContentChecked(): void { this.cdref.detectChanges(); }
 
   /**
    * On init
    * Chargement du form group réactif
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form = this.fb.group({
       // tslint:disable-next-line: object-literal-key-quotes
       'dateExerciceCompta' : this.fb.group({

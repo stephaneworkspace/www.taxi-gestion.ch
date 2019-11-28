@@ -79,9 +79,10 @@ export class SaisieEcrituresComponent implements OnInit {
    * @param dialog Injection Mat dialog
    * @returns void
    */
-  constructor(public appSettings: AppSettings, private route: ActivatedRoute,
-              private router: Router, private service: Service,
-              private snackBar: MatSnackBar, private dialog: MatDialog) {
+  public constructor(private appSettings: AppSettings,
+                     private route: ActivatedRoute, private router: Router,
+                     private service: Service, private snackBar: MatSnackBar,
+                     private dialog: MatDialog) {
     // this.settings = this.appSettings.settings;
   }
 
@@ -110,7 +111,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * Puis chargement des écritures en attente de journalisation
    * @returns void
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.dA21Config = data[this.RESOLVER_DATA_CONFIG];
       if (this.dA21Config === undefined || this.dA21Config === null) {

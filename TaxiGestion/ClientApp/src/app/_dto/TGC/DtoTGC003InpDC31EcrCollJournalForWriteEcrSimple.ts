@@ -26,7 +26,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
-export interface DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcrSimple {
+export interface DtoTGC003InpDC31EcrCollJournalForWriteEcrSimple {
   noCompteDebit: number;
   noCompteCredit: number;
   dateEcriture: Date;

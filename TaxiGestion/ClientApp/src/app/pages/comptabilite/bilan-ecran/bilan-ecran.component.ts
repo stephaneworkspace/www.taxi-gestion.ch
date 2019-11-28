@@ -118,10 +118,11 @@ export class BilanEcranComponent implements OnInit {
    * @param router Injection router
    * @returns void
    */
-  constructor(public appSettings: AppSettings, private route: ActivatedRoute,
-              private service: TGC001BilanService,
-              private snackBar: MatSnackBar, private dialog: MatDialog,
-              private router: Router) {
+  public constructor(private appSettings: AppSettings,
+                     private route: ActivatedRoute,
+                     private service: TGC001BilanService,
+                     private snackBar: MatSnackBar, private dialog: MatDialog,
+                     private router: Router) {
     this.settings = this.appSettings.settings;
   }
 
@@ -132,7 +133,7 @@ export class BilanEcranComponent implements OnInit {
    * (this.loadClasses())
    * @returns void
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.statusWindows = StatusWindows.Bilan;
     this.route.data.subscribe(data => {
       this.dA21Config = data[this.RESOLVER_DATA_CONFIG];
