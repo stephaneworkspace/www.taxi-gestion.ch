@@ -1,128 +1,156 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { AppSettings } from '../../app.settings';
-import { Settings } from '../../app.settings.model';
-import { Mail } from './mail.model';
-import { MailboxService } from './mailbox.service';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material';
+
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+
+import {Mail} from './mail.model';
+import {MailboxService} from './mailbox.service';
 
 @Component({
-  selector: 'app-mailbox',
-  templateUrl: './mailbox.component.html',
-  styleUrls: ['./mailbox.component.scss'],
-  providers: [ MailboxService ]
+  selector : 'app-mailbox',
+  templateUrl : './mailbox.component.html',
+  styleUrls : [ './mailbox.component.scss' ],
+  providers : [ MailboxService ]
 })
 export class MailboxComponent implements OnInit {
-  @ViewChild('sidenav', { static: true }) sidenav: any;
-  public settings: Settings;
-  public sidenavOpen:boolean = true;
-  public mails: Array<Mail>;
-  public mail: Mail;
-  public newMail: boolean;
-  public type:string = 'all';
-  public searchText: string;
-  public form:FormGroup;
+  @ViewChild('sidenav', {static : true}) sidenav: any;
+  private settings: Settings;
+  private sidenavOpen: boolean;
+  private mails: Array<Mail>;
+  private mail: Mail;
+  private newMail: boolean;
+  private type: string;
+  private searchText: string;
+  private form: FormGroup;
 
-  constructor(public appSettings:AppSettings, 
-              public formBuilder: FormBuilder, 
-              public snackBar: MatSnackBar,
-              private mailboxService:MailboxService) { 
-    this.settings = this.appSettings.settings; 
+  public constructor(private appSettings: AppSettings,
+                     private formBuilder: FormBuilder,
+                     private snackBar: MatSnackBar,
+                     private mailboxService: MailboxService) {
+    this.settings = this.appSettings.settings;
   }
 
-  ngOnInit() {
-    this.getMails();      
-    if(window.innerWidth <= 992){
+  public ngOnInit() {
+    this.sidenavOpen = true;
+    this.type = 'all';
+    this.getMails();
+    if (window.innerWidth <= 992) {
       this.sidenavOpen = false;
     }
     this.form = this.formBuilder.group({
-      'to': ['', Validators.required],
-      'cc': null,
-      'subject': null,    
-      'message': null
-    });  
+      to : [ '', Validators.required ],
+      cc : null,
+      subject : null,
+      message : null
+    });
   }
 
   @HostListener('window:resize')
-  public onWindowResize():void {
-    (window.innerWidth <= 992) ? this.sidenavOpen = false : this.sidenavOpen = true;
+  public onWindowResize(): void {
+    (window.innerWidth <= 992) ? this.sidenavOpen = false
+                               : this.sidenavOpen = true;
   }
 
-  public getMails(){
+  private getMails() {
     switch (this.type) {
-      case 'all': 
-        this.mails = this.mailboxService.getAllMails();
-        break;
-      case 'starred':
-        this.mails =  this.mailboxService.getStarredMails();
-        break;
-      case 'sent':
-        this.mails =  this.mailboxService.getSentMails();
-        break;
-      case 'drafts':
-        this.mails =  this.mailboxService.getDraftMails();
-        break;
-      case 'trash':
-        this.mails =  this.mailboxService.getTrashMails();
-        break;
-      default:
-        this.mails =  this.mailboxService.getDraftMails();
-    }  
+    case 'all':
+      this.mails = this.mailboxService.getAllMails();
+      break;
+    case 'starred':
+      this.mails = this.mailboxService.getStarredMails();
+      break;
+    case 'sent':
+      this.mails = this.mailboxService.getSentMails();
+      break;
+    case 'drafts':
+      this.mails = this.mailboxService.getDraftMails();
+      break;
+    case 'trash':
+      this.mails = this.mailboxService.getTrashMails();
+      break;
+    default:
+      this.mails = this.mailboxService.getDraftMails();
+    }
   }
 
-  public viewDetail(mail){
-    this.mail = this.mailboxService.getMail(mail.id);    
+  private viewDetail(mail) {
+    this.mail = this.mailboxService.getMail(mail.id);
     this.mails.forEach(m => m.selected = false);
     this.mail.selected = true;
     this.mail.unread = false;
     this.newMail = false;
-    if(window.innerWidth <= 992){
-      this.sidenav.close(); 
+    if (window.innerWidth <= 992) {
+      this.sidenav.close();
     }
   }
 
-  public compose(){
+  private compose() {
     this.mail = null;
     this.newMail = true;
   }
 
-  public setAsRead(){
-    this.mail.unread = false;
-  }
+  private setAsRead() { this.mail.unread = false; }
 
-  public setAsUnRead(){
-    this.mail.unread = true;
-  }
+  private setAsUnRead() { this.mail.unread = true; }
 
-  public delete() {
+  private delete() {
     this.mail.trash = true;
     this.mail.sent = false;
-    this.mail.draft = false; 
-    this.mail.starred = false; 
+    this.mail.draft = false;
+    this.mail.starred = false;
     this.getMails();
     this.mail = null;
   }
 
-  public changeStarStatus() {       
+  private changeStarStatus() {
     this.mail.starred = !this.mail.starred;
-    this.getMails(); 
+    this.getMails();
   }
 
-  public restore(){
+  private restore() {
     this.mail.trash = false;
     this.type = 'all';
     this.getMails();
-    this.mail = null; 
+    this.mail = null;
   }
 
-  public onSubmit(mail){
-    console.log(mail)
+  public onSubmit(mail) {
+    console.log(mail);
     if (this.form.valid) {
       this.snackBar.open('Mail sent to ' + mail.to + ' successfully!', null, {
-        duration: 2000,
+        duration : 2000,
       });
-      this.form.reset();     
+      this.form.reset();
     }
   }
-
 }

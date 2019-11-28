@@ -1,36 +1,59 @@
-import { Component } from '@angular/core';
-import { AppSettings } from '../../../app.settings';
-import { Settings } from '../../../app.settings.model';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {Component} from '@angular/core';
+import {AppSettings} from '../../../app.settings';
+import {Settings} from '../../../app.settings.model';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss']
+  selector : 'app-slider',
+  templateUrl : './slider.component.html',
+  styleUrls : [ './slider.component.scss' ]
 })
 export class SliderComponent {
-  public settings: Settings;
-  constructor(public appSettings:AppSettings) {
-    this.settings = this.appSettings.settings;     
+  private settings: Settings;
+  private autoTicks = false;
+  private disabled = false;
+  private invert = false;
+  private max = 100;
+  private min = 0;
+  private showTicks = false;
+  private step = 1;
+  private thumbLabel = false;
+  private value = 0;
+  private vertical = false;
+  private pTickInterval = 1;
+  get tickInterval(): number|'auto' {
+    return this.showTicks ? (this.autoTicks ? 'auto' : this.pTickInterval) : 0;
   }
+  set tickInterval(v) { this.pTickInterval = Number(v); }
 
-
-  autoTicks = false;
-  disabled = false;
-  invert = false;
-  max = 100;
-  min = 0;
-  showTicks = false;
-  step = 1;
-  thumbLabel = false;
-  value = 0;
-  vertical = false;
-
-  get tickInterval(): number | 'auto' {
-    return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
+  public constructor(private appSettings: AppSettings) {
+    this.settings = this.appSettings.settings;
   }
-  set tickInterval(v) {
-    this._tickInterval = Number(v);
-  }
-  private _tickInterval = 1;
-
 }

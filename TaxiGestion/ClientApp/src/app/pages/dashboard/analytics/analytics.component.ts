@@ -1,44 +1,73 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { analytics } from '../dashboard.data';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************/
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 
-@Component({
-  selector: 'app-analytics',
-  templateUrl: './analytics.component.html'
-})
-export class AnalyticsComponent implements OnInit {
+import {analytics} from '../dashboard.data';
 
-  public analytics: any[];
-  public showXAxis = true;
-  public showYAxis = true;
-  public gradient = false;
-  public showLegend = false;
-  public showXAxisLabel = false;
-  public xAxisLabel = 'Year';
-  public showYAxisLabel = false;
-  public yAxisLabel = 'Profit';
-  public colorScheme = {
-    domain: ['#283593', '#039BE5', '#FF5252']
-  }; 
-  public autoScale = true;
-  public roundDomains = true;
-  @ViewChild('resizedDiv', { static: true }) resizedDiv:ElementRef;
-  public previousWidthOfResizedDiv:number = 0; 
+@Component(
+    {selector : 'app-analytics', templateUrl : './analytics.component.html'})
+export class AnalyticsComponent implements OnInit, AfterViewChecked {
+  private analytics: any[];
+  private showXAxis = true;
+  private showYAxis = true;
+  private gradient = false;
+  private showLegend = false;
+  private showXAxisLabel = false;
+  private xAxisLabel = 'Year';
+  private showYAxisLabel = false;
+  private yAxisLabel = 'Profit';
+  private colorScheme = {domain : [ '#283593', '#039BE5', '#FF5252' ]};
+  private autoScale = true;
+  private roundDomains = true;
+  @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;
+  private previousWidthOfResizedDiv: number;
 
-  constructor() { }
+  public constructor() {}
 
-  ngOnInit() {
-    this.analytics = analytics; 
+  public ngOnInit() {
+    this.analytics = analytics;
+    this.previousWidthOfResizedDiv = 0;
   }
 
-  onSelect(event) {
-    console.log(event);
-  }
-
-  ngAfterViewChecked() {    
-    if(this.previousWidthOfResizedDiv != this.resizedDiv.nativeElement.clientWidth){
-      this.analytics = [...analytics];
+  public ngAfterViewChecked() {
+    if (this.previousWidthOfResizedDiv !==
+        this.resizedDiv.nativeElement.clientWidth) {
+      this.analytics = [...analytics ];
     }
     this.previousWidthOfResizedDiv = this.resizedDiv.nativeElement.clientWidth;
   }
 
+  private onSelect(event) { console.log(event); }
 }
