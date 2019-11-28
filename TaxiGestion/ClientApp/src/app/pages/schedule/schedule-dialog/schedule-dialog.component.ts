@@ -36,9 +36,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class ScheduleDialogComponent implements OnInit {
   private form: FormGroup;
-  private constructor(private dialogRef: MatDialogRef<ScheduleDialogComponent>,
-                      @Inject(MAT_DIALOG_DATA) private data: any,
-                      private formBuilder: FormBuilder) {
+  public constructor(public dialogRef: MatDialogRef<ScheduleDialogComponent>,
+                     @Inject(MAT_DIALOG_DATA) private data: any,
+                     private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       title : [ '', Validators.required ],
       start : [ '', Validators.required ],

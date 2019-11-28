@@ -31,9 +31,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {CalendarModule} from 'angular-calendar';
-
 import {SharedModule} from '../../shared/shared.module';
-
 import {
   ScheduleDialogComponent
 } from './schedule-dialog/schedule-dialog.component';
