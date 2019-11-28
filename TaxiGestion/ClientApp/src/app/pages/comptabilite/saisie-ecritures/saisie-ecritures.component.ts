@@ -98,28 +98,12 @@ export class SaisieEcrituresComponent implements OnInit {
   }
 
   /**
-   * Kendo grid
-   * @param pageIndex Index de la page
-   * @return void
-   */
-  private sliderChange(pageIndex: number): void {
-    this.skip = (pageIndex - 1) * this.pageSize;
-  }
-
-  /**
-   * Kendo grid
-   * @param state State du kendo grid
-   * @return void
-   */
-  private onPageChange(state: any): void { this.pageSize = state.take; }
-
-  /**
    * On init
    * Chargement de la période comptable DA21Config
    * Puis chargement des écritures en attente de journalisation
    * @returns void
    */
-  private ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.dA21Config = data[this.RESOLVER_DATA_CONFIG];
       if (this.dA21Config === undefined || this.dA21Config === null) {
@@ -135,6 +119,22 @@ export class SaisieEcrituresComponent implements OnInit {
       };
     });
   }
+
+  /**
+   * Kendo grid
+   * @param pageIndex Index de la page
+   * @return void
+   */
+  private sliderChange(pageIndex: number): void {
+    this.skip = (pageIndex - 1) * this.pageSize;
+  }
+
+  /**
+   * Kendo grid
+   * @param state State du kendo grid
+   * @return void
+   */
+  private onPageChange(state: any): void { this.pageSize = state.take; }
 
   /**
    * Dialog pour configuer les dates de la période comptable du bilan
