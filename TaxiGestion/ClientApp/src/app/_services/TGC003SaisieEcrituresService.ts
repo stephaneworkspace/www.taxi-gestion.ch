@@ -33,9 +33,9 @@ import numeral from 'numeral';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {
-  DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcrSimple as
+  DtoTGC003InpDC31EcrCollJournalForWriteEcrSimple as
   DtoDC31ForWriteEcritureSimple
-} from '../_dto/TGC/DtoTGC003InpDC31EcritureCollectiveJournalForWriteEcrSimple';
+} from '../_dto/TGC/DtoTGC003InpDC31EcrCollJournalForWriteEcrSimple';
 import {
   DtoTGC003OutDC30EcritureJournalForList as DtoTGC003OutDC30ForList,
   DtoTGC003OutDC30EcritureJournalForListMod as DtoTGC003OutDC30ForListMod
