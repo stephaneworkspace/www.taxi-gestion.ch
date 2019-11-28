@@ -88,10 +88,21 @@ Pour le moment ce programme est en préversion. Il n'est pas utilisable en
 production
 
 ## Licence
+The licence is divide in two part
+
+1. Backend Asp.net C# part:
+
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License version 2 as published by the Free 
 Software Foundation.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+2. Frontend Angular part:
+
+For the design, the code is not free:
+You have to buy a licence for:
+* Gradus on https://www.themeforest.net/
+* Telerik Progress Kendo UI on https://www.telerik.com
