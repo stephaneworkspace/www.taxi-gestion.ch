@@ -1,68 +1,120 @@
-.user-name{
-    padding: 0 12px;
-    font-weight: 400;
-}
-.user-content{
-    padding: 10px;
-    .user-img{
-        position: relative;
-        img{
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            &.blocked{
-                opacity: 0.5;
-            }
-        }
-        .mat-icon{
-            position: absolute;
-            top: -8px;
-            left: -8px;            
-            font-size: 96px;
-            height: 96px;
-            width: 96px;            
-        }
-    }
-    .mat-slide-toggle{
-        margin-top: 15px;
-    }
-    .user-details{
-        span{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .mat-icon{
-            padding: 2px 10px;
-        } 
-        &.blocked{
-            opacity: 0.5;
-        }
-    }    
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published by
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ *****************************************************************************/
+.user-name {
+  padding: 0 12px;
+  font-weight: 400;
 }
 
-.user-search{
-    width: 0;
-    overflow: hidden;
-    transition: 0.3s;
-    .mat-form-field{
-        width: 100% !important;
-        text-align: center !important;
-        height: 36px;        
+.user-content {
+  padding: 10px;
+
+  .user-img {
+    position: relative;
+
+    img {
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+
+      &.blocked {
+        opacity: 0.5;
+      }
     }
-    .mat-form-field-infix{
-        padding: 5px;
+
+    .mat-icon {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      font-size: 96px;
+      height: 96px;
+      width: 96px;
     }
-    .mat-input-element{
-        text-align: center;
+  }
+
+  .mat-slide-toggle {
+    margin-top: 15px;
+  }
+
+  .user-details {
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
-    &.show{
-        width: 100%;
-        overflow: visible;
+
+    .mat-icon {
+      padding: 2px 10px;
     }
+
+    &.blocked {
+      opacity: 0.5;
+    }
+  }
 }
 
-.user-spinner{
-    position: absolute;
-    top:0; right: 0; bottom: 0; left:0;
+.user-search {
+  width: 0;
+  overflow: hidden;
+  transition: 0.3s;
+
+  .mat-form-field {
+    width: 100% !important;
+    text-align: center !important;
+    height: 36px;
+  }
+
+  .mat-form-field-infix {
+    padding: 5px;
+  }
+
+  .mat-input-element {
+    text-align: center;
+  }
+
+  &.show {
+    width: 100%;
+    overflow: visible;
+  }
+}
+
+.user-spinner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }

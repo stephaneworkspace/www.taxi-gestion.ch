@@ -14,17 +14,25 @@
  *               | |stephane-bressani.ch
  *               |_|github.com/stephaneworkspace
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * The licence is divided in two parts
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * 1. Backend Asp.net C# part:
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published by
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
  *****************************************************************************/
 import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -40,9 +48,9 @@ import {emailValidator} from '../../theme/utils/app-validators';
 
 @Component({selector : 'app-login', templateUrl : './login.component.html'})
 export class LoginComponent implements AfterViewInit {
-  public model: any = {};
-  public form: FormGroup;
-  public settings: Settings;
+  private model: any = {};
+  private form: FormGroup;
+  private settings: Settings;
   public constructor(private appSettings: AppSettings, private fb: FormBuilder,
                      private router: Router,
                      private authService: TGA001AuthentificationService,
@@ -63,7 +71,7 @@ export class LoginComponent implements AfterViewInit {
 
   public ngAfterViewInit() { this.settings.loadingSpinner = false; }
 
-  public onSubmit(values: object): void {
+  private onSubmit(values: object): void {
     if (this.form.valid) {
       // peut être que ce bout de code est inutile avec model: any = {};
       this.model = {

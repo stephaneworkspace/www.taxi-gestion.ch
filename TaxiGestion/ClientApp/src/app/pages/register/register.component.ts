@@ -14,17 +14,25 @@
  *               | |stephane-bressani.ch
  *               |_|github.com/stephaneworkspace
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2
- * as published by the Free Software Foundation.
+ * The licence is divided in two parts
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * 1. Backend Asp.net C# part:
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published by
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
  *****************************************************************************/
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -60,15 +68,14 @@ import {
   styleUrls : [ './register.component.scss' ],
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
-
-  public firstFormGroup: FormGroup;
-  public secondFormGroup: FormGroup;
-  public settings: Settings;
-  public filteredOptions: Observable<string[]>;
-  public matErrorNomUtilisateurDisponible: string;
-  public matErrorEmailDisponible: string;
-  public matErrorNpaGeneve: string;
-  public swDisabled = false;
+  private firstFormGroup: FormGroup;
+  private secondFormGroup: FormGroup;
+  private settings: Settings;
+  private filteredOptions: Observable<string[]>;
+  private matErrorNomUtilisateurDisponible: string;
+  private matErrorEmailDisponible: string;
+  private matErrorNpaGeneve: string;
+  private swDisabled = false;
 
   public constructor(private appSettings: AppSettings, private fb: FormBuilder,
                      private router: Router, private service: Service,
@@ -133,39 +140,39 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit() { this.settings.loadingSpinner = false; }
 
-  filter(val): string[] {
+  private filter(val): string[] {
     return npaCompletData.filter(
         option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
-  messageErreurNomUtilisateurDisponible() {
+  private messageErreurNomUtilisateurDisponible() {
     this.firstFormGroup.get('nomUtilisateur').valueChanges.subscribe(val => {
       this.matErrorNomUtilisateurDisponible =
           'Le nom d\'utilisateur « ' + val + ' » est déjà utilisé';
     });
   }
 
-  messageErreurEmailDisponible() {
+  private messageErreurEmailDisponible() {
     this.firstFormGroup.get('email').valueChanges.subscribe(val => {
       this.matErrorEmailDisponible =
           'L\'e-mail « ' + val + ' » est déjà utilisé';
     });
   }
 
-  messageErreurNpaGeneve() {
+  private messageErreurNpaGeneve() {
     this.secondFormGroup.get('npa').valueChanges.subscribe(val => {
       this.matErrorNpaGeneve = 'Le npa « ' + val.slice(0, 4) +
                                ' » ne fait pas partie du canton de Genève';
     });
   }
 
-  public onSubmit(values: object): void {
+  private onSubmit(values: object): void {
     if (this.firstFormGroup.valid) {
       this.router.navigate([ '/login' ]);
     }
   }
 
-  btnClickInscription(): void {
+  private btnClickInscription(): void {
     if (this.swDisabled === false && this.firstFormGroup.valid &&
         this.secondFormGroup.valid) {
       this.swDisabled = true;

@@ -1,87 +1,137 @@
-.landing-header{
-    position: relative;
-    color: #fff;
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 as published by
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ *****************************************************************************/
+.landing-header {
+  position: relative;
+  color: #fff;
+  height: 520px;
+  text-align: center;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     height: 520px;
-    text-align: center;
-    &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 520px;
-        background-color: #242424;
-        background-image: url('../../../assets/img/landing/header.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position-y: center;
-        z-index: -1;
-    }
-    p{
-        margin-bottom: 1rem;
-    }
-    .logo{ 
-        font-size: 48px;        
-    }
-    .intro-text{
-        font-size: 36px;
-    }
-    .desc{
-        font-size: 16px;
-        font-weight: 300;
-        letter-spacing: 0.03rem;
-    }
-    .mat-raised-button{
-        margin: 0 14px;
-    }
+    background-color: #242424;
+    background-image: url('../../../assets/img/landing/header.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    z-index: -1;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .logo {
+    font-size: 48px;
+  }
+
+  .intro-text {
+    font-size: 36px;
+  }
+
+  .desc {
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.03rem;
+  }
+
+  .mat-raised-button {
+    margin: 0 14px;
+  }
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 16px 32px;
-    text-align: center;
-    h2{
-        font-size: 2rem;
-    }
-    .desc{
-        font-size: 1.25rem;
-    }
-    .demo{
-        padding: 16px;
-        .text{
-            font-size: 16px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-        .link{
-            display: block;            
-            img{
-                width: 100%;
-                box-shadow: 0px 1px 5px 1px #999;
-                transition: .2s;
-                &:hover{
-                    box-shadow: 0px 1px 5px 5px #999;
-                }
-            }
-        }
-    }
-}
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  text-align: center;
 
-.landing-footer{
-    max-width: 1200px;
-    margin: 0 auto;
+  h2 {
+    font-size: 2rem;
+  }
+
+  .desc {
+    font-size: 1.25rem;
+  }
+
+  .demo {
     padding: 16px;
+
+    .text {
+      font-size: 16px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .link {
+      display: block;
+
+      img {
+        width: 100%;
+        box-shadow: 0px 1px 5px 1px #999;
+        transition: .2s;
+
+        &:hover {
+          box-shadow: 0px 1px 5px 5px #999;
+        }
+      }
+    }
+  }
 }
 
-@media (max-width: 767px) { 
-   .landing-header{
-       .logo{
-            font-size: 36px;
-        }
-        .intro-text{
-            font-size: 24px;
-        }
-   }
+.landing-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .landing-header {
+    .logo {
+      font-size: 36px;
+    }
+
+    .intro-text {
+      font-size: 24px;
+    }
+  }
 }
