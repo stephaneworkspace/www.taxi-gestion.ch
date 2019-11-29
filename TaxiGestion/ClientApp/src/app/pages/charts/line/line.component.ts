@@ -64,5 +64,5 @@ export class LineComponent {
     Object.assign(this, {single, multi});
   }
 
-  private onSelect(event) { console.log(event); }
+  public onSelect(event) { console.log(event); }
 }
