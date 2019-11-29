@@ -35,7 +35,6 @@
  * -> Telerik Progress Kendo UI on https://www.telerik.com
  *****************************************************************************/
 import {Component} from '@angular/core';
-
 import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
 import {multi, single} from '../charts.data';

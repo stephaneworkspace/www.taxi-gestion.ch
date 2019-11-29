@@ -1,40 +1,95 @@
-<div fxLayout="column" fxLayout.gt-sm="row wrap"> 
-    <div fxFlex="50" class="flex-p"> 
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Simple autocomplete</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content fxLayoutAlign="center">
-                <form>
-                    <mat-form-field>
-                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let option of options" [value]="option">
-                                {{ option }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>   
-    <div fxFlex="50" class="flex-p"> 
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Filter autocomplete</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content fxLayoutAlign="center">
-                <form>
-                    <mat-form-field>
-                        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="filteredControl" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete">
-                            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                              {{ option }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>           
+<!--****************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; you can redistribute it and/or modify it 
+ * under the terms of the GNU General Public License version 2 as published by 
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+ * more details.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ ***************************************************************************-->
+<div fxLayout="column"
+     fxLayout.gt-sm="row wrap">
+  <div fxFlex="50"
+       class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Simple autocomplete</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayoutAlign="center">
+        <form>
+          <mat-form-field>
+            <input type="text"
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of options"
+                          [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="50"
+       class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Filter autocomplete</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayoutAlign="center">
+        <form>
+          <mat-form-field>
+            <input type="text"
+                   placeholder="Pick one"
+                   aria-label="Number"
+                   matInput
+                   [formControl]="filteredControl"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async"
+                          [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
