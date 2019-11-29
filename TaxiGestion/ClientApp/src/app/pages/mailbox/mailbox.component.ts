@@ -53,12 +53,12 @@ import {MailboxService} from './mailbox.service';
 export class MailboxComponent implements OnInit {
   @ViewChild('sidenav', {static : true}) sidenav: any;
   private settings: Settings;
-  private sidenavOpen: boolean;
-  private mails: Array<Mail>;
-  private mail: Mail;
-  private newMail: boolean;
-  private type: string;
-  private searchText: string;
+  public sidenavOpen: boolean;
+  public mails: Array<Mail>;
+  public mail: Mail;
+  public newMail: boolean;
+  public type: string;
+  public searchText: string;
   private form: FormGroup;
 
   public constructor(private appSettings: AppSettings,
@@ -89,7 +89,7 @@ export class MailboxComponent implements OnInit {
                                : this.sidenavOpen = true;
   }
 
-  private getMails() {
+  public getMails() {
     switch (this.type) {
     case 'all':
       this.mails = this.mailboxService.getAllMails();
@@ -122,16 +122,16 @@ export class MailboxComponent implements OnInit {
     }
   }
 
-  private compose() {
+  public compose() {
     this.mail = null;
     this.newMail = true;
   }
 
-  private setAsRead() { this.mail.unread = false; }
+  public setAsRead() { this.mail.unread = false; }
 
-  private setAsUnRead() { this.mail.unread = true; }
+  public setAsUnRead() { this.mail.unread = true; }
 
-  private delete() {
+  public delete() {
     this.mail.trash = true;
     this.mail.sent = false;
     this.mail.draft = false;

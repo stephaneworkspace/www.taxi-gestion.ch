@@ -41,15 +41,15 @@ import {Settings} from '../../../app.settings.model';
 
 @Component({selector : 'app-dialog', templateUrl : './dialog.component.html'})
 export class DialogComponent {
-  private animal: string;
-  private name: string;
+  public animal: string;
+  public name: string;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private dialog: MatDialog) {
     this.settings = this.appSettings.settings;
   }
 
-  private openDialog(): void {
+  public openDialog(): void {
     const dialogRef =
         this.dialog.open(DialogOverviewExampleDialog,
                          {data : {name : this.name, animal : this.animal}});
@@ -68,7 +68,7 @@ export class DialogComponent {
 export class DialogOverviewExampleDialog { // tslint:disable-line
   public constructor(private dialogRef:
                          MatDialogRef<DialogOverviewExampleDialog>,
-                     @Inject(MAT_DIALOG_DATA) private data: any) {}
+                     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-  private onNoClick(): void { this.dialogRef.close(); }
+  public onNoClick(): void { this.dialogRef.close(); }
 }

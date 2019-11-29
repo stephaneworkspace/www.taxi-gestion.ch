@@ -44,8 +44,8 @@ import {Settings} from '../../app.settings.model';
   styleUrls : [ './drag-drop.component.scss' ]
 })
 export class DragDropComponent {
-  private icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite' ];
-  private colors = [ 'accent', 'primary', 'warn' ];
+  public icons = [ 'home', 'person', 'alarm', 'work', 'mail', 'favorite' ];
+  public colors = [ 'accent', 'primary', 'warn' ];
   private settings: Settings;
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

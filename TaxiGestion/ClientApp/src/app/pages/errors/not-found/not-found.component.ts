@@ -47,5 +47,5 @@ export class NotFoundComponent implements AfterViewInit {
     this.settings = this.appSettings.settings;
   }
   public ngAfterViewInit() { this.settings.loadingSpinner = false; }
-  private searchResult(): void { this.router.navigate([ '/search' ]); }
+  public searchResult(): void { this.router.navigate([ '/search' ]); }
 }

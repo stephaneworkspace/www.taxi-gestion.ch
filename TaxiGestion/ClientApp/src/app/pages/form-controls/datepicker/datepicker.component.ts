@@ -39,12 +39,12 @@ import {Settings} from '../../../app.settings.model';
 export class DatepickerComponent {
   private settings: Settings;
   // Datepicker input and change events
-  private events: string[] = [];
+  public events: string[] = [];
   // Datepicker start date
-  private startDate = new Date(1990, 0, 1);
+  public startDate = new Date(1990, 0, 1);
   // Datepicker with min & max validation
-  private minDate = new Date(2010, 0, 1);
-  private maxDate = new Date(2020, 0, 1);
+  public minDate = new Date(2010, 0, 1);
+  public maxDate = new Date(2020, 0, 1);
   // Datepicker with filter validation
   private myFilter = (d: Date):
       boolean => {
@@ -55,7 +55,7 @@ export class DatepickerComponent {
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }
-  private addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+  public addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
 }

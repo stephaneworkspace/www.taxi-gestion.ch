@@ -54,7 +54,7 @@ import {
   `
 })
 export class FullScreenComponent implements OnInit {
-  private toggle: boolean;
+  public toggle: boolean;
   @ViewChild('expand', {static : false}) private expand: ElementRef;
   @ViewChild('compress', {static : false}) private compress: ElementRef;
 

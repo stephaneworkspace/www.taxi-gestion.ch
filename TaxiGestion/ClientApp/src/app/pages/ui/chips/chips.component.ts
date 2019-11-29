@@ -51,9 +51,9 @@ export class ChipsComponent implements OnInit {
   private visible: boolean;
   private selectable: boolean;
   private removable: boolean;
-  private addOnBlur: boolean;
-  private separatorKeysCodes = [ ENTER, COMMA ];
-  private fruits = [ {name : 'Lemon'}, {name : 'Lime'}, {name : 'Apple'} ];
+  public addOnBlur: boolean;
+  public separatorKeysCodes = [ ENTER, COMMA ];
+  public fruits = [ {name : 'Lemon'}, {name : 'Lime'}, {name : 'Apple'} ];
   private settings: Settings;
 
   public constructor(private appSettings: AppSettings) {
@@ -67,7 +67,7 @@ export class ChipsComponent implements OnInit {
     this.addOnBlur = true;
   }
 
-  private add(event: MatChipInputEvent): void {
+  public add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 

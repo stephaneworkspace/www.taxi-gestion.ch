@@ -46,10 +46,10 @@ import {Settings} from '../../../app.settings.model';
   templateUrl : './autocomplete.component.html'
 })
 export class AutocompleteComponent implements OnInit {
-  private myControl: FormControl = new FormControl();
-  private options = [ 'One', 'Two', 'Three' ];
-  private filteredControl: FormControl = new FormControl();
-  private filteredOptions: Observable<string[]>;
+  public myControl: FormControl = new FormControl();
+  public options = [ 'One', 'Two', 'Three' ];
+  public filteredControl: FormControl = new FormControl();
+  public filteredOptions: Observable<string[]>;
   private settings: Settings;
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

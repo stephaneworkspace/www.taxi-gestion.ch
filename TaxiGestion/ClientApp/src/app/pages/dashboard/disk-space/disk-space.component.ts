@@ -47,13 +47,13 @@ import {disk_space} from '../dashboard.data';
 @Component(
     {selector : 'app-disk-space', templateUrl : './disk-space.component.html'})
 export class DiskSpaceComponent implements OnInit, AfterViewChecked {
-  private data: any[];
-  private showLegend = false;
-  private gradient = true;
-  private colorScheme = {domain : [ '#2F3E9E', '#D22E2E', '#378D3B' ]};
-  private showLabels = true;
-  private explodeSlices = true;
-  private doughnut = false;
+  public data: any[];
+  public showLegend = false;
+  public gradient = true;
+  public colorScheme = {domain : [ '#2F3E9E', '#D22E2E', '#378D3B' ]};
+  public showLabels = true;
+  public explodeSlices = true;
+  public doughnut = false;
   @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;
   private previousWidthOfResizedDiv: number;
 

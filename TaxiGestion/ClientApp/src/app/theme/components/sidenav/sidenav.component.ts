@@ -48,8 +48,8 @@ import {MenuService} from '../menu/menu.service';
 })
 export class SidenavComponent implements OnInit {
   private userImage = '../assets/img/users/user.jpg';
-  private menuItems: Array<any>;
-  private settings: Settings;
+  public menuItems: Array<any>;
+  public settings: Settings;
   constructor(private appSettings: AppSettings,
               private menuService: MenuService) {
     this.settings = this.appSettings.settings;

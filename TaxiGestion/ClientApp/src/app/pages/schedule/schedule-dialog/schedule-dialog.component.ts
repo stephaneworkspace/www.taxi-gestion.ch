@@ -43,7 +43,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
   templateUrl : './schedule-dialog.component.html'
 })
 export class ScheduleDialogComponent implements OnInit {
-  private form: FormGroup;
+  public form: FormGroup;
   public constructor(public dialogRef: MatDialogRef<ScheduleDialogComponent>,
                      @Inject(MAT_DIALOG_DATA) private data: any,
                      private formBuilder: FormBuilder) {
@@ -66,5 +66,5 @@ export class ScheduleDialogComponent implements OnInit {
     }
   }
 
-  private close(): void { this.dialogRef.close(); }
+  public close(): void { this.dialogRef.close(); }
 }

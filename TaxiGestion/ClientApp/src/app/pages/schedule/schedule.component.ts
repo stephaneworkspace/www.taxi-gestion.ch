@@ -76,14 +76,13 @@ const colors: any = {
   host : {'[@blockTransition]' : ''}
 })
 export class ScheduleComponent implements OnInit {
-  private view: string;
-  private viewDate: Date = new Date();
+  public view: string;
+  public viewDate: Date = new Date();
   private activeDayIsOpen: boolean;
   private actions: CalendarEventAction[];
   private events: CalendarEvent[];
   private refresh: Subject<any> = new Subject();
-
-  private settings: Settings;
+  public settings: Settings;
 
   public constructor(private appSettings: AppSettings,
                      private dialog: MatDialog, private snackBar: MatSnackBar) {
@@ -154,7 +153,7 @@ export class ScheduleComponent implements OnInit {
     }
   }
 
-  private openScheduleDialog(event) {
+  public openScheduleDialog(event) {
     const dialogRef = this.dialog.open(ScheduleDialogComponent, {data : event});
 
     dialogRef.afterClosed().subscribe(result => {

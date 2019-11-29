@@ -64,7 +64,7 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit {
   @Input(MENU_PARENT_ID) menuParentId;
   /* tslint:disable-next-line */
   @Output() onClickMenuItem: EventEmitter<any> = new EventEmitter<any>();
-  private parentMenu: Array<any>;
+  public parentMenu: Array<any>;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private menuService: MenuService, private router: Router) {

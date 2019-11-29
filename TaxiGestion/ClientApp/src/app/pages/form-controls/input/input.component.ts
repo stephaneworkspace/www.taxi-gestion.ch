@@ -49,13 +49,13 @@ import {Settings} from '../../../app.settings.model';
 export class InputComponent {
   private settings: Settings;
   // Input with a custom ErrorStateMatcher
-  private emailFormControl = new FormControl('', [
+  public emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
-  private matcher = new MyErrorStateMatcher();
+  public matcher = new MyErrorStateMatcher();
   // Input with a clear button
-  private value = 'Clear me';
+  public value = 'Clear me';
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }

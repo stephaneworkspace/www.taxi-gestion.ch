@@ -60,7 +60,7 @@ const MENU_PARENT_ID = 'menuParentId';
 })
 export class HorizontalMenuComponent implements OnInit, AfterViewInit {
   @Input(MENU_PARENT_ID) menuParentId;
-  private menuItems: Array<any>;
+  public menuItems: Array<any>;
   private settings: Settings;
   @ViewChild(MatMenuTrigger, {static : false}) trigger: MatMenuTrigger;
   public constructor(private appSettings: AppSettings,

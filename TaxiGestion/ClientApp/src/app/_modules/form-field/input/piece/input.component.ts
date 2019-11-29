@@ -67,14 +67,14 @@ export class InputPieceFormFieldComponent implements OnInit {
     }
   }
 
-  private placeholderNoPiece: string;
+  public placeholderNoPiece: string;
 
   // Datepicker start date
   private startDate = new Date(2019, 1, 1);
 
   // Datepicker with min & max validation
-  private minDate = new Date(2010, 0, 1);
-  private maxDate = new Date(2021, 0, 1);
+  public minDate = new Date(2010, 0, 1);
+  public maxDate = new Date(2021, 0, 1);
 
   // Datepicker input and change events
   events: string[] = [];
@@ -102,9 +102,9 @@ export class InputPieceFormFieldComponent implements OnInit {
     this.events.push(`${type}: ${event.value}`);
   }
 
-  private aFaire(): void { alert('À faire'); }
+  public aFaire(): void { alert('À faire'); }
 
-  private blurNoPiece() {
+  public blurNoPiece() {
     const re = /[^0-9]/g;
     let str = this.formGroup.get(this.fbNoPiece).value;
     if (str == null) {

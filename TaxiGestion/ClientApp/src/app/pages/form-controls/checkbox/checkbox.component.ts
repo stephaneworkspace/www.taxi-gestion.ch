@@ -41,10 +41,10 @@ import {Settings} from '../../../app.settings.model';
 @Component(
     {selector : 'app-checkbox', templateUrl : './checkbox.component.html'})
 export class CheckboxComponent {
-  private checked = false;
-  private indeterminate = false;
-  private labelPosition = 'after';
-  private disabled = false;
+  public checked = false;
+  public indeterminate = false;
+  public labelPosition = 'after';
+  public disabled = false;
   private settings: Settings;
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

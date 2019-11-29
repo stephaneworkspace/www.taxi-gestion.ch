@@ -47,10 +47,10 @@ import {MessagesService} from './messages.service';
 })
 export class MessagesComponent implements OnInit {
   @ViewChild(MatMenuTrigger, {static : true}) trigger: MatMenuTrigger;
-  private selectedTab: number;
-  private messages: Array<object>;
-  private files: Array<object>;
-  private meetings: Array<object>;
+  public selectedTab: number;
+  public messages: Array<object>;
+  public files: Array<object>;
+  public meetings: Array<object>;
 
   public constructor(private messagesService: MessagesService) {
     this.messages = messagesService.getMessages();
@@ -60,14 +60,14 @@ export class MessagesComponent implements OnInit {
 
   public ngOnInit() { this.selectedTab = 1; }
 
-  private openMessagesMenu() {
+  public openMessagesMenu() {
     this.trigger.openMenu();
     this.selectedTab = 0;
   }
 
   private onMouseLeave() { this.trigger.closeMenu(); }
 
-  private stopClickPropagate(event: any) {
+  public stopClickPropagate(event: any) {
     event.stopPropagation();
     event.preventDefault();
   }

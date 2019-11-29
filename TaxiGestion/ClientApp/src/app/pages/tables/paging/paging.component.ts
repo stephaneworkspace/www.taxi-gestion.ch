@@ -44,8 +44,8 @@ import {Element, TablesService} from '../tables.service';
 @Component({selector : 'app-paging', templateUrl : './paging.component.html'})
 export class PagingComponent implements AfterViewInit {
   @ViewChild(MatPaginator, {static : true}) paginator: MatPaginator;
-  private displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
-  private dataSource: any;
+  public displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
+  public dataSource: any;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private tablesService: TablesService) {

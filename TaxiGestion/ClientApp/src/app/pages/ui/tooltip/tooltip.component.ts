@@ -40,7 +40,7 @@ import {Settings} from '../../../app.settings.model';
 
 @Component({selector : 'app-tooltip', templateUrl : './tooltip.component.html'})
 export class TooltipComponent {
-  private position = 'before';
+  public position = 'before';
   private settings: Settings;
   public constructor(private appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

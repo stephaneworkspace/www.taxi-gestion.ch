@@ -60,8 +60,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   private userImage = 'assets/img/users/user.jpg';
   private chats: Array<Chat>;
   private talks: Array<Chat>;
-  private sidenavOpen: boolean;
-  private currentChat: Chat;
+  public sidenavOpen: boolean;
+  public currentChat: Chat;
   private newMessage: string;
 
   public constructor(private appSettings: AppSettings,

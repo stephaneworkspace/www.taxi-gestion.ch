@@ -53,12 +53,12 @@ import {customers, orders, products, refunds} from '../dashboard.data';
   styleUrls : [ './info-cards.component.scss' ]
 })
 export class InfoCardsComponent implements OnInit, OnDestroy, AfterViewChecked {
-  private orders: any[];
-  private products: any[];
+  public orders: any[];
+  public products: any[];
   private customers: any[];
   private refunds: any[];
-  private colorScheme = {domain : [ '#999' ]};
-  private autoScale = true;
+  public colorScheme = {domain : [ '#999' ]};
+  public autoScale = true;
   @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;
   private previousWidthOfResizedDiv: number;
   private settings: Settings;
@@ -92,7 +92,7 @@ export class InfoCardsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.previousWidthOfResizedDiv = this.resizedDiv.nativeElement.clientWidth;
   }
 
-  private onSelect(event) { console.log(event); }
+  public onSelect(event) { console.log(event); }
 
   private addRandomValue(param) {
     switch (param) {

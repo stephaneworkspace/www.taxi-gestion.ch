@@ -61,7 +61,7 @@ import {DialogPeriodeComptaDialog} from '../dialog/dialog-periode-compta';
 })
 export class SaisieEcrituresComponent implements OnInit {
 
-  private ecritures: Dto[];
+  public ecritures: Dto[];
   private ecrituresTotal: EcrituresTotal;
   private gridView: GridDataResult;
   private gridViewEcrituresCollective: GridDataResult;
@@ -78,7 +78,7 @@ export class SaisieEcrituresComponent implements OnInit {
   private RESOLVER_DATA_ECRITURES = 'ecritures';
 
   private pageSize = 10;
-  private skip = 0;
+  public skip = 0;
 
   /**
    * Constructor
@@ -134,7 +134,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * @param state State du kendo grid
    * @return void
    */
-  private onPageChange(state: any): void { this.pageSize = state.take; }
+  public onPageChange(state: any): void { this.pageSize = state.take; }
 
   /**
    * Dialog pour configuer les dates de la période comptable du bilan
@@ -174,7 +174,7 @@ export class SaisieEcrituresComponent implements OnInit {
    * Création d'une nouvelle écriture simple
    * @return void
    */
-  private btnClickNouvelleEcritureSimple(): void {
+  public btnClickNouvelleEcritureSimple(): void {
     this.router.navigate([ '/index/comptabilite/saisie-ecriture-simple' ]);
   }
 
@@ -182,13 +182,13 @@ export class SaisieEcrituresComponent implements OnInit {
    * Création d'une nouvelle écriture collective
    * @return void
    */
-  private btnClickNouvelleEcritureCollective(): void { alert('À faire'); }
+  public btnClickNouvelleEcritureCollective(): void { alert('À faire'); }
 
   /**
    * Effacer le journal temporaire de cet utilisateur
    * @return void
    */
-  private btnClickEffacerTout(): void { alert('À faire'); }
+  public btnClickEffacerTout(): void { alert('À faire'); }
 
   /**
    * À faire

@@ -46,5 +46,5 @@ export class ErrorComponent implements AfterViewInit {
     this.settings = this.appSettings.settings;
   }
   public ngAfterViewInit() { this.settings.loadingSpinner = false; }
-  private goHome(): void { this.router.navigate([ '/' ]); }
+  public goHome(): void { this.router.navigate([ '/' ]); }
 }

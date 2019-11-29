@@ -44,7 +44,7 @@ import {Settings} from './app.settings.model';
   styleUrls : [ './app.component.scss' ]
 })
 export class AppComponent {
-  private settings: Settings;
+  public settings: Settings;
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }

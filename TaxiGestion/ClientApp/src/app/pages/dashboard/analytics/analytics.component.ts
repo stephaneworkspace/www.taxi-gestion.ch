@@ -47,18 +47,18 @@ import {analytics} from '../dashboard.data';
 @Component(
     {selector : 'app-analytics', templateUrl : './analytics.component.html'})
 export class AnalyticsComponent implements OnInit, AfterViewChecked {
-  private analytics: any[];
-  private showXAxis = true;
-  private showYAxis = true;
-  private gradient = false;
-  private showLegend = false;
-  private showXAxisLabel = false;
-  private xAxisLabel = 'Year';
-  private showYAxisLabel = false;
-  private yAxisLabel = 'Profit';
-  private colorScheme = {domain : [ '#283593', '#039BE5', '#FF5252' ]};
-  private autoScale = true;
-  private roundDomains = true;
+  public analytics: any[];
+  public showXAxis = true;
+  public showYAxis = true;
+  public gradient = false;
+  public showLegend = false;
+  public showXAxisLabel = false;
+  public xAxisLabel = 'Year';
+  public showYAxisLabel = false;
+  public yAxisLabel = 'Profit';
+  public colorScheme = {domain : [ '#283593', '#039BE5', '#FF5252' ]};
+  public autoScale = true;
+  public roundDomains = true;
   @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;
   private previousWidthOfResizedDiv: number;
 
@@ -77,5 +77,5 @@ export class AnalyticsComponent implements OnInit, AfterViewChecked {
     this.previousWidthOfResizedDiv = this.resizedDiv.nativeElement.clientWidth;
   }
 
-  private onSelect(event) { console.log(event); }
+  public onSelect(event) { console.log(event); }
 }

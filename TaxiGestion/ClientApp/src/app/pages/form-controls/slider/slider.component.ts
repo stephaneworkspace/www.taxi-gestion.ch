@@ -45,16 +45,16 @@ import {Settings} from '../../../app.settings.model';
 })
 export class SliderComponent {
   private settings: Settings;
-  private autoTicks = false;
-  private disabled = false;
-  private invert = false;
-  private max = 100;
-  private min = 0;
-  private showTicks = false;
-  private step = 1;
-  private thumbLabel = false;
-  private value = 0;
-  private vertical = false;
+  public autoTicks = false;
+  public disabled = false;
+  public invert = false;
+  public max = 100;
+  public min = 0;
+  public showTicks = false;
+  public step = 1;
+  public thumbLabel = false;
+  public value = 0;
+  public vertical = false;
   private pTickInterval = 1;
   get tickInterval(): number|'auto' {
     return this.showTicks ? (this.autoTicks ? 'auto' : this.pTickInterval) : 0;

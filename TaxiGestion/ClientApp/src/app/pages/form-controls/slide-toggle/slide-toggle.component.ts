@@ -44,9 +44,9 @@ import {Settings} from '../../../app.settings.model';
 })
 export class SlideToggleComponent {
   private settings: Settings;
-  private color = 'accent';
-  private checked = false;
-  private disabled = false;
+  public color = 'accent';
+  public checked = false;
+  public disabled = false;
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }

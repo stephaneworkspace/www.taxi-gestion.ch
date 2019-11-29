@@ -60,11 +60,10 @@ import {TGA002ConfigService} from 'src/app/_services/TGA002ConfigService';
 })
 // tslint:disable-next-line: component-class-suffix
 export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked {
-
   private dataFromDb: DtoDA21;
-  private form: FormGroup;
+  public form: FormGroup;
   private swTouch = false;
-  private swLoaded = false;
+  public swLoaded = false;
 
   /**
    * Constructor
@@ -125,12 +124,12 @@ export class DialogPeriodeComptaDialog implements OnInit, AfterContentChecked {
    * Fermeture du popup avec comme retour à close() -> close(null)
    * @return void
    */
-  private onNoClick(): void { this.dialogRef.close(null); }
+  public onNoClick(): void { this.dialogRef.close(null); }
 
   /**
    * Traitement du formulaire
    */
-  private onSubmit() {
+  public onSubmit() {
     this.swTouch = true;
     // Envoi du formulaire
     if (this.form.valid && this.form.controls.dateExerciceCompta.valid) {

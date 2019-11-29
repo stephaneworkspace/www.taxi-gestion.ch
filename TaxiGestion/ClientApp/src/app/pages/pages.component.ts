@@ -45,7 +45,6 @@ import {
 } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
-
 import {AppSettings} from '../app.settings';
 import {Settings} from '../app.settings.model';
 import {MenuService} from '../theme/components/menu/menu.service';
@@ -61,7 +60,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
   @ViewChild('backToTop', {static : true}) backToTop: any;
   @ViewChildren(PerfectScrollbarDirective)
   private pss: QueryList<PerfectScrollbarDirective>;
-  private settings: Settings;
+  public settings: Settings;
   private menus = [ 'vertical', 'horizontal' ];
   private menuOption: string;
   private menuTypes = [ 'default', 'compact', 'mini' ];
@@ -125,7 +124,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
 
   private toggleSidenav() { this.sidenav.toggle(); }
 
-  private onPsScrollY(event) {
+  public onPsScrollY(event) {
     (event.target.scrollTop > 300)
         ? this.backToTop.nativeElement.style.display = 'flex'
         : this.backToTop.nativeElement.style.display = 'none';
@@ -153,7 +152,7 @@ export class PagesComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private scrollToTop() {
+  public scrollToTop() {
     this.pss.forEach(ps => {
       if (ps.elementRef.nativeElement.id === 'main' ||
           ps.elementRef.nativeElement.id === 'main-content') {

@@ -42,8 +42,8 @@ import {Element, TablesService} from '../tables.service';
 
 @Component({selector : 'app-basic', templateUrl : './basic.component.html'})
 export class BasicComponent {
-  private displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
-  private dataSource: any;
+  public displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
+  public dataSource: any;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private tablesService: TablesService) {

@@ -45,10 +45,10 @@ import {Settings} from '../../../app.settings.model';
 export class NgxTableComponent implements OnInit {
   @ViewChild(DatatableComponent, {static : true}) table: DatatableComponent;
   private editing = {};
-  private rows = [];
+  public rows = [];
   private temp = [];
-  private selected = [];
-  private loadingIndicator: boolean;
+  public selected = [];
+  public loadingIndicator: boolean;
   private reorderable: boolean;
   private columns = [ {prop : 'name'}, {name : 'Gender'}, {name : 'Company'} ];
   private settings: Settings;
@@ -74,7 +74,7 @@ export class NgxTableComponent implements OnInit {
     req.send();
   }
 
-  private updateFilter(event) {
+  public updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(
         (d) => d.name.toLowerCase().indexOf(val) !== -1 || !val);
@@ -88,11 +88,11 @@ export class NgxTableComponent implements OnInit {
     this.rows = [...this.rows ];
   }
 
-  private onSelect({selected}) {
+  public onSelect({selected}) {
     console.log('Select Event', selected, this.selected);
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
-  private onActivate(event) { console.log('Activate Event', event); }
+  public onActivate(event) { console.log('Activate Event', event); }
 }

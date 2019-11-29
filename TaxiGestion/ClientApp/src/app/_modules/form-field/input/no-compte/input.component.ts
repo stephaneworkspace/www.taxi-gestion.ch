@@ -66,10 +66,10 @@ export class InputNoCompteFormFieldComponent implements OnInit {
   private planComptableString: string[];
   private planComptable6String: string[];
 
-  private placeholderNoCompte = 'N°';
-  private placeholderCompte = 'Compte';
+  public placeholderNoCompte = 'N°';
+  public placeholderCompte = 'Compte';
 
-  private filteredOptions: Observable<string[]>;
+  public filteredOptions: Observable<string[]>;
 
   private matErrorNoCompte: string;
 
@@ -123,5 +123,5 @@ export class InputNoCompteFormFieldComponent implements OnInit {
     return this.planComptableString.filter(option => option.indexOf(val) === 0);
   }
 
-  private selectionPlanComptable(): void { alert('À faire un joli modal'); }
+  public selectionPlanComptable(): void { alert('À faire un joli modal'); }
 }

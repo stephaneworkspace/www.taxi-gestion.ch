@@ -43,8 +43,8 @@ import {Element, TablesService} from '../tables.service';
 @Component(
     {selector : 'app-filtering', templateUrl : './filtering.component.html'})
 export class FilteringComponent {
-  private displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
-  private dataSource: any;
+  public displayedColumns = [ 'position', 'name', 'weight', 'symbol' ];
+  public dataSource: any;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private tablesService: TablesService) {
@@ -53,7 +53,7 @@ export class FilteringComponent {
         new MatTableDataSource<Element>(this.tablesService.getData());
   }
 
-  private applyFilter(filterValue: string) {
+  public applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

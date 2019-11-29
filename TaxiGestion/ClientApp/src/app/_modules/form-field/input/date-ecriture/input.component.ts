@@ -69,8 +69,8 @@ export class InputDateEcritureFormFieldComponent {
   private startDate = new Date(2019, 1, 1);
 
   // Datepicker with min & max validation
-  private minDate = new Date(2010, 0, 1);
-  private maxDate = new Date(2021, 0, 1);
+  public minDate = new Date(2010, 0, 1);
+  public maxDate = new Date(2021, 0, 1);
 
   private events: string[] = [];
 

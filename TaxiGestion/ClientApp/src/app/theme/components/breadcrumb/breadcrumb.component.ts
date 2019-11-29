@@ -63,7 +63,7 @@ export class BreadcrumbComponent {
   private breadcrumbs: BreadCrumb[];
 
   public settings: Settings;
-  constructor(private appSettings: AppSettings, private router: Router,
+  constructor(private appSettings: AppSettings, public router: Router,
               private activatedRoute: ActivatedRoute, private title: Title) {
     this.breadcrumbs = new Array();
     this.settings = this.appSettings.settings;

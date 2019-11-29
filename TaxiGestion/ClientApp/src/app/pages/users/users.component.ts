@@ -57,8 +57,8 @@ import {UsersService} from './users.service';
   providers : [ UsersService ]
 })
 export class UsersComponent implements OnInit {
-  private users: User[];
-  private searchText: string;
+  public users: User[];
+  public searchText: string;
   private page: any;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
@@ -96,7 +96,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  private openUserDialog(u) {
+  public openUserDialog(u) {
     const dialogRef = this.dialog.open(UserDialogComponent, {data : u});
 
     dialogRef.afterClosed().subscribe(user => {

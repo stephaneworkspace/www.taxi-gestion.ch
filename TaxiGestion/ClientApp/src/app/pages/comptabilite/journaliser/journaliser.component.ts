@@ -63,7 +63,7 @@ import {DialogPeriodeComptaDialog} from '../dialog/dialog-periode-compta';
   // styleUrls: ['./journaliser.component.scss']
 })
 export class JournaliserComponent implements OnInit {
-  private ecritures: Dto[];
+  public ecritures: Dto[];
   private ecrituresTotal: EcrituresTotal;
   private gridView: GridDataResult;
   private gridViewEcrituresCollective: GridDataResult;
@@ -80,7 +80,7 @@ export class JournaliserComponent implements OnInit {
   private RESOLVER_DATA_ECRITURES = 'ecritures';
 
   private pageSize = 10;
-  private skip = 0;
+  public skip = 0;
 
   /**
    * Constructor
@@ -140,7 +140,7 @@ export class JournaliserComponent implements OnInit {
    * @param state Kendo grid state
    * @return void
    */
-  private onPageChange(state: any): void { this.pageSize = state.take; }
+  public onPageChange(state: any): void { this.pageSize = state.take; }
 
   /**
    * Dialog pour configuer les dates de la période comptable du bilan
@@ -180,7 +180,7 @@ export class JournaliserComponent implements OnInit {
    * Bouton traitement de la journalisation
    * @return void
    */
-  private btnSubmit(): void {
+  public btnSubmit(): void {
     if (this.ecritures === undefined || this.ecritures.length === 0) {
       this.snackBar.open(
           'Rien à journaliser', 'Comptabilité',

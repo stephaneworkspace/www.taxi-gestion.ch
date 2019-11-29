@@ -64,10 +64,10 @@ import {DialogPeriodeComptaDialog} from '../../dialog/dialog-periode-compta';
 })
 export class SimpleComponent implements OnInit {
   private settings: Settings;
-  private form: FormGroup;
-  private swTouch = false;
+  public form: FormGroup;
+  public swTouch = false;
 
-  private planComptable: DtoDC10[];
+  public planComptable: DtoDC10[];
   private planComptableString: string[];
   private planComptable6String: string[];
 
@@ -231,7 +231,7 @@ export class SimpleComponent implements OnInit {
    * @param event table de string de 2 occurs
    * @return void
    */
-  private libelleDebitBlur(event: string[]): void {
+  public libelleDebitBlur(event: string[]): void {
     if (event[0] !== '' &&
         !this.form.controls.libelleCredit.get('libelle1Credit').touched) {
       this.form.controls.libelleCredit.get('libelle1Credit').setValue(event[0]);
@@ -247,7 +247,7 @@ export class SimpleComponent implements OnInit {
    * @param event table de string de 2 occurs
    * @return void
    */
-  private libelleCreditBlur(event: string[]): void {
+  public libelleCreditBlur(event: string[]): void {
     if (event[0] !== '' &&
         !this.form.controls.libelleDebit.get('libelle1Debit').touched) {
       this.form.controls.libelleDebit.get('libelle1Debit').setValue(event[0]);
@@ -262,7 +262,7 @@ export class SimpleComponent implements OnInit {
    * Envoi du formulaire
    * @return void
    */
-  private onSubmit(): void {
+  public onSubmit(): void {
     // touch les fb à l'interieur de fb
     this.swTouch = true;
     if (this.form.valid && this.form.controls.dateEcriture.valid &&

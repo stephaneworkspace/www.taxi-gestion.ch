@@ -45,8 +45,8 @@ import {Settings} from '../../../app.settings.model';
 })
 export class RadioButtonComponent {
   private settings: Settings;
-  private favoriteSeason: string;
-  private seasons = [
+  public favoriteSeason: string;
+  public seasons = [
     'Winter',
     'Spring',
     'Summer',

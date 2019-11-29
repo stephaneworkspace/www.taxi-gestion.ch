@@ -82,8 +82,8 @@ export enum StatusWindows {
   encapsulation : ViewEncapsulation.None,
 })
 export class BilanEcranComponent implements OnInit {
-  private statusWindows: StatusWindows;
-  private StatusWindows: typeof StatusWindows = StatusWindows;
+  public statusWindows: StatusWindows;
+  public StatusWindows: typeof StatusWindows = StatusWindows;
   private items: DtoDC10[];
   private classes: Classe[];
   private totalBilan: Bilan;

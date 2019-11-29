@@ -37,7 +37,7 @@ import {TodoService} from './todo.service';
 })
 export class TodoComponent implements OnInit {
   private todoList: Array<any>;
-  private newTodoText: string;
+  public newTodoText: string;
 
   public constructor(private todoService: TodoService) {
     this.todoList = this.todoService.getTodoList();
@@ -45,11 +45,11 @@ export class TodoComponent implements OnInit {
 
   public ngOnInit() { this.newTodoText = ''; }
 
-  private getNotDeleted() {
+  public getNotDeleted() {
     return this.todoList.filter((item: any) => !item.deleted);
   }
 
-  private addToDoItem($event) {
+  public addToDoItem($event) {
     if (($event.which === 1 || $event.which === 13) &&
         this.newTodoText.trim() !== '') {
       this.todoList.unshift({text : this.newTodoText});

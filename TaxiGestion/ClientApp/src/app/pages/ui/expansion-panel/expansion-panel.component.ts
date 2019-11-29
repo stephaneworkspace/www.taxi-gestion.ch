@@ -43,15 +43,15 @@ import {Settings} from '../../../app.settings.model';
   templateUrl : './expansion-panel.component.html'
 })
 export class ExpansionPanelComponent {
-  private step = 0;
+  public step = 0;
   private settings: Settings;
   public constructor(private appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
   }
 
-  private setStep(index: number) { this.step = index; }
+  public setStep(index: number) { this.step = index; }
 
-  private nextStep() { this.step++; }
+  public nextStep() { this.step++; }
 
-  private prevStep() { this.step--; }
+  public prevStep() { this.step--; }
 }

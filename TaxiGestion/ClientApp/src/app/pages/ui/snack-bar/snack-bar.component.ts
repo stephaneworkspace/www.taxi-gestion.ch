@@ -47,7 +47,7 @@ export class SnackBarComponent {
                      private snackBar: MatSnackBar) {
     this.settings = this.appSettings.settings;
   }
-  private openSnackBar(message: string, action: string) {
+  public openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration : 2000,
     });

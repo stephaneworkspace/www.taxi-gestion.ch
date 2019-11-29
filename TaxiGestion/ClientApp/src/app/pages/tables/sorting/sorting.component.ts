@@ -76,8 +76,8 @@ export enum StatusWindows {
 
 @Component({selector : 'app-sorting', templateUrl : './sorting.component.html'})
 export class SortingComponent implements OnInit {
-  private statusWindows: StatusWindows;
-  private StatusWindows: typeof StatusWindows = StatusWindows;
+  public statusWindows: StatusWindows;
+  public StatusWindows: typeof StatusWindows = StatusWindows;
 
   private items: Dto[];
   private classes: Classe[];

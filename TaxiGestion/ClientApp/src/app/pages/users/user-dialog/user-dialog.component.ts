@@ -52,10 +52,10 @@ import {
   styleUrls : [ './user-dialog.component.scss' ]
 })
 export class UserDialogComponent implements OnInit {
-  private form: FormGroup;
-  private passwordHide: boolean;
+  public form: FormGroup;
+  public passwordHide: boolean;
   public constructor(private dialogRef: MatDialogRef<UserDialogComponent>,
-                     @Inject(MAT_DIALOG_DATA) private user: User,
+                     @Inject(MAT_DIALOG_DATA) public user: User,
                      private fb: FormBuilder) {
     this.form = this.fb.group({
       id : null,
@@ -100,5 +100,5 @@ export class UserDialogComponent implements OnInit {
     }
   }
 
-  private close(): void { this.dialogRef.close(); }
+  public close(): void { this.dialogRef.close(); }
 }

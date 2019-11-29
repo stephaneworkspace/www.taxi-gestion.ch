@@ -74,8 +74,8 @@ export class InputDateExerciceComptFormFieldComponent {
   }
 
   // Datepicker with min & max validation
-  private minDate = new Date(2010, 0, 1);
-  private maxDate = new Date((new Date()).getFullYear() + 1, 31, 12);
+  public minDate = new Date(2010, 0, 1);
+  public maxDate = new Date((new Date()).getFullYear() + 1, 31, 12);
 
   // Datepicker input and change events
   private events: string[] = [];

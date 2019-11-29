@@ -43,11 +43,10 @@ import {Settings} from '../../../app.settings.model';
 @Component(
     {selector : 'app-form-field', templateUrl : './form-field.component.html'})
 export class FormFieldComponent implements OnInit {
-  private options: FormGroup;
-  private email =
-      new FormControl('', [ Validators.required, Validators.email ]);
-  private hide: boolean;
-  private themingForm: FormGroup;
+  public options: FormGroup;
+  public email = new FormControl('', [ Validators.required, Validators.email ]);
+  public hide: boolean;
+  public themingForm: FormGroup;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private formBuilder: FormBuilder) {
@@ -72,7 +71,5 @@ export class FormFieldComponent implements OnInit {
                : this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
-  private getFontSize() {
-    return Math.max(10, this.themingForm.value.fontSize);
-  }
+  public getFontSize() { return Math.max(10, this.themingForm.value.fontSize); }
 }

@@ -43,15 +43,15 @@ import {Settings} from '../../../app.settings.model';
 export class SelectComponent {
   private settings: Settings;
   // Basic select
-  private selectedValue: string;
-  private foods = [
+  public selectedValue: string;
+  public foods = [
     {value : 'steak-0', viewValue: 'Steak'},
     {value : 'pizza-1', viewValue: 'Pizza'},
     {value : 'tacos-2', viewValue: 'Tacos'}
   ];
   // Select with option groups
-  private pokemonControl = new FormControl();
-  private pokemonGroups = [
+  public pokemonControl = new FormControl();
+  public pokemonGroups = [
     {
       name : 'Grass',
       pokemon:
@@ -90,12 +90,12 @@ export class SelectComponent {
     }
   ];
   // Select with multiple selection
-  private toppings = new FormControl();
-  private toppingList =
+  public toppings = new FormControl();
+  public toppingList =
       [ 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato' ];
   // Select with custom trigger text
-  private toppings2 = new FormControl();
-  private toppingList2 =
+  public toppings2 = new FormControl();
+  public toppingList2 =
       [ 'Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato' ];
   public constructor(public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
