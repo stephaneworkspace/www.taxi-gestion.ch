@@ -55,8 +55,8 @@ import {customers, orders, products, refunds} from '../dashboard.data';
 export class InfoCardsComponent implements OnInit, OnDestroy, AfterViewChecked {
   public orders: any[];
   public products: any[];
-  private customers: any[];
-  private refunds: any[];
+  public customers: any[];
+  public refunds: any[];
   public colorScheme = {domain : [ '#999' ]};
   public autoScale = true;
   @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;

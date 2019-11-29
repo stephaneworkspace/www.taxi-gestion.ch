@@ -43,9 +43,9 @@ import {Settings} from '../../../app.settings.model';
   templateUrl : './google-maps.component.html'
 })
 export class GoogleMapsComponent implements OnInit {
-  private lat: number;
-  private lng: number;
-  private zoom: number;
+  public lat: number;
+  public lng: number;
+  public zoom: number;
   private settings: Settings;
   public constructor(private appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

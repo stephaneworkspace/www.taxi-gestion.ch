@@ -49,7 +49,7 @@ import {emailValidator} from '../../theme/utils/app-validators';
 @Component({selector : 'app-login', templateUrl : './login.component.html'})
 export class LoginComponent implements AfterViewInit {
   private model: any = {};
-  private form: FormGroup;
+  public form: FormGroup;
   private settings: Settings;
   public constructor(private appSettings: AppSettings, private fb: FormBuilder,
                      private router: Router,
@@ -71,7 +71,7 @@ export class LoginComponent implements AfterViewInit {
 
   public ngAfterViewInit() { this.settings.loadingSpinner = false; }
 
-  private onSubmit(values: object): void {
+  public onSubmit(values: object): void {
     if (this.form.valid) {
       // peut être que ce bout de code est inutile avec model: any = {};
       this.model = {

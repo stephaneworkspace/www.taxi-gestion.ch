@@ -42,9 +42,9 @@ import {Element, TablesService} from '../tables.service';
 @Component(
     {selector : 'app-selecting', templateUrl : './selecting.component.html'})
 export class SelectingComponent implements OnInit {
-  private displayedColumns: string[] =
+  public displayedColumns: string[] =
       [ 'select', 'position', 'name', 'weight', 'symbol' ];
-  private dataSource: any;
+  public dataSource: any;
   private selection = new SelectionModel<Element>(true, []);
   public constructor(private tablesService: TablesService) {}
 

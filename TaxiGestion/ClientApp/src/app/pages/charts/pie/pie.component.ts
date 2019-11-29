@@ -42,18 +42,18 @@ import {multi, single} from '../charts.data';
 
 @Component({selector : 'app-pie', templateUrl : './pie.component.html'})
 export class PieComponent {
-  private single: any[];
-  private multi: any[];
-  private showLegend = true;
-  private gradient = true;
-  private colorScheme = {
+  public single: any[];
+  public multi: any[];
+  public showLegend = true;
+  public gradient = true;
+  public colorScheme = {
     domain :
         [ '#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060' ]
   };
-  private showLabels = true;
-  private explodeSlices = false;
-  private doughnut = false;
-  private settings: Settings;
+  public showLabels = true;
+  public explodeSlices = false;
+  public doughnut = false;
+  public settings: Settings;
 
   public constructor(private appSettings: AppSettings) {
     this.settings = this.appSettings.settings;

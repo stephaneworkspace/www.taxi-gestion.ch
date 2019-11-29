@@ -60,15 +60,15 @@ export class InputLibelleFormFieldComponent {
   output: EventEmitter<string[]> =
       new EventEmitter<string[]>(); // [0] ligne 1 - [1] ligne 2
 
-  private blurLibelle1() {
+  public blurLibelle1() {
     this.output.emit([ this.formGroup.get(this.fbLibelle1).value, '' ]);
   }
 
-  private blurLibelle2() {
+  public blurLibelle2() {
     this.output.emit([ '', this.formGroup.get(this.fbLibelle2).value ]);
   }
 
-  private selectionListeLibelle() {
+  public selectionListeLibelle() {
     alert('À faire');
     // this.output.emit(
     // [this.formGroup.get(this.fbLibelle1).value,

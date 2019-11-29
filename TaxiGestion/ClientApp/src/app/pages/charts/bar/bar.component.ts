@@ -41,17 +41,17 @@ import {multi, single} from '../charts.data';
 
 @Component({selector : 'app-bar', templateUrl : './bar.component.html'})
 export class BarComponent {
-  private single: any[];
-  private multi: any[];
-  private showXAxis = true;
-  private showYAxis = true;
-  private gradient = false;
-  private showLegend = false;
-  private showXAxisLabel = true;
-  private xAxisLabel = 'Country';
-  private showYAxisLabel = true;
-  private yAxisLabel = 'Population';
-  private colorScheme = {
+  public single: any[];
+  public multi: any[];
+  public showXAxis = true;
+  public showYAxis = true;
+  public gradient = false;
+  public showLegend = false;
+  public showXAxisLabel = true;
+  public xAxisLabel = 'Country';
+  public showYAxisLabel = true;
+  public yAxisLabel = 'Population';
+  public colorScheme = {
     domain :
         [ '#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060' ]
   };
@@ -62,5 +62,5 @@ export class BarComponent {
     Object.assign(this, {single, multi});
   }
 
-  private onSelect(event) { console.log(event); }
+  public onSelect(event) { console.log(event); }
 }

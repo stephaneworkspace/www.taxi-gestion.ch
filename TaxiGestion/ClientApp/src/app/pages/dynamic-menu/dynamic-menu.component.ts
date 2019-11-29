@@ -58,11 +58,11 @@ import {DynamicMenuService} from './dynamic-menu.service';
 })
 export class DynamicMenuComponent implements OnInit, AfterViewInit {
   private settings: Settings;
-  private menuItems: Array<Menu>;
-  private icons = [
+  public menuItems: Array<Menu>;
+  public icons = [
     'home', 'person', 'card_travel', 'delete', 'event', 'favorite', 'help'
   ];
-  private form: FormGroup;
+  public form: FormGroup;
   public constructor(private appSettings: AppSettings,
                      private formBuilder: FormBuilder,
                      private snackBar: MatSnackBar,
@@ -120,7 +120,7 @@ export class DynamicMenuComponent implements OnInit, AfterViewInit {
     });
   }
 
-  private onSubmit(menu: Menu): void {
+  public onSubmit(menu: Menu): void {
     if (this.form.valid) {
       this.dynamicMenuService.addNewMenuItem(VerticalMenuComponent,
                                              this.menuItems, menu);

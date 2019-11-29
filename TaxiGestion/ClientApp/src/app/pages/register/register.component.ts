@@ -68,10 +68,10 @@ import {
   styleUrls : [ './register.component.scss' ],
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
-  private firstFormGroup: FormGroup;
-  private secondFormGroup: FormGroup;
+  public firstFormGroup: FormGroup;
+  public secondFormGroup: FormGroup;
   private settings: Settings;
-  private filteredOptions: Observable<string[]>;
+  public filteredOptions: Observable<string[]>;
   private matErrorNomUtilisateurDisponible: string;
   private matErrorEmailDisponible: string;
   private matErrorNpaGeneve: string;
@@ -145,34 +145,34 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
-  private messageErreurNomUtilisateurDisponible() {
+  public messageErreurNomUtilisateurDisponible() {
     this.firstFormGroup.get('nomUtilisateur').valueChanges.subscribe(val => {
       this.matErrorNomUtilisateurDisponible =
           'Le nom d\'utilisateur « ' + val + ' » est déjà utilisé';
     });
   }
 
-  private messageErreurEmailDisponible() {
+  public messageErreurEmailDisponible() {
     this.firstFormGroup.get('email').valueChanges.subscribe(val => {
       this.matErrorEmailDisponible =
           'L\'e-mail « ' + val + ' » est déjà utilisé';
     });
   }
 
-  private messageErreurNpaGeneve() {
+  public messageErreurNpaGeneve() {
     this.secondFormGroup.get('npa').valueChanges.subscribe(val => {
       this.matErrorNpaGeneve = 'Le npa « ' + val.slice(0, 4) +
                                ' » ne fait pas partie du canton de Genève';
     });
   }
 
-  private onSubmit(values: object): void {
+  public onSubmit(values: object): void {
     if (this.firstFormGroup.valid) {
       this.router.navigate([ '/login' ]);
     }
   }
 
-  private btnClickInscription(): void {
+  public btnClickInscription(): void {
     if (this.swDisabled === false && this.firstFormGroup.valid &&
         this.secondFormGroup.valid) {
       this.swDisabled = true;

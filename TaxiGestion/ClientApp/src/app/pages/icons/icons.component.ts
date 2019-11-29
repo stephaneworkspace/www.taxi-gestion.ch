@@ -45,7 +45,7 @@ import {IconsService} from './icons.service';
   providers : [ IconsService ]
 })
 export class IconsComponent implements OnInit {
-  private icons: any;
+  public icons: any;
   private settings: Settings;
   public constructor(private appSettings: AppSettings,
                      private iconsService: IconsService) {

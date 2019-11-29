@@ -46,7 +46,7 @@ export class DatepickerComponent {
   public minDate = new Date(2010, 0, 1);
   public maxDate = new Date(2020, 0, 1);
   // Datepicker with filter validation
-  private myFilter = (d: Date):
+  public myFilter = (d: Date):
       boolean => {
         const day = d.getDay();
         return day !== 0 && day !== 6;

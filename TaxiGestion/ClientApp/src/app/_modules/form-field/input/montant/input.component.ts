@@ -61,7 +61,7 @@ export class InputMontantFormFieldComponent {
 
   public constructor(private currencyPipe: CurrencyPipe) {}
 
-  private blurMontant() {
+  public blurMontant() {
     const base = this.formGroup.get(this.fbMontant)
                      .value.toString()
                      .replace(/[^\d.-]/g, '');

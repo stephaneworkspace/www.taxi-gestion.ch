@@ -42,21 +42,21 @@ import {multi, single} from '../charts.data';
 
 @Component({selector : 'app-line', templateUrl : './line.component.html'})
 export class LineComponent {
-  private single: any[];
-  private multi: any[];
-  private showXAxis = true;
-  private showYAxis = true;
-  private gradient = false;
-  private showLegend = false;
-  private showXAxisLabel = true;
-  private xAxisLabel = 'Year';
-  private showYAxisLabel = true;
-  private yAxisLabel = 'Population';
-  private colorScheme = {
+  public single: any[];
+  public multi: any[];
+  public showXAxis = true;
+  public showYAxis = true;
+  public gradient = false;
+  public showLegend = false;
+  public showXAxisLabel = true;
+  public xAxisLabel = 'Year';
+  public showYAxisLabel = true;
+  public yAxisLabel = 'Population';
+  public colorScheme = {
     domain :
         [ '#2F3E9E', '#D22E2E', '#378D3B', '#0096A6', '#F47B00', '#606060' ]
   };
-  private autoScale = true;
+  public autoScale = true;
   private settings: Settings;
 
   public constructor(private appSettings: AppSettings) {

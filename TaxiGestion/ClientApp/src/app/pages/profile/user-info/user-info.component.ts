@@ -43,14 +43,14 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrls : [ './user-info.component.scss' ]
 })
 export class UserInfoComponent implements OnInit {
-  private personalForm: FormGroup;
-  private salutations = [ {id : 1, name: 'Mr'}, {id : 2, name: 'Mrs'} ];
-  private genders = [ {id : 1, name: 'Male'}, {id : 2, name: 'Female'} ];
-  private countries = [
+  public personalForm: FormGroup;
+  public salutations = [ {id : 1, name: 'Mr'}, {id : 2, name: 'Mrs'} ];
+  public genders = [ {id : 1, name: 'Male'}, {id : 2, name: 'Female'} ];
+  public countries = [
     {id : 1, name: 'USA'}, {id : 2, name: 'Canada'}, {id : 3, name: 'Mexico'},
     {id : 4, name: 'UK'}, {id : 5, name: 'France'}, {id : 6, name: 'Italy'}
   ];
-  private states = [
+  public states = [
     {id : 1, name: 'Arkansas'}, {id : 2, name: 'Texas'},
     {id : 3, name: 'California'}, {id : 4, name: 'Florida'},
     {id : 5, name: 'Other'}
@@ -74,7 +74,7 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  private onSubmit(values: object): void {
+  public onSubmit(values: object): void {
     if (this.personalForm.valid) {
       // this.router.navigate(['pages/dashboard']);
     }

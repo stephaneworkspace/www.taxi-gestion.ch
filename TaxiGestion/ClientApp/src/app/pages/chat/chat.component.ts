@@ -57,12 +57,12 @@ import {ChatService} from './chat.service';
 export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav', {static : true}) sidenav: any;
   private settings: Settings;
-  private userImage = 'assets/img/users/user.jpg';
-  private chats: Array<Chat>;
-  private talks: Array<Chat>;
+  public userImage = 'assets/img/users/user.jpg';
+  public chats: Array<Chat>;
+  public talks: Array<Chat>;
   public sidenavOpen: boolean;
   public currentChat: Chat;
-  private newMessage: string;
+  public newMessage: string;
 
   public constructor(private appSettings: AppSettings,
                      private chatService: ChatService) {
