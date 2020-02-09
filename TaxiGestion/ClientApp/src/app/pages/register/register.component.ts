@@ -29,7 +29,7 @@
  * -> Telerik Progress Kendo UI on https://www.telerik.com
  * For the rest, the source code is released under a Creative Commons License.
  *****************************************************************************/
-import {Component, OnInit} from '@angular/core';
+import {Component, OnAfterViewInit, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
