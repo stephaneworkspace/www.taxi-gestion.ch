@@ -18,14 +18,8 @@
  *
  * 1. Backend Asp.net C# part:
  *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 as published by
- * the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
- * more details.
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
  *
  * 2. Frontend Angular part:
  *
@@ -33,6 +27,7 @@
  * You have to buy a licence to use it:
  * -> Gradus on https://www.themeforest.net/
  * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
  *****************************************************************************/
 import 'leaflet-map';
 import 'style-loader!leaflet/dist/leaflet.css';
