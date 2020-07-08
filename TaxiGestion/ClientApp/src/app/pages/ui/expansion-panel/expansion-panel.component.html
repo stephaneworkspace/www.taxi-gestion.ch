@@ -1,76 +1,146 @@
+<!--****************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ ***************************************************************************-->
 <div fxLayout="column">
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center center">                
-                <mat-card-subtitle><h2>Basic expansion panel</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>Personal data</mat-panel-title>
-                        <mat-panel-description>Type your name and age</mat-panel-description>
-                    </mat-expansion-panel-header>                    
-                    <mat-form-field>
-                        <input matInput placeholder="First name">
-                    </mat-form-field>                    
-                    <mat-form-field>
-                        <input matInput placeholder="Age">
-                    </mat-form-field>
-                </mat-expansion-panel>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center center">                
-                <mat-card-subtitle><h2>Expansion panel as accordion</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-accordion class="example-headers-align">
-                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Personal data</mat-panel-title>
-                            <mat-panel-description fxLayoutAlign="space-between center">Type your name and age<mat-icon>account_circle</mat-icon></mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <mat-form-field>
-                            <input matInput placeholder="First name">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput type="number" min="1" placeholder="Age">
-                        </mat-form-field>
-                        <mat-action-row>
-                            <button mat-button color="primary" (click)="nextStep()">Next</button>
-                        </mat-action-row>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Destination</mat-panel-title>
-                            <mat-panel-description fxLayoutAlign="space-between center">Type the country name<mat-icon>map</mat-icon></mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <mat-form-field>
-                            <input matInput placeholder="Country">
-                        </mat-form-field>
-                        <mat-action-row>
-                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                            <button mat-button color="primary" (click)="nextStep()">Next</button>
-                        </mat-action-row>
-                    </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>Day of the trip</mat-panel-title>
-                            <mat-panel-description fxLayoutAlign="space-between center">Inform the date you wish to travel<mat-icon>date_range</mat-icon></mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <mat-form-field>
-                            <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
-                        </mat-form-field>
-                        <mat-datepicker #picker></mat-datepicker>
-                        <mat-action-row>
-                            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-                            <button mat-button color="primary" (click)="nextStep()">End</button>
-                        </mat-action-row>
-                    </mat-expansion-panel>
-                </mat-accordion>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-subtitle>
+          <h2>Basic expansion panel</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Personal data</mat-panel-title>
+            <mat-panel-description>Type your name and age
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput
+                   placeholder="First name">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput
+                   placeholder="Age">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center center">
+        <mat-card-subtitle>
+          <h2>Expansion panel as accordion</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-accordion class="example-headers-align">
+          <mat-expansion-panel [expanded]="step === 0"
+                               (opened)="setStep(0)"
+                               hideToggle="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Personal data</mat-panel-title>
+              <mat-panel-description fxLayoutAlign="space-between center">Type
+                your name and age<mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput
+                     placeholder="First name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput
+                     type="number"
+                     min="1"
+                     placeholder="Age">
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button
+                      color="primary"
+                      (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 1"
+                               (opened)="setStep(1)"
+                               hideToggle="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Destination</mat-panel-title>
+              <mat-panel-description fxLayoutAlign="space-between center">Type
+                the country name<mat-icon>map</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput
+                     placeholder="Country">
+            </mat-form-field>
+            <mat-action-row>
+              <button mat-button
+                      color="warn"
+                      (click)="prevStep()">Previous</button>
+              <button mat-button
+                      color="primary"
+                      (click)="nextStep()">Next</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+          <mat-expansion-panel [expanded]="step === 2"
+                               (opened)="setStep(2)"
+                               hideToggle="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Day of the trip</mat-panel-title>
+              <mat-panel-description fxLayoutAlign="space-between center">
+                Inform the date you wish to travel<mat-icon>date_range
+                </mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput
+                     placeholder="Date"
+                     [matDatepicker]="picker"
+                     (focus)="picker.open()"
+                     readonly>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-action-row>
+              <button mat-button
+                      color="warn"
+                      (click)="prevStep()">Previous</button>
+              <button mat-button
+                      color="primary"
+                      (click)="nextStep()">End</button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

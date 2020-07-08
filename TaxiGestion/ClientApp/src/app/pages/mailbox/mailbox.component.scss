@@ -1,62 +1,106 @@
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
 @import "../../theme/styles/variables";
 
-.mailbox{ 
-    .search{
-        margin: 0 14px;
-        width: 100%;
-        border: none;
-        border-radius: 2px;
-        padding: 6px;
-        outline: none;
+.mailbox {
+  .search {
+    margin: 0 14px;
+    width: 100%;
+    border: none;
+    border-radius: 2px;
+    padding: 6px;
+    outline: none;
+  }
+
+  .mail-body {
+    padding: 16px;
+  }
+
+  .empty {
+    mat-icon {
+      font-size: 220px;
+      height: 220px;
+      width: 220px;
+      opacity: 0.4;
     }
-    .mail-body{
-        padding: 16px;
-    }   
-    .empty{
-        mat-icon{
-            font-size: 220px;
-            height: 220px;
-            width: 220px;
-            opacity: 0.4;
-        }
-        p{
-            font-size: 18px;
-            opacity: 0.8;
-        }
-    }    
-}
-.mailbox-sidenav{
-    width: 350px;
-    border-right: 1px solid transparent;
-    overflow: hidden;
-}
-.mailbox-content{
-    height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
-    .mat-line{
-        white-space: unset;
+
+    p {
+      font-size: 18px;
+      opacity: 0.8;
     }
-    .subject{
-        font-weight: 500;
-    }
-}
-.mailbox-sidenav-list{
-    height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
-    .sender{
-        font-weight: 400;
-    }
-    .subject{
-        font-size: 13px;
-    }
-    .unread .mat-line, .unread .sender {
-        font-weight: bold;
-    }
-    .selected{
-        background: rgba(0,0,0,.15);
-    }
+  }
 }
 
-@media (max-width: 575px) { 
-    .mailbox-sidenav{
-        width: 280px;
-    }
+.mailbox-sidenav {
+  width: 350px;
+  border-right: 1px solid transparent;
+  overflow: hidden;
+}
+
+.mailbox-content {
+  height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
+
+  .mat-line {
+    white-space: unset;
+  }
+
+  .subject {
+    font-weight: 500;
+  }
+}
+
+.mailbox-sidenav-list {
+  height: calc(100vh - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2 + 132px));
+
+  .sender {
+    font-weight: 400;
+  }
+
+  .subject {
+    font-size: 13px;
+  }
+
+  .unread .mat-line,
+  .unread .sender {
+    font-weight: bold;
+  }
+
+  .selected {
+    background: rgba(0, 0, 0, .15);
+  }
+}
+
+@media (max-width: 575px) {
+  .mailbox-sidenav {
+    width: 280px;
+  }
 }

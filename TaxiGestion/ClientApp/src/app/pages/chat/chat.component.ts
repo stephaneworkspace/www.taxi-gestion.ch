@@ -1,86 +1,123 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { AppSettings } from '../../app.settings';
-import { Settings } from '../../app.settings.model';
-import { Chat } from './chat.model';
-import { ChatService } from './chat.service';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
+import {
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
+
+import {Chat} from './chat.model';
+import {ChatService} from './chat.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
-  providers: [ ChatService ]
+  selector : 'app-chat',
+  templateUrl : './chat.component.html',
+  styleUrls : [ './chat.component.scss' ],
+  providers : [ ChatService ]
 })
-export class ChatComponent implements OnInit {
-  @ViewChild('sidenav', { static: true }) sidenav: any;
-  public settings: Settings;
+export class ChatComponent implements OnInit, OnDestroy {
+  @ViewChild('sidenav', {static : true}) sidenav: any;
+  private settings: Settings;
   public userImage = 'assets/img/users/user.jpg';
   public chats: Array<Chat>;
   public talks: Array<Chat>;
-  public sidenavOpen:boolean = true;
-  public currentChat:Chat;
-  public newMessage:string;
+  public sidenavOpen: boolean;
+  public currentChat: Chat;
+  public newMessage: string;
 
-  constructor(public appSettings:AppSettings, private chatService:ChatService) { 
-    this.settings = this.appSettings.settings; 
+  public constructor(private appSettings: AppSettings,
+                     private chatService: ChatService) {
+    this.settings = this.appSettings.settings;
   }
 
-  ngOnInit() {
-    this.chats = this.chatService.getChats(); 
-    if(window.innerWidth <= 768){
+  public ngOnInit() {
+    this.sidenavOpen = true;
+    this.chats = this.chatService.getChats();
+    if (window.innerWidth <= 768) {
       this.sidenavOpen = false;
-    }    
-  } 
+    }
+  }
+
+  public ngOnDestroy() {
+    if (this.talks) {
+      this.talks.length = 2;
+    }
+  }
 
   @HostListener('window:resize')
-  public onWindowResize():void {
-    (window.innerWidth <= 768) ? this.sidenavOpen = false : this.sidenavOpen = true;
+  public onWindowResize(): void {
+    (window.innerWidth <= 768) ? this.sidenavOpen = false
+                               : this.sidenavOpen = true;
   }
 
-  public getChat(obj){
-    if(this.talks){
-       this.talks.length = 2;
-    }   
+  private getChat(obj) {
+    if (this.talks) {
+      this.talks.length = 2;
+    }
     this.talks = this.chatService.getTalk();
     this.talks.push(obj);
-    this.currentChat = obj;      
+    this.currentChat = obj;
     this.talks.forEach(talk => {
-      if(!talk.my){
+      if (!talk.my) {
         talk.image = obj.image;
       }
     });
-    if(window.innerWidth <= 768){
+    if (window.innerWidth <= 768) {
       this.sidenav.close();
-    }     
+    }
   }
 
-  public sendMessage($event) {       
-    if (($event.which === 1 || $event.which === 13) && this.newMessage.trim() != '') {
-      if(this.talks){ 
-        this.talks.push(
-            new Chat(
-              'assets/img/users/user.jpg', 
-              'Emilio Verdines', 
-              'online', 
-              this.newMessage,
-              new Date(), 
-              true)
-        )
+  public sendMessage($event) {
+    if (($event.which === 1 || $event.which === 13) &&
+        this.newMessage.trim() !== '') {
+      if (this.talks) {
+        this.talks.push(new Chat('assets/img/users/user.jpg', 'Emilio Verdines',
+                                 'online', this.newMessage, new Date(), true));
         this.newMessage = '';
-        let chatContainer = document.querySelector('.chat-content');
-        if(chatContainer){
+        const chatContainer = document.querySelector('.chat-content');
+        if (chatContainer) {
           setTimeout(() => {
-            var nodes = chatContainer.querySelectorAll('.mat-list-item');
-            let newChatTextHeight = nodes[nodes.length- 1];
-            chatContainer.scrollTop = chatContainer.scrollHeight + newChatTextHeight.clientHeight;
-          }); 
+            const nodes = chatContainer.querySelectorAll('.mat-list-item');
+            const newChatTextHeight = nodes[nodes.length - 1];
+            chatContainer.scrollTop =
+                chatContainer.scrollHeight + newChatTextHeight.clientHeight;
+          });
         }
       }
     }
   }
-
-  public ngOnDestroy(){
-    if(this.talks)
-      this.talks.length = 2;
-  }
-
 }

@@ -1,38 +1,71 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { disk_space } from '../dashboard.data';
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 
-@Component({
-  selector: 'app-disk-space',
-  templateUrl: './disk-space.component.html'
-})
-export class DiskSpaceComponent implements OnInit {
-  public data: any[]; 
+import {disk_space} from '../dashboard.data';
+
+@Component(
+    {selector : 'app-disk-space', templateUrl : './disk-space.component.html'})
+export class DiskSpaceComponent implements OnInit, AfterViewChecked {
+  public data: any[];
   public showLegend = false;
   public gradient = true;
-  public colorScheme = {
-    domain: ['#2F3E9E', '#D22E2E', '#378D3B']
-  }; 
+  public colorScheme = {domain : [ '#2F3E9E', '#D22E2E', '#378D3B' ]};
   public showLabels = true;
   public explodeSlices = true;
-  public doughnut = false; 
-  @ViewChild('resizedDiv', { static: true }) resizedDiv:ElementRef;
-  public previousWidthOfResizedDiv:number = 0; 
-  
-  constructor() { }
+  public doughnut = false;
+  @ViewChild('resizedDiv', {static : true}) resizedDiv: ElementRef;
+  private previousWidthOfResizedDiv: number;
 
-  ngOnInit(){
-    this.data = disk_space;  
-  }
-  
-  public onSelect(event) {
-    console.log(event);
+  public constructor() {}
+
+  public ngOnInit() {
+    this.data = disk_space;
+    this.previousWidthOfResizedDiv = 0;
   }
 
-  ngAfterViewChecked() {    
-    if(this.previousWidthOfResizedDiv != this.resizedDiv.nativeElement.clientWidth){
-      setTimeout(() => this.data = [...disk_space] );
+  public ngAfterViewChecked() {
+    if (this.previousWidthOfResizedDiv !==
+        this.resizedDiv.nativeElement.clientWidth) {
+      setTimeout(() => this.data = [...disk_space ]);
     }
     this.previousWidthOfResizedDiv = this.resizedDiv.nativeElement.clientWidth;
   }
 
+  public onSelect(event) { console.log(event); }
 }

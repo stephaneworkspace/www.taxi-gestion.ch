@@ -1,6 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
+﻿/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative 
+ * Commons License.
+ * 
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,7 +88,9 @@ namespace TaxiGestion.Data.Repository.Comptabilite
         /// {
         ///     valueTemp = 0;
         /// }
-        /// hashtableSolde.Add(compteTemp, item.Montant >= 0 ? item.Montant + valueTemp : (item.Montant * -1) + valueTemp);
+        /// hashtableSolde.Add(compteTemp, item.Montant >= 0 
+        /// ? item.Montant + valueTemp 
+        /// : (item.Montant * -1) + valueTemp);
         ///
         /// foreach (int key in hashtableSolde.Keys)
         /// {
@@ -77,7 +108,9 @@ namespace TaxiGestion.Data.Repository.Comptabilite
         public async Task<bool> SwJournalisation(int noClient, int noUtilisateur)
         {
             return await _context.DC31EcritureCollectiveJournal
-                .CountAsync(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur)) >= 1 ? true : false;
+                .CountAsync(x => 
+                        (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur)
+                    ) >= 1 ? true : false;
         }
 
         /// <summary>
@@ -85,7 +118,9 @@ namespace TaxiGestion.Data.Repository.Comptabilite
         /// </summary>
         /// <param name="dto">Dto avec la date de création du journal</param>
         /// <returns></returns>
-        public async Task<DC20Journal> Journalisation(DtoTGC002InpDC20JournalForCreate dto, int noClient, int noUtilisateur)
+        public async Task<DC20Journal> Journalisation(DtoTGC002InpDC20JournalForCreate dto, 
+                                                      int noClient, 
+                                                      int noUtilisateur)
         {
             var recordDC20 = new DC20Journal()
             {
@@ -109,7 +144,8 @@ namespace TaxiGestion.Data.Repository.Comptabilite
             if (!await SaveAll())
                 return null;
 
-            // Lecture de toutes les écritures collective (même si c'est une écriture simple, elle est indexée dans les écritures collective)
+            // Lecture de toutes les écritures collective 
+            // (même si c'est une écriture simple, elle est indexée dans les écritures collective)
             List<DC31EcritureCollectiveJournal> itemsDC31 = await _context.DC31EcritureCollectiveJournal
                 .Where(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur))
                 .OrderBy(x => x.NoEcritureCollectiveJournal)
@@ -139,7 +175,10 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                 recordDC22.NoEcritureCollective = nextDC22;
                 Add<DC22EcritureCollective>(recordDC22);
                 if (!await SaveAll())
-                    return await RollBackJournalisation(noClient, noUtilisateur, recordDC20.NoJournal, copyItemsDC31);
+                    return await RollBackJournalisation(noClient, 
+                                                        noUtilisateur, 
+                                                        recordDC20.NoJournal, 
+                                                        copyItemsDC31);
                 // Lecture de toutes les écritures dans l'écriture collective
                 foreach (var item in itemDC31.EcritureJournal)
                 {
@@ -156,10 +195,14 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                     /// Le if est une sécurité pour être sur que la FK NoCompte est allimenté
                     if (item.Montant >= 0 ? item.NoCompteDebit != null : item.NoCompteCredit != null)
                     {
-                        var noCompteEcriture1 = item.Montant >= 0 ? (int) item.NoCompteDebit : (int) item.NoCompteCredit;
+                        var noCompteEcriture1 = item.Montant >= 0 
+                            ? (int) item.NoCompteDebit : (int) item.NoCompteCredit;
                         // Increment - manuel pour clé composite
                         var lastDC21 = _context.DC21Ecriture
-                            .Where(x => (x.NoClient == noClient) && (x.NoEcritureCollective == recordDC22.NoEcritureCollective))
+                            .Where(x => 
+                                    (x.NoClient == noClient) 
+                                    && (x.NoEcritureCollective == recordDC22.NoEcritureCollective)
+                                )
                             .OrderByDescending(x => x.NoEcriture)
                             .ToList();
                         var nextDC21 = 0;
@@ -191,16 +234,23 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                         };
                         Add<DC21Ecriture>(recordDC21);
                         if (!await SaveAll())
-                            return await RollBackJournalisation(noClient, noUtilisateur, recordDC20.NoJournal, copyItemsDC31);
+                            return await RollBackJournalisation(noClient, 
+                                                                noUtilisateur, 
+                                                                recordDC20.NoJournal, 
+                                                                copyItemsDC31);
                     }
                     /// Deuxième écriture
                     /// Le if est une sécurité pour être sur que la FK NoCompte est allimenté
                     if (item.Montant >= 0 ? item.NoCompteCredit != null : item.NoCompteDebit != null)
                     {
-                        var noCompteEcriture2 = item.Montant >= 0 ? (int) item.NoCompteCredit : (int) item.NoCompteDebit;
+                        var noCompteEcriture2 = item.Montant >= 0 
+                            ? (int) item.NoCompteCredit : (int) item.NoCompteDebit;
                         // Increment - manuel pour clé composite
                         var lastDC21 = _context.DC21Ecriture
-                            .Where(x => (x.NoClient == noClient) && (x.NoEcritureCollective == recordDC22.NoEcritureCollective))
+                            .Where(x => 
+                                    (x.NoClient == noClient) 
+                                    && (x.NoEcritureCollective == recordDC22.NoEcritureCollective)
+                                )
                             .OrderByDescending(x => x.NoEcriture)
                             .ToList();
                         var nextDC21 = 0;
@@ -233,7 +283,10 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                         };
                         Add<DC21Ecriture>(recordDC21);
                         if (!await SaveAll())
-                            return await RollBackJournalisation(noClient, noUtilisateur, recordDC20.NoJournal, copyItemsDC31);
+                            return await RollBackJournalisation(noClient, 
+                                                                noUtilisateur, 
+                                                                recordDC20.NoJournal, 
+                                                                copyItemsDC31);
                     }
                 }
                 // Suppression des écritures à journaliser
@@ -244,17 +297,26 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                 Delete<DC31EcritureCollectiveJournal>(itemDC31);
                 // Sauvegarde
                 if (!await SaveAll())
-                    return await RollBackJournalisation(noClient, noUtilisateur, recordDC20.NoJournal, copyItemsDC31);
+                    return await RollBackJournalisation(noClient, 
+                                                        noUtilisateur, 
+                                                        recordDC20.NoJournal, 
+                                                        copyItemsDC31);
             }
             return await _context.DC20Journal
                 .Include(x => x.Ecriture)
                 .ThenInclude(x => x.Compte)
                 .Include(x => x.Ecriture)
                 .ThenInclude(x => x.CompteContrePartie)
-                .FirstOrDefaultAsync(x => (x.NoClient == noClient) && (x.NoJournal == recordDC20.NoJournal));
+                .FirstOrDefaultAsync(x => 
+                        (x.NoClient == noClient) 
+                        && (x.NoJournal == recordDC20.NoJournal)
+                    );
         }
 
-        private async Task<DC20Journal> RollBackJournalisation(int noClient, int noUtilisateur, int noJournal, List<DC31EcritureCollectiveJournal> itemsDC31)
+        private async Task<DC20Journal> RollBackJournalisation(int noClient, 
+                                                               int noUtilisateur, 
+                                                               int noJournal, 
+                                                        List<DC31EcritureCollectiveJournal> itemsDC31)
         {
             var itemDC20 = await _context.DC20Journal
                 .Include(x => x.EcritureCollective)
@@ -297,7 +359,10 @@ namespace TaxiGestion.Data.Repository.Comptabilite
                 {
                     // Increment - manuel pour clé composite
                     var lastDC30 = _context.DC30EcritureJournal
-                        .Where(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur) && (x.NoEcritureCollectiveJournal == item.NoEcritureCollectiveJournal))
+                        .Where(x => 
+                                (x.NoClient == noClient) 
+                                && (x.NoUtilisateur == noUtilisateur) 
+                                && (x.NoEcritureCollectiveJournal == item.NoEcritureCollectiveJournal))
                         .OrderByDescending(x => x.NoEcritureJournal)
                         .ToList();
                     var nextDC30 = 0;

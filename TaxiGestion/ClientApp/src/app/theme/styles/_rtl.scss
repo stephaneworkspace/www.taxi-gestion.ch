@@ -1,151 +1,210 @@
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
 @import "mixins";
 
-.app[dir="rtl"]{
-    .sidenav-toggle{
-        margin-right: 0;
-        margin-left: 10px;
+.app[dir="rtl"] {
+  .sidenav-toggle {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+
+  .options-icon {
+    left: -4px;
+  }
+
+  .options {
+    .mat-slider-horizontal {
+      overflow: hidden; //for solve chrome bug
     }
-    .options-icon{
-        left: -4px;
+  }
+
+  .pin {
+    right: auto;
+    left: 2px;
+  }
+
+  .menu-icon {
+    margin-left: 12px;
+  }
+
+  .menu-expand-icon {
+    right: auto;
+    left: 10px;
+  }
+
+  .sub-menu {
+    @include menu-level-padding('rtl');
+
+    .mat-button {
+      padding-right: 20px;
     }
-    .options{
-        .mat-slider-horizontal{
-            overflow: hidden;  //for solve chrome bug
-        }
-    }
-    .pin{
-        right: auto;
-        left: 2px;
-    }
-    .menu-icon{
-        margin-left: 12px;
-    }
-    .menu-expand-icon{
-        right: auto;
-        left: 10px;
-    }
-    .sub-menu{
-        @include menu-level-padding('rtl');
-        .mat-button{
-            padding-right: 20px;      
-        }
-    }
-    .back-to-top{
-        right: auto;
-        left: 20px;
-    }
-    .messages img{
-        margin-right: 0;
-        margin-left: 8px;
-    }
-    .messages{
-        img, .row-1{
-            margin-right: 0;
-            margin-left: 8px;
-        }
-        span.text{
-            text-align: right;
-        }
-    }
-    .flags img{
-        margin-right: 0;
-        margin-left: 8px;
+  }
+
+  .back-to-top {
+    right: auto;
+    left: 20px;
+  }
+
+  .messages img {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+
+  .messages {
+
+    img,
+    .row-1 {
+      margin-right: 0;
+      margin-left: 8px;
     }
 
-    .mat-chip.info-chip .mat-icon{
-        margin-right: 0;
-        margin-left: 4px;
+    span.text {
+      text-align: right;
     }
-  
-    .chat-status-icon{
-        margin-right: 0;
-        margin-left: 6px;
-    }
-    .chat-sidenav, .mailbox-sidenav{
-        border-right: none;
-        border-left: 1px solid transparent;      
-    }
+  }
 
-    .ql-editor.ql-blank::before{
-        right: 6px;
+  .flags img {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+
+  .mat-chip.info-chip .mat-icon {
+    margin-right: 0;
+    margin-left: 4px;
+  }
+
+  .chat-status-icon {
+    margin-right: 0;
+    margin-left: 6px;
+  }
+
+  .chat-sidenav,
+  .mailbox-sidenav {
+    border-right: none;
+    border-left: 1px solid transparent;
+  }
+
+  .ql-editor.ql-blank::before {
+    right: 6px;
+  }
+
+  .ql-editor {
+    text-align: right;
+  }
+
+  .horizontal-menu-item {
+    .horizontal-menu-icon {
+      margin-right: 0;
+      margin-left: 5px;
     }
-    .ql-editor{
-        text-align: right;
-    }
-    .horizontal-menu-item {
-        .horizontal-menu-icon{
-            margin-right: 0;
-            margin-left: 5px;
-        }
-    }
-    .horizontal-sub-menu .horizontal-sub-menu{
-        left: auto;
-        right: 100%;
-    }
-    &.horizontal-menu{
-        &.compact{
-            .horizontal-menu-item{
-                 .horizontal-sub-menu{
-                     .mat-button{
-                        .horizontal-menu-icon{
-                            margin-right: 0;
-                            margin-left: 10px;
-                        }
-                    }
-                 }
+  }
+
+  .horizontal-sub-menu .horizontal-sub-menu {
+    left: auto;
+    right: 100%;
+  }
+
+  &.horizontal-menu {
+    &.compact {
+      .horizontal-menu-item {
+        .horizontal-sub-menu {
+          .mat-button {
+            .horizontal-menu-icon {
+              margin-right: 0;
+              margin-left: 10px;
             }
+          }
         }
+      }
     }
-    &.compact{
-        .menu-icon{
-            margin-left: 0;
-        }
-        .sub-menu .mat-button{
-            padding-right: 0 !important;
-        }
-    }
-    &.mini{
-        .menu-icon{
-            margin-left: 0;
-        }
-        .sub-menu .mat-button{
-            padding-right: 0 !important;
-        }
-        .menu-expand-icon{
-            right: auto;
-            left: 0;
-        }
+  }
+
+  &.compact {
+    .menu-icon {
+      margin-left: 0;
     }
 
+    .sub-menu .mat-button {
+      padding-right: 0 !important;
+    }
+  }
 
-    
-    .cal-month-view {
-        .cal-day-number{
-            float: left;
-            margin-right: 0;
-            margin-left: 15px;
-        }
-        .cal-day-badge{
-            margin-left: 0;
-            margin-right: 10px;
-        }
+  &.mini {
+    .menu-icon {
+      margin-left: 0;
     }
 
-    input.mat-input-element{
-        text-align: right;
-    }
-    .mat-dialog-title{
-        text-align: right;
+    .sub-menu .mat-button {
+      padding-right: 0 !important;
     }
 
+    .menu-expand-icon {
+      right: auto;
+      left: 0;
+    }
+  }
 
-    .ps__rail-y{
-        right: auto !important;
-        left: 0 !important;
+
+
+  .cal-month-view {
+    .cal-day-number {
+      float: left;
+      margin-right: 0;
+      margin-left: 15px;
     }
-    .ps__thumb-y{
-        right: auto !important;
-        left: 1px !important;
+
+    .cal-day-badge {
+      margin-left: 0;
+      margin-right: 10px;
     }
+  }
+
+  input.mat-input-element {
+    text-align: right;
+  }
+
+  .mat-dialog-title {
+    text-align: right;
+  }
+
+
+  .ps__rail-y {
+    right: auto !important;
+    left: 0 !important;
+  }
+
+  .ps__thumb-y {
+    right: auto !important;
+    left: 1px !important;
+  }
 
 }

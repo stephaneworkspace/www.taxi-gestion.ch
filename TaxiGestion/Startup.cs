@@ -1,18 +1,42 @@
-using System;
-using System.Collections.Generic;
+/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative 
+ * Commons License.
+ * 
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using TaxiGestion.Data;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -24,7 +48,6 @@ using TaxiGestion.Mappings;
 using TaxiGestion.Data.Repository.Authentification;
 using TaxiGestion.Data.Repository.Comptabilite;
 using TaxiGestion.Data.Repository.Affichage;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using TaxiGestion.Data.Repository.Config;
@@ -33,39 +56,71 @@ namespace TaxiGestion
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private string _env;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+#pragma warning disable CS0162
+            if (Constants.PROD)
+                _env = "prod";
+            else
+                _env = "dev";
+#pragma warning restore CS0162
+            // Ne pas oublier de tenir compte qu'il y a aussi une autre
+            // variable qui peut entrer en jeu: IWebHostEnvironment env
+            // if (env.IsDevelopment())
+            //
+            // Constans.PROD est utilisé pour le choix de la base de donnée
+            // - prod
+            // - dev
+            //
+            // ainsi que pour les liens dans la partie frontend
+            // - prod -> https://www.taxi-gestion.ch/...
+            // - dev -> http://localhost
         }
 
-        public IConfiguration Configuration { get; }
-
-        public string _env = "prod"; // prod or dev, all theme angular frontend in dev mod
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // This method gets called by the runtime. 
+        // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLetsEncrypt();
+            if (_env == "prod")
+                services.AddLetsEncrypt();
             // Backend uniquement
             // services.AddControllers().AddNewtonsoftJson();
             // FullStack Asp.net/Angular
             services.AddControllersWithViews();
-            // In production, the Angular files will be served from this directory
+            // In production, 
+            // the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
             // Sqlite est limité par :
-            // - regénération en cours de route avec les migrations ne fonctionne pas
-            // - clé primaire composée comme en cobol ne fonctionne pas l'autoincrement
-            /*services.AddDbContext<DataContext>(x => x.UseLazyLoadingProxies().UseSqlite("Filename=TaxiGestion.db", options =>
-            {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            }));*/
+            // - Regénération en cours de route avec les migrations ne 
+            //   fonctionne pas
+            // - Clé primaire composée comme en cobol ne fonctionne pas 
+            //   l'autoincrement
             
-            // services.AddDbContext<DataContext>(x => x.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, ServiceLifetime.Transient);
+            /*
+            services
+            .AddDbContext<DataContext>(x => x.UseLazyLoadingProxies()
+            .UseSqlite("Filename=TaxiGestion.db", options =>
+            {
+                options.MigrationsAssembly(Assembly.
+                                           GetExecutingAssembly().
+                                           FullName);
+            }));
+            */
+            
+            /* 
+            services.
+            AddDbContext<DataContext>(x => x.UseLazyLoadingProxies()
+            .UseSqlServer(Configuration.
+            GetConnectionString("DefaultConnection")));
+            */
+            services
+                .AddDbContext<DataContext>(SetDbContextOptionsForEnvironment, ServiceLifetime.Transient);
 
             services.AddOpenApiDocument(document => {
                 document.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
@@ -83,7 +138,8 @@ namespace TaxiGestion
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("JWTSettings:Token").Value)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding
+                            .ASCII.GetBytes(Configuration.GetSection("JWTSettings:Token").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
@@ -117,9 +173,6 @@ namespace TaxiGestion
             options.UseLazyLoadingProxies();
             if (_env == "prod")
             {
-                // Changement dans les migrations
-                // actuelement pas de changement à faire
-                // si il y en a... ajouter des commentaires ici
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             }
             else
@@ -128,12 +181,15 @@ namespace TaxiGestion
             }
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. 
+        // Use this method to configure the HTTP request pipeline.
 #pragma warning disable IDE0060 // Supprimer le paramètre inutilisé
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
-#pragma warning restore IDE0060 // Supprimer le paramètre inutilisé�
+        public void Configure(IApplicationBuilder app, 
+                              IWebHostEnvironment env, 
+                              Seed seeder)
+#pragma warning restore IDE0060 // Supprimer le paramètre inutilisé
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || _env == "dev")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -141,16 +197,21 @@ namespace TaxiGestion
             {
                 // FullStack .net/Angular
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                
+                // The default HSTS value is 30 days.
+                // You may want to change this for production scenarios, 
+                // see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-
-            app.UseHttpsRedirection();
+            if (env.IsProduction())
+                app.UseHttpsRedirection();
 
             // Pour désactiver swagger en prod ? peut être un jour
             // if (!env.IsDevelopment())
-            //    app.UseRewriter(new RewriteOptions().AddRedirect("index.html", "/")); // pas de swagger
+            //    app.
+            //    UseRewriter(new RewriteOptions().
+            //    AddRedirect("index.html", "/")); // pas de swagger
 
             //FullStack .net/Angular
             app.UseStaticFiles(new StaticFileOptions()
@@ -161,12 +222,15 @@ namespace TaxiGestion
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "EMail")),
+                FileProvider = new PhysicalFileProvider(
+                        Path.Combine(Directory.GetCurrentDirectory(), "EMail"
+                    )
+                ),
                 RequestPath = "/EMail"
             });
 
             app.UseSpaStaticFiles();
-
+            
             app.UseRouting();
 
             /*
@@ -175,15 +239,22 @@ namespace TaxiGestion
             {
                 if (context.WebSockets.IsWebSocketRequest)
                 {
-                    context.Features.Get<IHttpMaxRequestBodySizeFeature>()?.MaxRequestBodySize = null;
+                    context.Features
+                    .Get<IHttpMaxRequestBodySizeFeature>()
+                    ?.MaxRequestBodySize = null;
                 }
                 return next(context);
-            });*/
+            });
+            */
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            app.UseCors(options => options
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+            );
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
@@ -219,8 +290,9 @@ namespace TaxiGestion
             // FullStack .net/Angular
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
+                // To learn more about options for serving an Angular SPA 
+                // from ASP.NET Core, see:
+                // https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
 

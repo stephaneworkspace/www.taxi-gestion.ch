@@ -1,6 +1,39 @@
-Ceci est le code source du site web www.taxi-gestion.ch
-<br />
-Créer un fichier appsettings dans ./TaxiGestion/
+# Taxi-Gestion.ch
+````
+  _____          _        ____           _   _                   _
+ |_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+   | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+   | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+   |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+
+ By Stéphane Bressani
+  ____  _             _
+ / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+               | |stephane-bressani.ch
+               |_|github.com/stephaneworkspace
+
+````  
+## Introduction
+Ceci est le code source de [Taxi-Gestion][1]
+
+Il est écrit en C# avec Asp.net core 3 et Angular 8. La base de donnée est SQL
+Server 2019 et est traitée par Entity Framework core.
+
+Ce programme est entièrement dans son Front-End ainsi que dans le nom de ses
+variables dans la langue française pour une meilleur comprenssion des termes
+comptables.
+
+Ce projet est de créer une comptabilité pour les chauffeurs de taxi sans passer
+par une fiduciaire.
+
+[1]: https://www.taxi-gestion.ch
+
+## Installation
+Il faut créer un fichier appsettings.json dans ./TaxiGestion/
+
 ````
 {
   "JWTSettings": {
@@ -35,7 +68,10 @@ Créer un fichier appsettings dans ./TaxiGestion/
   }
 }
 ````
-Variables pour le pipeline azure devOps
+
+Pour le pipeline Microsoft Azure pour l'intégration continue, voici les 
+variables à configurer :
+
 ````
 $(email-letsencrypt) -> E-mail pour le certificat ssl
 $(ftp-server) -> Adresse ftp du serveur pour upload de l'artefact azure devOps
@@ -46,3 +82,24 @@ $(SqlServerConnection) -> Serveur Sql Server 2019
 $(ftp-password) -> Mot de passe ftp
 $(ftp-user) -> User ftp
 ````
+
+## Preversion
+Pour le moment ce programme est en préversion. Il n'est pas utilisable en
+production
+
+## Licence
+The licence is divided in two parts
+
+1. Backend Asp.net C# part:
+
+This program is free software; the source ode is released under and Creative 
+Commons License.
+
+2. Frontend Angular part:
+
+For the design, the code is not free:
+You have to buy a licence to use it:
+* Gradus on https://www.themeforest.net/
+* Telerik Progress Kendo UI on https://www.telerik.com
+For the rest, the source code is released under a Creative Commons License.
+

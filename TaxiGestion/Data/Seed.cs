@@ -1,4 +1,36 @@
-﻿using Newtonsoft.Json;
+﻿/******************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative 
+ * Commons License.
+ * 
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ *****************************************************************************/
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +59,8 @@ namespace TaxiGestion.Data
             {*/
             noUser = 0;
             noClient = 0;
-            if (!_context.DA01Utilisateur.Any(x => x.NomUtilisateur == "stephane")) // user.NomUtilisateur))
+            if (!_context.DA01Utilisateur.Any(x => x.NomUtilisateur == "stephane")) 
+            // user.NomUtilisateur))
             {
                 var client = new DA10Client()
                 {
@@ -110,9 +143,13 @@ namespace TaxiGestion.Data
             //}
         }
 
-        private void CreerMotDePasseHash(string motDePasse, out byte[] motDePasseHash, out byte[] motDePasseSalt)
+        private void CreerMotDePasseHash(
+                    string motDePasse, 
+                    out byte[] motDePasseHash, 
+                    out byte[] motDePasseSalt
+                )
         {
-            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            var hmac = new System.Security.Cryptography.HMACSHA512();
             motDePasseSalt = hmac.Key;
             motDePasseHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(motDePasse));
         }
@@ -123,7 +160,9 @@ namespace TaxiGestion.Data
             var items = JsonConvert.DeserializeObject<List<DC01Classe>>(data);
             foreach (var item in items)
             {
-                if (!_context.DC01Classe.Any(x => (x.NoClient == noClient) && (x.NoClasse == item.NoClasse)))
+                if (!_context.DC01Classe.Any(x => 
+                            (x.NoClient == noClient) && (x.NoClasse == item.NoClasse))
+                        )
                 {
                     item.NoClient = noClient;
                     _context.DC01Classe.Add(item);
@@ -138,7 +177,9 @@ namespace TaxiGestion.Data
             var items = JsonConvert.DeserializeObject<List<DC02Groupe>>(data);
             foreach (var item in items)
             {
-                if (!_context.DC02Groupe.Any(x => (x.NoClient == noClient) && (x.NoGroupe == item.NoGroupe)))
+                if (!_context.DC02Groupe.Any(x => 
+                            (x.NoClient == noClient) && (x.NoGroupe == item.NoGroupe))
+                        )
                 {
                     item.NoClient = noClient;
                     _context.DC02Groupe.Add(item);
@@ -149,11 +190,14 @@ namespace TaxiGestion.Data
 
         public void SeedDC03SousGroupe(int noClient)
         {
-            var data = File.ReadAllText("Data/Seed/DC03SousGroupe.json", Encoding.GetEncoding("iso-8859-1"));
+            var data = File.ReadAllText("Data/Seed/DC03SousGroupe.json", 
+                                        Encoding.GetEncoding("iso-8859-1"));
             var items = JsonConvert.DeserializeObject<List<DC03SousGroupe>>(data);
             foreach (var item in items)
             {
-                if (!_context.DC03SousGroupe.Any(x => (x.NoClient == noClient) && (x.NoSousGroupe == item.NoSousGroupe)))
+                if (!_context.DC03SousGroupe.Any(x => 
+                            (x.NoClient == noClient) && (x.NoSousGroupe == item.NoSousGroupe))
+                        )
                 {
                     item.NoClient = noClient;
                     _context.DC03SousGroupe.Add(item);
@@ -168,7 +212,9 @@ namespace TaxiGestion.Data
             var items = JsonConvert.DeserializeObject<List<DC10Compte>>(data);
             foreach (var item in items)
             {
-                if (!_context.DC10Compte.Any(x => (x.NoClient == noClient) && (x.NoCompte == item.NoCompte)))
+                if (!_context.DC10Compte.Any(x => 
+                            (x.NoClient == noClient) && (x.NoCompte == item.NoCompte))
+                        )
                 {
                     item.NoClient = noClient;
                     _context.DC10Compte.Add(item);
@@ -177,9 +223,14 @@ namespace TaxiGestion.Data
             _context.SaveChanges();
         }
 
-        public void SeedDC31EcritureCollectiveJournal(int noClient, int noUtilisateur, string utilisateur)
+        public void SeedDC31EcritureCollectiveJournal(
+                    int noClient, 
+                    int noUtilisateur, 
+                    string utilisateur
+                )
         {
-            var data = File.ReadAllText("Data/Seed/DC31EcritureCollectiveJournal"+ utilisateur + ".json", Encoding.GetEncoding("iso-8859-1"));
+            var data = File.ReadAllText("Data/Seed/DC31EcritureCollectiveJournal"+ utilisateur + ".json",
+                                        Encoding.GetEncoding("iso-8859-1"));
             var items = JsonConvert.DeserializeObject<List<DC31EcritureCollectiveJournal>>(data);
             foreach (var item in items)
             {
@@ -216,7 +267,10 @@ namespace TaxiGestion.Data
                     itemDC30.NoEcritureCollectiveJournal = item.NoEcritureCollectiveJournal;
                     // Increment - manuel pour clé composite
                     var lastDC30 = _context.DC30EcritureJournal
-                        .Where(x => (x.NoClient == noClient) && (x.NoUtilisateur == noUtilisateur) && (x.NoEcritureCollectiveJournal == item.NoEcritureCollectiveJournal))
+                        .Where(x => 
+                                (x.NoClient == noClient) 
+                                && (x.NoUtilisateur == noUtilisateur) 
+                                && (x.NoEcritureCollectiveJournal == item.NoEcritureCollectiveJournal))
                         .OrderByDescending(x => x.NoEcritureJournal)
                         .ToList();
                     var nextDC30 = 0;

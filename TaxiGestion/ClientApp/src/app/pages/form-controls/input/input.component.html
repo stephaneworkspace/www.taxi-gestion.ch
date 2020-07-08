@@ -1,127 +1,206 @@
+<!--****************************************************************************
+ * _____          _        ____           _   _                   _
+ *|_   _|_ ___  _(_)      / ___| ___  ___| |_(_) ___  _ __    ___| |__
+ *  | |/ _` \ \/ / |_____| |  _ / _ \/ __| __| |/ _ \| '_ \  / __| '_ \
+ *  | | (_| |>  <| |_____| |_| |  __/\__ \ |_| | (_) | | | || (__| | | |
+ *  |_|\__,_/_/\_\_|      \____|\___||___/\__|_|\___/|_| |_(_)___|_| |_|
+ *
+ * By Stéphane Bressani
+ *  ____  _             _
+ * / ___|| |_ ___ _ __ | |__   __ _ _ __   ___
+ * \___ \| __/ _ \ '_ \| '_ \ / _` | '_ \ / _ \
+ *  ___) | ||  __/ |_) | | | | (_| | | | |  __/
+ * |____/ \__\___| .__/|_| |_|\__,_|_| |_|\___|
+ *               | |stephane-bressani.ch
+ *               |_|github.com/stephaneworkspace
+ *
+ * The licence is divided in two parts
+ *
+ * 1. Backend Asp.net C# part:
+ *
+ * This program is free software; the source ode is released under and Creative
+ * Commons License.
+ *
+ * 2. Frontend Angular part:
+ *
+ * For the design, the code is not free:
+ * You have to buy a licence to use it:
+ * -> Gradus on https://www.themeforest.net/
+ * -> Telerik Progress Kendo UI on https://www.telerik.com
+ * For the rest, the source code is released under a Creative Commons License.
+ ***************************************************************************-->
 <div fxLayout="column">
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Basic Inputs</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <form fxLayout="column" fxLayoutAlign="center">
-                    <mat-form-field>
-                        <input matInput placeholder="Favorite food" value="Sushi">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <textarea matInput placeholder="Leave a comment"></textarea>
-                    </mat-form-field>
-                </form>                              
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Input with a custom ErrorStateMatcher</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <form fxLayout="column" fxLayoutAlign="center">
-                    <mat-form-field>
-                        <input matInput placeholder="Email" [formControl]="emailFormControl" [errorStateMatcher]="matcher">
-                        <mat-hint>Errors appear instantly!</mat-hint>
-                        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
-                        <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
-                    </mat-form-field>
-                </form>                              
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Auto-resizing textarea</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content fxLayout="column" fxLayoutAlign="center">
-                <mat-form-field>
-                    <textarea matInput 
-                              placeholder="Autosize textarea" 
-                              matTextareaAutosize 
-                              matAutosizeMinRows="2"
-                              matAutosizeMaxRows="5"></textarea>
-                </mat-form-field>                       
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Input with a clear button</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content fxLayout="column" fxLayoutAlign="center">
-                <mat-form-field>
-                    <input matInput type="text" placeholder="Clearable input" [(ngModel)]="value"/>
-                    <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-form-field>                       
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="flex-p">
-        <mat-card>
-            <mat-card-header fxLayoutAlign="center">                
-                <mat-card-subtitle><h2>Inputs in a form</h2></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <form fxLayout="column" fxLayoutAlign="center">
-                  
-                    <mat-form-field>
-                        <input matInput placeholder="Company (disabled)" disabled value="Google">
-                    </mat-form-field>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Basic Inputs</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form fxLayout="column"
+              fxLayoutAlign="center">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Favorite food"
+                   value="Sushi">
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput
+                      placeholder="Leave a comment"></textarea>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Input with a custom ErrorStateMatcher</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form fxLayout="column"
+              fxLayoutAlign="center">
+          <mat-form-field>
+            <input matInput
+                   placeholder="Email"
+                   [formControl]="emailFormControl"
+                   [errorStateMatcher]="matcher">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error
+                       *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address</mat-error>
+            <mat-error *ngIf="emailFormControl.hasError('required')">Email is
+              <strong>required</strong></mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Auto-resizing textarea</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayout="column"
+                        fxLayoutAlign="center">
+        <mat-form-field>
+          <textarea matInput
+                    placeholder="Autosize textarea"
+                    matTextareaAutosize
+                    matAutosizeMinRows="2"
+                    matAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Input with a clear button</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content fxLayout="column"
+                        fxLayoutAlign="center">
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="Clearable input"
+                 [(ngModel)]="value" />
+          <button mat-button
+                  *ngIf="value"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="flex-p">
+    <mat-card>
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-subtitle>
+          <h2>Inputs in a form</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form fxLayout="column"
+              fxLayoutAlign="center">
 
-                    <table cellspacing="0" class="w-100">
-                        <tr>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="First name">
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Long Last Name That Will Be Truncated">
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>
-                    
-                    <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address">1600 Amphitheatre Pkwy</textarea>
-                    </mat-form-field>
+          <mat-form-field>
+            <input matInput
+                   placeholder="Company (disabled)"
+                   disabled
+                   value="Google">
+          </mat-form-field>
 
-                    <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 2"></textarea>
-                    </mat-form-field>                   
+          <table cellspacing="0"
+                 class="w-100">
+            <tr>
+              <td>
+                <mat-form-field class="w-100">
+                  <input matInput
+                         placeholder="First name">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100">
+                  <input matInput
+                         placeholder="Long Last Name That Will Be Truncated">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
 
-                    <table cellspacing="0" class="w-100">
-                        <tr>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="City">
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="State">
-                                </mat-form-field>
-                            </td>
-                            <td>
-                                <mat-form-field class="w-100">
-                                    <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043">
-                                    <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>
+          <mat-form-field class="w-100">
+            <textarea matInput
+                      placeholder="Address">1600 Amphitheatre Pkwy</textarea>
+          </mat-form-field>
 
-                </form>
-            </mat-card-content>
-        </mat-card>
-    </div>
+          <mat-form-field class="w-100">
+            <textarea matInput
+                      placeholder="Address 2"></textarea>
+          </mat-form-field>
+
+          <table cellspacing="0"
+                 class="w-100">
+            <tr>
+              <td>
+                <mat-form-field class="w-100">
+                  <input matInput
+                         placeholder="City">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100">
+                  <input matInput
+                         placeholder="State">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field class="w-100">
+                  <input matInput
+                         #postalCode
+                         maxlength="5"
+                         placeholder="Postal Code"
+                         value="94043">
+                  <mat-hint align="end">{{postalCode.value.length}} / 5
+                  </mat-hint>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
